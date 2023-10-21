@@ -5,11 +5,13 @@ class time_table extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(backgroundColor: Color.fromARGB(207, 13, 20, 78), elevation: 0,
-      title: Text("Time-table"),),
-      floatingActionButton: FloatingActionButton(onPressed: (){},
-      child: Icon(Icons.edit),backgroundColor:  Color.fromARGB(207, 13, 20, 78),),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(backgroundColor: Color.fromARGB(207, 13, 20, 78), elevation: 0,
+        title: Text("Time-table"),),
+        floatingActionButton: FloatingActionButton(onPressed: (){},
+        child: Icon(Icons.edit),backgroundColor:  Color.fromARGB(207, 13, 20, 78),),
+      ),
     );
   }
 }
