@@ -18,11 +18,11 @@ class _bottombarState extends State<bottombar> {
    int myindex=0;
    
     final Pages=[
-      home_screen(),
-      time_table(),
-      add_screen(),
-      chart_screen(),
-      setting_screen()
+      const home_screen(),
+      const time_table(),
+      const add_screen(),
+      const chart_screen(),
+      const setting_screen()
     ];
 
   @override
@@ -30,15 +30,15 @@ class _bottombarState extends State<bottombar> {
     return Scaffold( 
        body: Pages[myindex],
       bottomNavigationBar: CurvedNavigationBar(
-          backgroundColor: Color.fromARGB(207, 13, 20, 78),
-          animationDuration: Duration(microseconds: 300),
+          backgroundColor: const Color.fromARGB(207, 13, 20, 78),
+          animationDuration: const Duration(microseconds: 300),
           onTap: (index) {
             setState(() {
               myindex=index;
             });
             
           },
-          items: [
+          items: const [
             Icon(Icons.home),
             Icon(Icons.calendar_month_outlined),
             Icon(Icons.add),

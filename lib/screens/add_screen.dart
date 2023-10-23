@@ -19,14 +19,20 @@ class add_screen extends StatelessWidget {
             SpeedDialChild(child: Icon(Icons.picture_as_pdf,color: Colors.white,),backgroundColor:Color.fromARGB(207, 13, 20, 78),)
           ],),
     
-          body: Column(children: [
-            Expanded(child: 
-            Column(
-              children: [
-                
-              ],
-            ))
-          ]),
+          body: Center(
+            child: Column(children: [
+              Expanded(child: 
+              Column(
+                children: [
+                  
+                ],
+              )),
+              Padding(
+                padding: const EdgeInsets.only(bottom:20),
+                child: FloatingActionButton.extended(backgroundColor:Color.fromARGB(207, 13, 20, 78), onPressed: (){}, label:Text("Save")),
+              )
+            ]),
+          ),
         
           ),
     );

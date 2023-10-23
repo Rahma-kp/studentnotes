@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studentnot/drawer.dart';
 
 class setting_screen extends StatelessWidget {
   const setting_screen({super.key});
@@ -7,31 +8,31 @@ class setting_screen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(backgroundColor:Color.fromARGB(207, 13, 20, 78),elevation:0,
-        title:Text("Settings"),
-        actions: [IconButton(onPressed: (){}, icon:Icon(Icons.menu))],),
+        appBar: AppBar(backgroundColor:const Color.fromARGB(207, 13, 20, 78),elevation:0,
+        title:const Text("Settings"),
+        ),endDrawer: drawer(),
         body: Column(
           children: [
-            ListTile( leading:Icon(Icons.info_outline),
-              title:Text("About"), trailing:Text(">",style: TextStyle(fontSize: 30),),onTap: () {
+            ListTile( leading:const Icon(Icons.info_outline),
+              title:const Text("About"), trailing:const Text(">",style: TextStyle(fontSize: 30),),onTap: () {
                 
               },),
-              Divider(),
-               ListTile( leading:Icon(Icons.document_scanner),
-              title:Text("Term & conditions"), trailing:Text(">",style: TextStyle(fontSize: 30),),onTap: () {
+              const Divider(),
+               ListTile( leading:const Icon(Icons.document_scanner),
+              title:const Text("Term & conditions"), trailing:const Text(">",style: TextStyle(fontSize: 30),),onTap: () {
                 
               },),
-              Divider(), 
-              ListTile( leading:Icon(Icons.restore_outlined),
-              title:Text("Reset App"), trailing:Text(">",style: TextStyle(fontSize: 30),),onTap: () {
+              const Divider(), 
+              ListTile( leading:const Icon(Icons.restore_outlined),
+              title:const Text("Reset App"), trailing:const Text(">",style: TextStyle(fontSize: 30),),onTap: () {
                 
               },),
-              Divider(),
-               ListTile( leading:Icon(Icons.logout_outlined),
-              title:Text("Logout"), trailing:Text(">",style: TextStyle(fontSize: 30),),onTap: () {
+              const Divider(),
+               ListTile( leading:const Icon(Icons.logout_outlined),
+              title:const Text("Logout"), trailing:const Text(">",style: TextStyle(fontSize: 30),),onTap: () {
                 
               },),
-              Divider(),
+              const Divider(),
     
           ],
         ),

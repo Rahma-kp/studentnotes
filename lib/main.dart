@@ -1,8 +1,8 @@
 
-
 import 'package:flutter/material.dart';
 import 'package:studentnot/bottombar.dart';
-import 'package:studentnot/screens/notes_listview.dart';
+
+
 
 void main(){
   runApp(const MyApp());

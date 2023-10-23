@@ -6,7 +6,7 @@ class splash_screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+      body: Center(child: Image.asset("assets/images/img4-removebg-preview.png",)),
     );
   }
 }

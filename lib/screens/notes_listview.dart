@@ -9,8 +9,9 @@ class listview_screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Mathematics"),
-        backgroundColor: Color.fromARGB(207, 13, 20, 78),
+      appBar: AppBar(
+        title: const Text("Mathematics"),
+        backgroundColor: const Color.fromARGB(207, 13, 20, 78),
         elevation: 0,
       ),
       body: ListView(children: [
@@ -20,56 +21,82 @@ class listview_screen extends StatelessWidget {
             height: 70,
             width: 70,
           ),
-          title: Text(
+          title: const Text(
             "Chapter:1",
             style: TextStyle(fontSize: 20, color: Colors.black54),
           ),
-          subtitle: Text("Ttigonometry,the branch of mathematics concernd  whith specific functions of angle and their application to calculate"),
+          subtitle: const Text(
+              "Ttigonometry,the branch of mathematics concernd  whith specific functions of angle and their application to calculate"),
           trailing: SingleChildScrollView(
-            child: SizedBox(height:40,width: 100,
+            child: SizedBox(
+              height: 40,
+              width: 100,
               child: Row(
                 children: [
-                  IconButton(onPressed: (){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => editing_screen(),));
-                  }, icon:Icon(Icons.edit)),
-                  IconButton(onPressed: (){}, icon: Icon(Icons.delete))
+                  IconButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const editing_screen(),
+                        ));
+                      },
+                      icon: const Icon(Icons.edit)),
+                  IconButton(onPressed: () {
+                     
+                  }, icon: const Icon(Icons.delete))
                 ],
               ),
             ),
           ),
-          onTap: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => note_screen(),));},
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const note_screen(),
+            ));
+          },
         ),
-        Divider(),
-         ListTile(
+        const Divider(thickness: 2,),
+        ListTile(
           leading: Image.asset(
             "assets/images/m1.jpeg",
             height: 70,
             width: 70,
           ),
-          title: Text(
+          title: const Text(
             "Chapter:2",
             style: TextStyle(fontSize: 20, color: Colors.black54),
           ),
-          subtitle: Text("Algebra is the study of variables and the rule for manipulating these variable information"),
+          subtitle: const Text(
+              "Algebra is the study of variables and the rule for manipulating these variable information"),
           trailing: SingleChildScrollView(
-            child: SizedBox( height: 40, width: 100,
+            child: SizedBox(
+              height: 40,
+              width: 100,
               child: Row(
                 children: [
-                  IconButton(onPressed: (){
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => editing_screen(),));
-                  }, icon:Icon(Icons.edit)),
-                  IconButton(onPressed: (){}, icon: Icon(Icons.delete))
+                  IconButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const editing_screen(),
+                        ));
+                      },
+                      icon: const Icon(Icons.edit)),
+                  IconButton(onPressed: () {}, icon: const Icon(Icons.delete))
                 ],
               ),
             ),
           ),
           onTap: () {},
         ),
-       Divider()
+        const Divider(thickness: 2,)
       ]),
-      floatingActionButton: FloatingActionButton(onPressed: (){
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) =>list_adding_screen() ,));
-      },child: Icon(Icons.add),backgroundColor:Color.fromARGB(207, 13, 20, 78),),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const list_adding_screen(),
+          ));
+        },
+        child: const Icon(Icons.add),
+        backgroundColor: const Color.fromARGB(207, 13, 20, 78),
+      ),
     );
   }
 }

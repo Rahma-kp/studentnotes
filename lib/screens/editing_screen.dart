@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:studentnot/screens/list_adding_screen.dart';
-import 'package:studentnot/screens/note_screen.dart';
 import 'package:studentnot/screens/notes_listview.dart';
 
 class editing_screen extends StatelessWidget {
@@ -52,10 +50,9 @@ class editing_screen extends StatelessWidget {
                 ],
               ),
             )),
-            FloatingActionButton(backgroundColor:const Color.fromARGB(207, 13, 20, 78),
-              onPressed: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) =>const listview_screen(),));},
-              child: const Text("Save"),
-            )
+           FloatingActionButton.extended(onPressed: (){
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => listview_screen(),));
+           }, label:Text("Save"),backgroundColor:Color.fromARGB(207, 13, 20, 78),)
           ],
         ),
       ),

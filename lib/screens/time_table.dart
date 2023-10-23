@@ -7,10 +7,10 @@ class time_table extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(backgroundColor: Color.fromARGB(207, 13, 20, 78), elevation: 0,
-        title: Text("Time-table"),),
+        appBar: AppBar(backgroundColor: const Color.fromARGB(207, 13, 20, 78), elevation: 0,
+        title: const Text("Time-table"),),
         floatingActionButton: FloatingActionButton(onPressed: (){},
-        child: Icon(Icons.edit),backgroundColor:  Color.fromARGB(207, 13, 20, 78),),
+        child: const Icon(Icons.edit),backgroundColor:  const Color.fromARGB(207, 13, 20, 78),),
       ),
     );
   }
