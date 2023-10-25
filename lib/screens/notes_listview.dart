@@ -27,24 +27,22 @@ class listview_screen extends StatelessWidget {
           ),
           subtitle: const Text(
               "Ttigonometry,the branch of mathematics concernd  whith specific functions of angle and their application to calculate"),
-          trailing: SingleChildScrollView(
-            child: SizedBox(
-              height: 40,
-              width: 100,
-              child: Row(
-                children: [
-                  IconButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const editing_screen(),
-                        ));
-                      },
-                      icon: const Icon(Icons.edit)),
-                  IconButton(onPressed: () {
-                     
-                  }, icon: const Icon(Icons.delete))
-                ],
-              ),
+          trailing: SizedBox(
+            height: 40,
+            width: 100,
+            child: Row(
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const editing_screen(),
+                      ));
+                    },
+                    icon: const Icon(Icons.edit)),
+                IconButton(onPressed: () {
+                   
+                }, icon: const Icon(Icons.delete))
+              ],
             ),
           ),
           onTap: () {
@@ -66,22 +64,20 @@ class listview_screen extends StatelessWidget {
           ),
           subtitle: const Text(
               "Algebra is the study of variables and the rule for manipulating these variable information"),
-          trailing: SingleChildScrollView(
-            child: SizedBox(
-              height: 40,
-              width: 100,
-              child: Row(
-                children: [
-                  IconButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const editing_screen(),
-                        ));
-                      },
-                      icon: const Icon(Icons.edit)),
-                  IconButton(onPressed: () {}, icon: const Icon(Icons.delete))
-                ],
-              ),
+          trailing: SizedBox(
+            height: 40,
+            width: 100,
+            child: Row(
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const editing_screen(),
+                      ));
+                    },
+                    icon: const Icon(Icons.edit)),
+                IconButton(onPressed: () {}, icon: const Icon(Icons.delete))
+              ],
             ),
           ),
           onTap: () {},

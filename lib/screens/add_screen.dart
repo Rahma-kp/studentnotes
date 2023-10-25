@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:studentnot/screens/home_screen.dart';
 
-class add_screen extends StatelessWidget {
+class add_screen extends StatefulWidget {
   const add_screen({super.key});
 
+  @override
+  State<add_screen> createState() => _add_screenState();
+}
+
+class _add_screenState extends State<add_screen> {
+
+ 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -14,24 +20,7 @@ class add_screen extends StatelessWidget {
           title: const Text("Add Subject"),
           elevation: 0,
         ),
-        floatingActionButton: SpeedDial(
-          animatedIcon: AnimatedIcons.menu_arrow,
-          backgroundColor: const Color.fromARGB(207, 13, 20, 78),
-          children: [
-            SpeedDialChild(
-              child:
-                  const Icon(Icons.add_a_photo_outlined, color: Colors.white),
-              backgroundColor: const Color.fromARGB(207, 13, 20, 78),
-            ),
-            SpeedDialChild(
-              child: const Icon(
-                Icons.picture_as_pdf,
-                color: Colors.white,
-              ),
-              backgroundColor: const Color.fromARGB(207, 13, 20, 78),
-            )
-          ],
-        ),
+       
         body: Center(
           child: Column(children: [
             const Expanded(
