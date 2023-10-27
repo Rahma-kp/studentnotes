@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:studentnot/drawer.dart';
+import 'package:studentnot/screens/about_page.dart';
+import 'package:studentnot/screens/login_screen.dart';
+import 'package:studentnot/screens/terms_screen.dart';
 
 class setting_screen extends StatelessWidget {
   const setting_screen({super.key});
@@ -15,12 +18,12 @@ class setting_screen extends StatelessWidget {
           children: [
             ListTile( leading:const Icon(Icons.info_outline),
               title:const Text("About"), trailing:const Text(">",style: TextStyle(fontSize: 30),),onTap: () {
-                
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => about_page(),));
               },),
               const Divider(),
                ListTile( leading:const Icon(Icons.document_scanner),
               title:const Text("Term & conditions"), trailing:const Text(">",style: TextStyle(fontSize: 30),),onTap: () {
-                
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => terms(),));
               },),
               const Divider(), 
               ListTile( leading:const Icon(Icons.restore_outlined),
@@ -30,7 +33,7 @@ class setting_screen extends StatelessWidget {
               const Divider(),
                ListTile( leading:const Icon(Icons.logout_outlined),
               title:const Text("Logout"), trailing:const Text(">",style: TextStyle(fontSize: 30),),onTap: () {
-                
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => login_screen(),));
               },),
               const Divider(),
     

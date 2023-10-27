@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studentnot/screens/home_screen.dart';
+import 'package:studentnot/bottombar.dart';
 
 class login_screen extends StatelessWidget {
   const login_screen({super.key});
@@ -26,7 +26,7 @@ class login_screen extends StatelessWidget {
               ),
               SizedBox(height: 40,),
             GestureDetector(onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => home_screen(),));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) =>bottombar(),));
             },
               child: Container(height: 40,width:100,
                 decoration: BoxDecoration(color:Color.fromARGB(207, 13, 20, 78),borderRadius: BorderRadius.circular(20)

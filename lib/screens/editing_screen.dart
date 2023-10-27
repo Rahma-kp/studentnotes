@@ -11,7 +11,7 @@ class editing_screen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: const Color.fromARGB(207, 13, 20, 78),
-        title: const Text("edit screen"),
+        title: const Text("Edit"),
       ),
       floatingActionButton: SpeedDial(
         animatedIcon: AnimatedIcons.menu_arrow,

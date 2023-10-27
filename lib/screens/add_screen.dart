@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:studentnot/bottombar.dart';
 import 'package:studentnot/screens/home_screen.dart';
 
-class add_screen extends StatefulWidget {
+class add_screen extends StatelessWidget {
   const add_screen({super.key});
 
-  @override
-  State<add_screen> createState() => _add_screenState();
-}
-
-class _add_screenState extends State<add_screen> {
-
- 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -57,7 +51,7 @@ class _add_screenState extends State<add_screen> {
                   backgroundColor: const Color.fromARGB(207, 13, 20, 78),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => home_screen(),
+                      builder: (context) =>bottombar(),
                     ));
                   },
                   label: const Text("Save")),

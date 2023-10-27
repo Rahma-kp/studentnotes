@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:studentnot/screens/profile_editing_screen.dart';
 
 class drawer extends StatelessWidget {
   const drawer({super.key});
@@ -22,9 +23,11 @@ class drawer extends StatelessWidget {
           leading: Text("Class:",style: TextStyle(fontSize: 20),),
           title: Text("10 th",style: TextStyle(fontSize: 20)),
         ),
-        FloatingActionButton(onPressed: (){},child: Icon(Icons.edit),backgroundColor:Color.fromARGB(207, 13, 20, 78),)
+        FloatingActionButton(onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(builder:(context) => profile_editing_screen(), ));
+        },child: Icon(Icons.edit),backgroundColor:Color.fromARGB(207, 13, 20, 78),)
       ]),
-    );
+    ); 
     
   }
 }

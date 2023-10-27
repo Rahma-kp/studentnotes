@@ -40,7 +40,7 @@ class listview_screen extends StatelessWidget {
                     },
                     icon: const Icon(Icons.edit)),
                 IconButton(onPressed: () {
-                   
+                  return  showDeleteConfirmationDialog(context);
                 }, icon: const Icon(Icons.delete))
               ],
             ),
@@ -93,6 +93,33 @@ class listview_screen extends StatelessWidget {
         child: const Icon(Icons.add),
         backgroundColor: const Color.fromARGB(207, 13, 20, 78),
       ),
+    );
+  }
+
+  // delete dialog box method----------------------------------------------------------
+    void showDeleteConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Delete Confirmation"),
+          content: Text("Are you sure you want to delete this chapter?"),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("Delete"),
+            ),
+          ],
+        );
+      },
     );
   }
 }
