@@ -18,11 +18,11 @@ class _bottombarState extends State<bottombar> {
    int myindex=0;
    
     final Pages=[
-      const home_screen(),
-      const time_table(),
-      const add_screen(),
-      const chart_screen(),
-      const setting_screen()
+       home_screen(),
+       time_table(),
+       add_screen(),
+       chart_screen(),
+       setting_screen()
     ];
 
   @override

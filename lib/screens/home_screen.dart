@@ -9,7 +9,10 @@ class home_screen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(leading: CircleAvatar(backgroundImage: AssetImage("assets/images/person.jpeg")),
+        appBar: AppBar(leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: CircleAvatar(backgroundImage: AssetImage("assets/images/person.jpeg")),
+        ),
           title: Text("Adil"),
           elevation: 0,backgroundColor: const Color.fromARGB(207, 13, 20, 78),
         ),
@@ -64,6 +67,11 @@ class home_screen extends StatelessWidget {
                   )),
             ),
             const SizedBox(height: 10,),
+
+
+            // ----------------------------------------------------------------------------------------------------------
+
+            
             SingleChildScrollView(scrollDirection: Axis.horizontal,
               child: Row(
                 children: [

@@ -12,6 +12,6 @@ class subdata{
   late final String subtitle;
   @HiveField(2)
   late final String subabout;
-  subdata({required this.subtitle,required this.subabout,required this.id});
+  subdata({required this.subtitle,required this.subabout,this.id});
 
 }

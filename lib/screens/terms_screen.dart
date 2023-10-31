@@ -7,16 +7,14 @@ class terms extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor:const Color.fromARGB(207, 13, 20, 78),),
+      appBar: AppBar(backgroundColor:const Color.fromARGB(207, 13, 20, 78), title: Text("Terms and conditions"),),
       body: const SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Terms and conditions',
-                  style:
-                      TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
+           
               SizedBox(
                 height: 30,
               ),
