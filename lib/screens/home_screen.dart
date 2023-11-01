@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:studentnot/db/db_functions/db_functions.dart';
 import 'package:studentnot/db/db_model/data_model.dart';
 import 'package:studentnot/drawer.dart';
+import 'package:studentnot/screens/notes_listview.dart';
+import 'package:studentnot/screens/subject_detail_screen.dart';
 
 class home_screen extends StatelessWidget {
    
@@ -84,31 +86,47 @@ class home_screen extends StatelessWidget {
                 return ValueListenableBuilder<List<subdata>>(
             valueListenable: SubListNotifier, 
             builder: (BuildContext ctx, List<subdata> subList, Widget? child) {
-              return Container(
-                height: 500,
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-                  itemCount: subList.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Container(
-                  height: 150,
-                  width: 150,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Color.fromARGB(255, 147, 143, 143),
+              return GestureDetector(
+                onTap: () {
+                 listview_screen();
+                },
+                onLongPress: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) =>SubjectScreen() ,));
+                },
+                child: Container(
+                  height: 500,
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+                    itemCount: subList.length,
+                    itemBuilder: (context, index) {
+                      final data=subList[index];
+                      return Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(builder:(context) => listview_screen(), ));
+                              },
+                              child: Container(
+                                                height: 70,
+                                                width: 70,
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  color: Color.fromARGB(255, 147, 143, 143),
+                                                ),
+                                                child: Column(
+                                                  children: [
+                                                    Title(color: Colors.black, child: Text(data.subtitle,
+                                                    style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
+                                                    Text(data.subabout,
+                                                    overflow: TextOverflow.clip,
+                                                    ),
+                                                  ],
+                                                ),
+                              ),
+                            ), 
+                      );
+                    },
                   ),
-                  child: Column(
-                    children: [
-                      Title(color: Colors.black, child: Text(sub1.subtitle,
-                      style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
-                      Text(sub1.subabout),
-                    ],
-                  ),
-                          ), 
-                    );
-                  },
                 ),
               );
             },

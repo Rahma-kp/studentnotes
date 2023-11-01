@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studentnot/bottombar.dart';
 import 'package:studentnot/db/db_functions/db_functions.dart';
 import 'package:studentnot/db/db_model/data_model.dart';
 import 'package:studentnot/screens/home_screen.dart';
@@ -53,7 +54,7 @@ class add_screen extends StatelessWidget {
                           child: TextFormField(
                             controller: _aboutcontroller,
                             keyboardType: TextInputType.multiline,
-                            maxLines: null,
+                            maxLines:700,
                             style: TextStyle(
                               fontSize: 25,
                               color: Color.fromARGB(255, 99, 96, 96),
@@ -105,7 +106,7 @@ class add_screen extends StatelessWidget {
       _aboutcontroller.clear();
 
       // Navigate to the bottombar screen
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => home_screen(sub1: subdata(subtitle: _sub, subabout: _about))));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>bottombar()));
       
     }
   }
