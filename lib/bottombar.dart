@@ -1,6 +1,7 @@
 
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:studentnot/db/db_model/data_model.dart';
 import 'package:studentnot/screens/add_screen.dart';
 import 'package:studentnot/screens/chart_screen.dart';
 import 'package:studentnot/screens/home_screen.dart';
@@ -18,7 +19,7 @@ class _bottombarState extends State<bottombar> {
    int myindex=0;
    
     final Pages=[
-       home_screen(),
+       home_screen(sub1: subdata(subtitle: '', subabout: '')),
        time_table(),
        add_screen(),
        chart_screen(),
