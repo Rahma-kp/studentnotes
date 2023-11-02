@@ -86,11 +86,9 @@ class listview_screen extends StatelessWidget {
       ]),
       // ------------------------listview bulider----------------------------------------------------------------------------
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) =>  list_adding_screen(),
-          ));
-        },
+       onPressed: () {
+         Navigator.of(context).push(MaterialPageRoute(builder: (context) => list_adding_screen(),));
+       },
         child: const Icon(Icons.add),
         backgroundColor: const Color.fromARGB(207, 13, 20, 78),
       ),

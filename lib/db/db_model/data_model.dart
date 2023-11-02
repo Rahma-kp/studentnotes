@@ -15,3 +15,4 @@ class subdata{
   subdata({required this.subtitle,required this.subabout,this.id});
 
 }
+ 

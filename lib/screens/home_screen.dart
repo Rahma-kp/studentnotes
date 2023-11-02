@@ -113,12 +113,12 @@ class home_screen extends StatelessWidget {
                                                   borderRadius: BorderRadius.circular(10),
                                                   color: Color.fromARGB(255, 147, 143, 143),
                                                 ),
-                                                child: Column(
+                                                child: Column(mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
                                                     Title(color: Colors.black, child: Text(data.subtitle,
                                                     style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
                                                     Text(data.subabout,
-                                                    overflow: TextOverflow.clip,
+                                                    overflow: TextOverflow.ellipsis,maxLines: 5,
                                                     ),
                                                   ],
                                                 ),
