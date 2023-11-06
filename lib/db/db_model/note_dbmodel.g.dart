@@ -17,21 +17,24 @@ class notesDataAdapter extends TypeAdapter<notesData> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return notesData(
-      note: fields[0] as String?,
-      imagelists: (fields[1] as List?)?.cast<dynamic>(),
-      documentlist: (fields[2] as List?)?.cast<dynamic>(),
+      notetitle: fields[0] as String?,
+      note: fields[1] as String?,
+      imagelists: (fields[2] as List?)?.cast<dynamic>(),
+      documentlist: (fields[3] as List?)?.cast<dynamic>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, notesData obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
-      ..write(obj.note)
+      ..write(obj.notetitle)
       ..writeByte(1)
-      ..write(obj.imagelists)
+      ..write(obj.note)
       ..writeByte(2)
+      ..write(obj.imagelists)
+      ..writeByte(3)
       ..write(obj.documentlist);
   }
 

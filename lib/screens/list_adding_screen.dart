@@ -1,9 +1,12 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:studentnot/db/db_functions/db_note_function.dart';
+import 'package:studentnot/db/db_model/note_dbmodel.dart';
 import 'package:studentnot/screens/notes_listview.dart';
 
 class list_adding_screen extends StatefulWidget {
@@ -15,7 +18,7 @@ class list_adding_screen extends StatefulWidget {
 
 class _list_adding_screenState extends State<list_adding_screen> {
   final _notecontroller = TextEditingController();
-
+  final _chaptercontroller=TextEditingController();
   late List<File> imagelist = [];
   late List<dynamic> documentlists = [];
 
@@ -29,9 +32,7 @@ class _list_adding_screenState extends State<list_adding_screen> {
           actions: [
             TextButton(
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => listview_screen(),
-                  ));
+                 onAddNoteOnClick(context);
                 },
                 child: Text(
                   "Save",
@@ -66,8 +67,22 @@ class _list_adding_screenState extends State<list_adding_screen> {
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(15),
-            child: Column(
+            child: Column(mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                 TextFormField(
+                            controller:_chaptercontroller,
+                            style: TextStyle(
+                              fontSize:35,
+                              fontWeight: FontWeight.bold
+                            ),
+                            decoration: InputDecoration(
+                              hintText: "Title",
+                              border: UnderlineInputBorder(
+                                borderSide: BorderSide.none,
+                              ),
+                            ),
+                          ),
+                 SizedBox(height: 30,),
                 Align(
                     alignment: Alignment.topLeft,
                     child: Text(
@@ -202,6 +217,22 @@ class _list_adding_screenState extends State<list_adding_screen> {
       setState(() {
         documentlists = result.files;
       });
+    }
+  }
+ // ------save button function--------------------------------------
+  Future<void> onAddNoteOnClick(BuildContext context) async {
+    final _notetile = _notecontroller.text.trim();
+    final _chapt = _chaptercontroller.text.trim();
+    if (_notetile.isEmpty || _chapt.isEmpty) {
+      return;
+    } else {
+      final note1 = notesData(notetitle:_notetile,note: _chapt,documentlist: documentlists,imagelists: imagelist);
+      print("$_notetile");
+      
+      addnote(note1);
+      _notecontroller.clear();
+      _chaptercontroller.clear();
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => listview_screen(note1: notesData(notetitle: '')),));
     }
   }
 }

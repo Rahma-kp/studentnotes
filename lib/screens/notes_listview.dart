@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:studentnot/db/db_functions/db_note_function.dart';
+import 'package:studentnot/db/db_model/note_dbmodel.dart';
 import 'package:studentnot/screens/editing_screen.dart';
 import 'package:studentnot/screens/list_adding_screen.dart';
 import 'package:studentnot/screens/note_screen.dart';
 
 class listview_screen extends StatelessWidget {
-  const listview_screen({super.key});
+  notesData note1;
+
+   listview_screen({Key? key,required this.note1}) : super(key:key);
+   List notelist=[];
 
   @override
   Widget build(BuildContext context) {
@@ -14,89 +19,53 @@ class listview_screen extends StatelessWidget {
         backgroundColor: const Color.fromARGB(207, 13, 20, 78),
         elevation: 0,
       ),
-      body: ListView(children: [
-        ListTile(
-          leading: Image.asset(
-            "assets/images/m1.jpeg",
-            height: 70,
-            width: 70,
-          ),
-          title: const Text(
-            "Chapter:1",
-            style: TextStyle(fontSize: 20, color: Colors.black54),
-          ),
-          subtitle: const Text(
-              "Ttigonometry,the branch of mathematics concernd  whith specific functions of angle and their application to calculate"),
-          trailing: SizedBox(
-            height: 40,
-            width: 100,
-            child: Row(
-              children: [
-                IconButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const editing_screen(),
-                      ));
-                    },
-                    icon: const Icon(Icons.edit)),
-                IconButton(onPressed: () {
-                  return  showDeleteConfirmationDialog(context);
-                }, icon: const Icon(Icons.delete))
-              ],
-            ),
-          ),
-          onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const note_screen(),
-            ));
-          },
-        ),
-        const Divider(thickness: 2,),
-        ListTile(
-          leading: Image.asset(
-            "assets/images/m1.jpeg",
-            height: 70,
-            width: 70,
-          ),
-          title: const Text(
-            "Chapter:2",
-            style: TextStyle(fontSize: 20, color: Colors.black54),
-          ),
-          subtitle: const Text(
-              "Algebra is the study of variables and the rule for manipulating these variable information"),
-          trailing: SizedBox(
-            height: 40,
-            width: 100,
-            child: Row(
-              children: [
-                IconButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const editing_screen(),
-                      ));
-                    },
-                    icon: const Icon(Icons.edit)),
-                IconButton(onPressed: () {}, icon: const Icon(Icons.delete))
-              ],
-            ),
-          ),
-          onTap: () {},
-        ),
-        const Divider(thickness: 2,)
-      ]),
-      // ------------------------listview bulider----------------------------------------------------------------------------
+      body: ValueListenableBuilder(
+        valueListenable: noteListNotifier,
+        builder: (BuildContext ctx, List<notesData> notelist, Widget? child) {
+          return ListView.builder(
+            itemCount: notelist.length, // Use notelist.length as the item count
+            itemBuilder: (ctx, index) {
+                final datas = notelist[index];
+                return ListTile(
+                  title: Text(datas.notetitle!,style: TextStyle(fontSize:40,fontWeight: FontWeight.bold),),
+                  subtitle: Text(datas.note!,style: TextStyle(fontSize: 20),),
+                  trailing: SizedBox(
+                    width: 100,
+                    child: Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            showDeleteConfirmationDialog(context);
+                          },
+                          icon: Icon(Icons.edit),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => editing_screen(),));
+                          },
+                          icon: Icon(Icons.delete),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+            },
+          );
+        },
+      ),
       floatingActionButton: FloatingActionButton(
-       onPressed: () {
-         Navigator.of(context).push(MaterialPageRoute(builder: (context) => list_adding_screen(),));
-       },
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => list_adding_screen(),
+          ));
+        },
         child: const Icon(Icons.add),
         backgroundColor: const Color.fromARGB(207, 13, 20, 78),
       ),
     );
   }
 
-  // delete dialog box method----------------------------------------------------------
-    void showDeleteConfirmationDialog(BuildContext context) {
+  void showDeleteConfirmationDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {

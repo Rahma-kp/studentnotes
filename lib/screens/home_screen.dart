@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:studentnot/db/db_functions/db_functions.dart';
 import 'package:studentnot/db/db_model/data_model.dart';
+import 'package:studentnot/db/db_model/note_dbmodel.dart';
 import 'package:studentnot/drawer.dart';
 import 'package:studentnot/screens/notes_listview.dart';
 import 'package:studentnot/screens/subject_detail_screen.dart';
@@ -88,7 +89,7 @@ class home_screen extends StatelessWidget {
             builder: (BuildContext ctx, List<subdata> subList, Widget? child) {
               return GestureDetector(
                 onTap: () {
-                 listview_screen();
+                listview_screen(note1: notesData(notetitle: ''));
                 },
                 onLongPress: () {
                   Navigator.of(context).push(MaterialPageRoute(builder: (context) =>SubjectScreen() ,));
@@ -104,7 +105,7 @@ class home_screen extends StatelessWidget {
                             padding: const EdgeInsets.all(10),
                             child: GestureDetector(
                               onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder:(context) => listview_screen(), ));
+                                Navigator.of(context).push(MaterialPageRoute(builder:(context) => listview_screen(note1: notesData(notetitle: '')) ));
                               },
                               child: Container(
                                                 height: 70,
@@ -136,8 +137,6 @@ class home_screen extends StatelessWidget {
             );
               }
             )
-          
-          //  ---------------------------------------------------------------------------------------------------------------------------------
           ]),
         ),
       ),
