@@ -16,10 +16,11 @@ class notesDataAdapter extends TypeAdapter<notesData> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return notesData()
-      ..note = fields[0] as String
-      ..imagelists = (fields[1] as List).cast<dynamic>()
-      ..documentlist = (fields[2] as List).cast<dynamic>();
+    return notesData(
+      note: fields[0] as String?,
+      imagelists: (fields[1] as List?)?.cast<dynamic>(),
+      documentlist: (fields[2] as List?)?.cast<dynamic>(),
+    );
   }
 
   @override
