@@ -4,8 +4,8 @@ import 'package:studentnot/screens/about_page.dart';
 import 'package:studentnot/screens/login_screen.dart';
 import 'package:studentnot/screens/terms_screen.dart';
 
-class setting_screen extends StatelessWidget {
-  const setting_screen({super.key});
+class settingScreen extends StatelessWidget {
+  const settingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class setting_screen extends StatelessWidget {
           children: [
             ListTile( leading:const Icon(Icons.info_outline),
               title:const Text("About"), trailing:const Text(">",style: TextStyle(fontSize: 30),),onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => about_page(),));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => aboutPageScreen(),));
               },),
               const Divider(),
                ListTile( leading:const Icon(Icons.document_scanner),
@@ -33,7 +33,7 @@ class setting_screen extends StatelessWidget {
               const Divider(),
                ListTile( leading:const Icon(Icons.logout_outlined),
               title:const Text("Logout"), trailing:const Text(">",style: TextStyle(fontSize: 30),),onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => login_screen(),));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => loginScreen(),));
               },),
               const Divider(),
     

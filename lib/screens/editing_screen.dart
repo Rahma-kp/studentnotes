@@ -1,14 +1,27 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:studentnot/db/db_model/note_dbmodel.dart';
 import 'package:studentnot/screens/notes_listview.dart';
+import 'package:studentnot/widget/common.dart';
 
-class editing_screen extends StatelessWidget {
-  const editing_screen({super.key});
+class noteEditingScreen extends StatefulWidget {
+  const noteEditingScreen({super.key});
 
+  @override
+  State<noteEditingScreen> createState() => _noteEditingScreenState();
+}
+
+class _noteEditingScreenState extends State<noteEditingScreen> {
+   final _notecontroller = TextEditingController();
+  final _chaptercontroller=TextEditingController();
+  late List<File> imagelist = [];
+  late List<dynamic> documentlists = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 158, 156, 156),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: const Color.fromARGB(207, 13, 20, 78),
@@ -31,32 +44,9 @@ class editing_screen extends StatelessWidget {
           )
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          children: [
-            Expanded(
-                child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const Text(
-                "Chapter:1",
-                style: TextStyle(fontSize: 30, color: Colors.black54),
-                  ),
-                  const SizedBox(
-                height: 20,
-                  ),
-                  const Text(
-                  "Trigonometry,the branch of mathematics concerd whithin specific functions of ange and theri application of calculate"),
-                ],
-              ),
-            )),
-           FloatingActionButton.extended(onPressed: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => listview_screen(note1: notesData(notetitle: '')),));
-           }, label:Text("Save"),backgroundColor:Color.fromARGB(207, 13, 20, 78),)
-          ],
-        ),
-      ),
+      body:common(chaptercontroller: _chaptercontroller, notecontroller:_notecontroller, imagelist: imagelist, documentlists: documentlists, ),
+ // ------------------------------------------------------
+           
     );
   }
 }

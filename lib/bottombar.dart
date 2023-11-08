@@ -19,11 +19,11 @@ class _bottombarState extends State<bottombar> {
    int myindex=0;
    
     final Pages=[
-       home_screen(sub1: subdata(subtitle: '', subabout: '')),
+       homeScreen(sub1: subdata(subtitle: '', subabout: '')),
        time_table(),
-       add_screen(),
-       chart_screen(),
-       setting_screen()
+       addSubejectScreen(),
+       chartViewScreen(),
+       settingScreen()
     ];
 
   @override

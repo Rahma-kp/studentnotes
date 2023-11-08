@@ -11,6 +11,5 @@ late final String? note;
 late final List? imagelists;
 @HiveField(3)
 late final List? documentlist;
-
- notesData({required this.notetitle,this.note,this.imagelists,this.documentlist});
+ notesData({required this.notetitle,this.note,this.imagelists,this.documentlist,});
 }

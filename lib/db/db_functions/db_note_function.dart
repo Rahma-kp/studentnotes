@@ -17,3 +17,9 @@ Future<void> getAllNoteData()async{
   noteListNotifier.value.addAll(notDB.values);
   noteListNotifier.notifyListeners();
 }
+
+Future<void> deleteNote(int index)async{
+  final notDB= await Hive.openBox<notesData>("student_db"); 
+   await notDB.deleteAt(index);
+  getAllNoteData();
+}

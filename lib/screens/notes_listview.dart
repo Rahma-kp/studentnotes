@@ -5,50 +5,81 @@ import 'package:studentnot/screens/editing_screen.dart';
 import 'package:studentnot/screens/list_adding_screen.dart';
 import 'package:studentnot/screens/note_screen.dart';
 
-class listview_screen extends StatelessWidget {
+class NotelistViewScreen extends StatelessWidget {
+
   notesData note1;
 
-   listview_screen({Key? key,required this.note1}) : super(key:key);
-   List notelist=[];
+  NotelistViewScreen({Key? key, required this.note1,}) : super(key: key);
+  List notelist = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Mathematics"),
+        title:  Text("xcvbnm",style: TextStyle(color: Colors.white),),
         backgroundColor: const Color.fromARGB(207, 13, 20, 78),
         elevation: 0,
       ),
       body: ValueListenableBuilder(
         valueListenable: noteListNotifier,
         builder: (BuildContext ctx, List<notesData> notelist, Widget? child) {
-          return ListView.builder(
+          return ListView.separated(
+            separatorBuilder: (context, index) => Divider(
+              thickness: 5,
+            ),
             itemCount: notelist.length, // Use notelist.length as the item count
             itemBuilder: (ctx, index) {
-                final datas = notelist[index];
-                return ListTile(
-                  title: Text(datas.notetitle!,style: TextStyle(fontSize:40,fontWeight: FontWeight.bold),),
-                  subtitle: Text(datas.note!,style: TextStyle(fontSize: 20),),
-                  trailing: SizedBox(
-                    width: 100,
-                    child: Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            showDeleteConfirmationDialog(context);
-                          },
-                          icon: Icon(Icons.edit),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => editing_screen(),));
-                          },
-                          icon: Icon(Icons.delete),
-                        ),
-                      ],
+              final datas = notelist[index];
+              return Padding(
+                padding: const EdgeInsets.only(),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => noteViewScreen(),));
+                  },
+                  child: ListTile(
+                    tileColor: Colors.transparent,
+                    title: Text(
+                      " 𝐜𝐡𝐚𝐩𝐭𝐞𝐫:${datas.note!}",
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400,),
+                    ),
+                    subtitle: Text(
+                      datas.notetitle!,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w300,
+                        color: Colors.black,
+                        overflow: TextOverflow.ellipsis,
+                        
+                        
+                      ),
+                      maxLines:2,
+                    ),
+                    trailing: SizedBox(
+                      width: 100,
+                      child: Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => noteEditingScreen(),
+                              ));
+                            },
+                            icon: Icon(Icons.edit,
+                                color: const Color.fromARGB(255, 81, 142, 83)),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              showDeleteConfirmationDialog(context);
+                            },
+                            icon: Icon(Icons.delete,
+                                color: const Color.fromARGB(255, 175, 62, 54)),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                );
+                ),
+              );
             },
           );
         },
@@ -56,7 +87,7 @@ class listview_screen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => list_adding_screen(),
+            builder: (context) => noteAddingScreen(subtitles: []),
           ));
         },
         child: const Icon(Icons.add),
@@ -81,7 +112,7 @@ class listview_screen extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                // deleteNote();
               },
               child: Text("Delete"),
             ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:studentnot/bottombar.dart';
 
-class login_screen extends StatelessWidget {
-  const login_screen({super.key});
+class loginScreen extends StatelessWidget {
+  const loginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

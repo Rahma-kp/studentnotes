@@ -2,21 +2,25 @@ import 'dart:io';
 import 'dart:math';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
+
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:studentnot/db/db_functions/db_note_function.dart';
+import 'package:studentnot/db/db_model/data_model.dart';
 import 'package:studentnot/db/db_model/note_dbmodel.dart';
 import 'package:studentnot/screens/notes_listview.dart';
+import 'package:studentnot/widget/common.dart';
 
-class list_adding_screen extends StatefulWidget {
-  list_adding_screen({super.key});
+class noteAddingScreen extends StatefulWidget {
+  final List<subdata>subtitles;
+
+  noteAddingScreen({Key? key,required this.subtitles}): super(key:key);
 
   @override
-  State<list_adding_screen> createState() => _list_adding_screenState();
+  State<noteAddingScreen> createState() => _noteAddingScreenState();
 }
 
-class _list_adding_screenState extends State<list_adding_screen> {
+class _noteAddingScreenState extends State<noteAddingScreen> {
   final _notecontroller = TextEditingController();
   final _chaptercontroller=TextEditingController();
   late List<File> imagelist = [];
@@ -64,131 +68,7 @@ class _list_adding_screenState extends State<list_adding_screen> {
             )
           ],
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(15),
-            child: Column(mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                 TextFormField(
-                            controller:_chaptercontroller,
-                            style: TextStyle(
-                              fontSize:35,
-                              fontWeight: FontWeight.bold
-                            ),
-                            decoration: InputDecoration(
-                              hintText: "Title",
-                              border: UnderlineInputBorder(
-                                borderSide: BorderSide.none,
-                              ),
-                            ),
-                          ),
-                 SizedBox(height: 30,),
-                Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      "𝐍𝐎𝐓𝐄𝐒",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )),
-                Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(style: BorderStyle.solid),
-                      borderRadius: BorderRadius.circular(10)),
-                  height: 400,
-                  width: 500,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: TextFormField(
-                      controller: _notecontroller,
-                      keyboardType: TextInputType.multiline,
-                      maxLines: 20,
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-                      decoration: InputDecoration(
-                        hintText: "Start writing.........",
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide.none,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
- // ---------------------------------------------imagelist------------------------------------------------------------------------
-                SizedBox(
-                  height: 40,
-                ),
-                Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      "𝐈𝐌𝐀𝐆𝐄𝐒",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )),
-                Container(
-                  height: 400,
-                  width: 500,
-                  decoration: BoxDecoration(
-                      border: Border.all(style: BorderStyle.solid),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: ListView.builder(
-                    itemCount: imagelist.length,
-                    itemBuilder: (context, index) {
-                      final img = imagelist[index];
-                      return Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Container(
-                          height: 200,
-                          width: 200,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              image: DecorationImage(
-                                  image: FileImage(img), fit: BoxFit.fill)),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-// -------------------------------------------file-list--------------------------------------------------------------------------------------------
-                SizedBox(
-                  height: 40,
-                ),
-                Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      "𝐃𝐎𝐂𝐔𝐌𝐄𝐍𝐓𝐒",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )),
-                Container(
-                  height: 400,
-                  width: 500,
-                  decoration: BoxDecoration(
-                      border: Border.all(style: BorderStyle.solid),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: ListView.builder(
-                    itemCount: documentlists.length,
-                    itemBuilder: (context, index) {
-                      final dmc = documentlists[index];
-                      return Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: GestureDetector(
-                          child: PDFView(filePath: dmc.path,)
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+        body: common(chaptercontroller: _chaptercontroller, notecontroller: _notecontroller, imagelist: imagelist, documentlists: documentlists),
       ),
     );
   }
@@ -227,12 +107,11 @@ class _list_adding_screenState extends State<list_adding_screen> {
       return;
     } else {
       final note1 = notesData(notetitle:_notetile,note: _chapt,documentlist: documentlists,imagelists: imagelist);
-      print("$_notetile");
-      
       addnote(note1);
       _notecontroller.clear();
       _chaptercontroller.clear();
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => listview_screen(note1: notesData(notetitle: '')),));
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => NotelistViewScreen(note1: notesData(notetitle: '')),));
     }
   }
 }
+

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:studentnot/bottombar.dart';
 
 
-class profile_editing_screen extends StatelessWidget {
-  const profile_editing_screen({super.key});
+class profileEditingScreen extends StatelessWidget {
+  const profileEditingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

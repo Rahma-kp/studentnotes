@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:studentnot/bottombar.dart';
 import 'package:studentnot/db/db_functions/db_functions.dart';
 import 'package:studentnot/db/db_model/data_model.dart';
-import 'package:studentnot/screens/home_screen.dart';
 
-class add_screen extends StatelessWidget {
-  add_screen({super.key});
+class addSubejectScreen extends StatelessWidget {
+  addSubejectScreen({super.key});
   final _subcontroller = TextEditingController();
   final _aboutcontroller = TextEditingController();
   final _formkey=GlobalKey();
@@ -100,11 +99,9 @@ class add_screen extends StatelessWidget {
 
       final sub1 = subdata(subtitle: _sub, subabout: _about);
       addSub(sub1);
-
       // Clear the text fields
       _subcontroller.clear();
       _aboutcontroller.clear();
-
       // Navigate to the bottombar screen
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>bottombar()));
       

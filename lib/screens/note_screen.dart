@@ -1,20 +1,28 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-class note_screen extends StatelessWidget {
-  const note_screen({super.key});
+import 'package:flutter/material.dart';
+import 'package:studentnot/widget/common.dart';
+
+class noteViewScreen extends StatefulWidget {
+  const noteViewScreen({super.key});
 
   @override
+  State<noteViewScreen> createState() => _noteViewScreenState();
+}
+
+class _noteViewScreenState extends State<noteViewScreen> {
+  final _notecontroller = TextEditingController();
+  final _chaptercontroller = TextEditingController();
+  late List<File> imagelist = [];
+  late List<dynamic> documentlists = [];
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(backgroundColor:const Color.fromARGB(207, 13, 20, 78), ),
-    body: const Padding(
-      padding: EdgeInsets.all(15),
-      child: Column(mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-        SizedBox(height: 30,),
-        Text("Chapter:1",style: TextStyle(fontSize: 30,color: Colors.black54),),
-        SizedBox(height: 20,),
-        Text("Trigonometry,the branch of mathematics concerd whithin specific functions of ange and theri application of calculate")
-      ]),
-    ),);
+    return Scaffold(
+      appBar: AppBar(
+        title:Text("sdfghjk"),
+        backgroundColor: const Color.fromARGB(207, 13, 20, 78),
+      ),
+     
+    );
   }
 }
