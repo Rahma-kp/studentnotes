@@ -7,9 +7,9 @@ import 'package:studentnot/screens/notes_listview.dart';
 
 class homeScreen extends StatelessWidget {
    
-   subdata sub1;
+   List <String>subject=["dfg","fghjk","fghj"];
    
-   homeScreen({Key? key,required this.sub1}):super(key: key);
+   homeScreen({Key? key, required subdata sub1,}):super(key: key);
    
 
   @override
@@ -88,7 +88,7 @@ class homeScreen extends StatelessWidget {
             builder: (BuildContext ctx, List<subdata> subList, Widget? child) {
               return GestureDetector(
                 onTap: () {
-                NotelistViewScreen(note1: notesData(notetitle: '',));
+                NotelistViewScreen( note1: notesData(notetitle: ''),);
                 },
                 onLongPress: () {
                  

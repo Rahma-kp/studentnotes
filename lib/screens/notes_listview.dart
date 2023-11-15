@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:studentnot/db/db_functions/db_note_function.dart';
 import 'package:studentnot/db/db_model/note_dbmodel.dart';
 import 'package:studentnot/screens/editing_screen.dart';
-import 'package:studentnot/screens/list_adding_screen.dart';
 import 'package:studentnot/screens/note_screen.dart';
 
 class NotelistViewScreen extends StatelessWidget {
@@ -39,11 +38,11 @@ class NotelistViewScreen extends StatelessWidget {
                   child: ListTile(
                     tileColor: Colors.transparent,
                     title: Text(
-                      " 𝐜𝐡𝐚𝐩𝐭𝐞𝐫:${datas.note!}",
+                      " 𝐜𝐡𝐚𝐩𝐭𝐞𝐫:${datas.notetitle}",
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400,),
                     ),
                     subtitle: Text(
-                      datas.notetitle!,
+                    " ${datas.note}",
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w300,
@@ -69,7 +68,7 @@ class NotelistViewScreen extends StatelessWidget {
                           ),
                           IconButton(
                             onPressed: () {
-                              showDeleteConfirmationDialog(context);
+                              showDeleteConfirmationDialog(context,index);
                             },
                             icon: Icon(Icons.delete,
                                 color: const Color.fromARGB(255, 175, 62, 54)),
@@ -84,19 +83,11 @@ class NotelistViewScreen extends StatelessWidget {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => noteAddingScreen(subtitles: []),
-          ));
-        },
-        child: const Icon(Icons.add),
-        backgroundColor: const Color.fromARGB(207, 13, 20, 78),
-      ),
+     
     );
   }
 
-  void showDeleteConfirmationDialog(BuildContext context) {
+  void showDeleteConfirmationDialog(BuildContext context,index) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -112,7 +103,7 @@ class NotelistViewScreen extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                // deleteNote();
+                deleteNote(index);
               },
               child: Text("Delete"),
             ),

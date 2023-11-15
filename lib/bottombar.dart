@@ -5,6 +5,7 @@ import 'package:studentnot/db/db_model/data_model.dart';
 import 'package:studentnot/screens/add_screen.dart';
 import 'package:studentnot/screens/chart_screen.dart';
 import 'package:studentnot/screens/home_screen.dart';
+import 'package:studentnot/screens/note_adding.dart';
 import 'package:studentnot/screens/setting_screen.dart';
 import 'package:studentnot/screens/time_table.dart';
 
@@ -21,7 +22,7 @@ class _bottombarState extends State<bottombar> {
     final Pages=[
        homeScreen(sub1: subdata(subtitle: '', subabout: '')),
        time_table(),
-       addSubejectScreen(),
+       noteaddingscreen(),
        chartViewScreen(),
        settingScreen()
     ];
