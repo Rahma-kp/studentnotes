@@ -19,12 +19,12 @@ class noteaddingscreen extends StatefulWidget {
 class _noteaddingscreenState extends State<noteaddingscreen> {
   final _notetitilecontroller = TextEditingController();
   final _chaptercontroller=TextEditingController();
-  final TextEditingController _categoryController = TextEditingController();
+  final _categoryController = TextEditingController();
   late List<File> imagelist = [];
   late List<dynamic> documentlists = [];
-  String selectedMoneyType = 'eng';
+  String selectedsub = 'subjects';
 
-  final List<String> _foodTypeList = ['eng', 'phy', 'maths'];
+  final List<String> _sujectList = ['subjects','eng', 'phy', 'maths'];
 
   @override
   Widget build(BuildContext context) {
@@ -113,8 +113,8 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
                         ),
                         const SizedBox(width: 10),
                         DropdownButton<String>(
-                          value: selectedMoneyType,
-                          items: _foodTypeList.map((e) {
+                          value: selectedsub,
+                          items: _sujectList.map((e) {
                             return DropdownMenuItem<String>(
                               value: e,
                               child: Row(
@@ -126,7 +126,7 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
                             );
                           }).toList(),
                           selectedItemBuilder: (BuildContext context) {
-                            return _foodTypeList.map((e) {
+                            return _sujectList.map((e) {
                               return Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
@@ -148,7 +148,7 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
                           underline: Container(),
                           onChanged: (value) {
                             setState(() {
-                              selectedMoneyType = value!;
+                              selectedsub = value!;
                               _categoryController.text = value;
                             });
                           },

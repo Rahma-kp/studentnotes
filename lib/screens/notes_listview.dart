@@ -60,7 +60,7 @@ class NotelistViewScreen extends StatelessWidget {
                           IconButton(
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => noteEditingScreen(),
+                                builder: (context) => noteEditingScreen(Category: "",note: "", notetitle: "",documentlists: [],imagelist: [],index: index),
                               ));
                             },
                             icon: Icon(Icons.edit,
