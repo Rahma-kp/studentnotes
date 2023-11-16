@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:studentnot/db/db_model/note_dbmodel.dart';
+import 'package:studentnot/db/db_model/note_db.dart';
 
 ValueNotifier<List<notesData>>noteListNotifier= ValueNotifier([]);
 

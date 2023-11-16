@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:studentnot/db/db_model/note_dbmodel.dart';
+import 'package:studentnot/db/db_model/note_db.dart';
 import 'package:studentnot/screens/notes_listview.dart';
 import 'package:studentnot/widget/common.dart';
 

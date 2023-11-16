@@ -6,7 +6,7 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:studentnot/db/db_functions/db_note_function.dart';
-import 'package:studentnot/db/db_model/note_dbmodel.dart';
+import 'package:studentnot/db/db_model/note_db.dart';
 import 'package:studentnot/screens/notes_listview.dart';
 
 class noteaddingscreen extends StatefulWidget {
@@ -19,22 +19,26 @@ class noteaddingscreen extends StatefulWidget {
 class _noteaddingscreenState extends State<noteaddingscreen> {
   final _notetitilecontroller = TextEditingController();
   final _chaptercontroller=TextEditingController();
+  final TextEditingController _categoryController = TextEditingController();
   late List<File> imagelist = [];
   late List<dynamic> documentlists = [];
+  String selectedMoneyType = 'eng';
+
+  final List<String> _foodTypeList = ['eng', 'phy', 'maths'];
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(207, 13, 20, 78),
-          title: Text("Add chapter"),
+          backgroundColor: const Color.fromARGB(207, 13, 20, 78),
+          title: const Text("Add chapter"),
           actions: [
             TextButton(
                 onPressed: () {
                  onAddNoteOnClick(context);
                 },
-                child: Text(
+                child: const Text(
                   "Save",
                   style: TextStyle(color: Colors.white),
                 ))
@@ -43,21 +47,21 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
 // ------------------------------------------------------------------------------
         floatingActionButton: SpeedDial(
           animatedIcon: AnimatedIcons.menu_arrow,
-          backgroundColor: Color.fromARGB(207, 13, 20, 78),
+          backgroundColor: const Color.fromARGB(207, 13, 20, 78),
           children: [
             SpeedDialChild(
-              child: Icon(Icons.add_a_photo_outlined, color: Colors.white),
-              backgroundColor: Color.fromARGB(207, 13, 20, 78),
+              child: const Icon(Icons.add_a_photo_outlined, color: Colors.white),
+              backgroundColor: const Color.fromARGB(207, 13, 20, 78),
               onTap: () {
                 pickImages();
               },
             ),
             SpeedDialChild(
-              child: Icon(
+              child: const Icon(
                 Icons.picture_as_pdf,
                 color: Colors.white,
               ),
-              backgroundColor: Color.fromARGB(207, 13, 20, 78),
+              backgroundColor: const Color.fromARGB(207, 13, 20, 78),
               onTap: () {
                 pickDocuments();
               },
@@ -71,19 +75,90 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
               children: [
                  TextFormField(
                             controller:_notetitilecontroller,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize:35,
                               fontWeight: FontWeight.bold
                             ),
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               hintText: "Title",
                               border: UnderlineInputBorder(
                                 borderSide: BorderSide.none,
                               ),
                             ),
                           ),
-                 SizedBox(height: 30,),
-                Align(
+                          Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Select the category',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            controller: _categoryController,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        DropdownButton<String>(
+                          value: selectedMoneyType,
+                          items: _foodTypeList.map((e) {
+                            return DropdownMenuItem<String>(
+                              value: e,
+                              child: Row(
+                                children: [
+                                  const SizedBox(width: 10),
+                                  Text(e, style: const TextStyle(fontSize: 18)),
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                          selectedItemBuilder: (BuildContext context) {
+                            return _foodTypeList.map((e) {
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  const SizedBox(width: 10),
+                                  Text(e, style: const TextStyle(fontSize: 18)),
+                                ],
+                              );
+                            }).toList();
+                          },
+                          hint: const Text(
+                            'Select',
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red),
+                          ),
+                          dropdownColor: Colors.white,
+                          borderRadius: BorderRadius.circular(30),
+                          underline: Container(),
+                          onChanged: (value) {
+                            setState(() {
+                              selectedMoneyType = value!;
+                              _categoryController.text = value;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                 const SizedBox(height: 30,),
+                const Align(
                     alignment: Alignment.topLeft,
                     child: Text(
                       "𝐍𝐎𝐓𝐄𝐒",
@@ -104,10 +179,10 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
                       controller: _chaptercontroller,
                       keyboardType: TextInputType.multiline,
                       maxLines: 20,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20,
                       ),
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: "Start writing.........",
                         border: UnderlineInputBorder(
                           borderSide: BorderSide.none,
@@ -117,10 +192,10 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
                   ),
                 ),
  // ---------------------------------------------imagelist------------------------------------------------------------------------
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
-                Align(
+                const Align(
                     alignment: Alignment.topLeft,
                     child: Text(
                       "𝐈𝐌𝐀𝐆𝐄𝐒",
@@ -154,10 +229,10 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
                   ),
                 ),
 // -------------------------------------------file-list--------------------------------------------------------------------------------------------
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
-                Align(
+                const Align(
                     alignment: Alignment.topLeft,
                     child: Text(
                       "𝐃𝐎𝐂𝐔𝐌𝐄𝐍𝐓𝐒",
@@ -226,13 +301,13 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
     if (_notetile.isEmpty || _chapt.isEmpty) {
       return;
     } else {
-      final note1 = notesData(notetitle:_notetile,note: _chapt,documentlist: documentlists,imagelists: imagelist);
+      final note1 = notesData(notetitle:_notetile,note: _chapt,documentlist: documentlists,imagelists: imagelist, category: '');
       print("$_notetile");
       
       addnote(note1);
       _notetitilecontroller.clear();
       _chaptercontroller.clear();
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => NotelistViewScreen(note1: notesData(notetitle: "",documentlist: [],imagelists: [],note:"" )),));
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => NotelistViewScreen(note1: notesData(notetitle: "",documentlist: [],imagelists: [],note:"", category: '' )),));
     }
   }
 }

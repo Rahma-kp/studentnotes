@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'note_dbmodel.dart';
+part of 'note_db.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
@@ -21,13 +21,14 @@ class notesDataAdapter extends TypeAdapter<notesData> {
       note: fields[1] as String?,
       imagelists: (fields[2] as List?)?.cast<dynamic>(),
       documentlist: (fields[3] as List?)?.cast<dynamic>(),
+      category: fields[4] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, notesData obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.notetitle)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class notesDataAdapter extends TypeAdapter<notesData> {
       ..writeByte(2)
       ..write(obj.imagelists)
       ..writeByte(3)
-      ..write(obj.documentlist);
+      ..write(obj.documentlist)
+      ..writeByte(4)
+      ..write(obj.category);
   }
 
   @override

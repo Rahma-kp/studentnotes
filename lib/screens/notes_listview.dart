@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studentnot/db/db_functions/db_note_function.dart';
-import 'package:studentnot/db/db_model/note_dbmodel.dart';
+import 'package:studentnot/db/db_model/note_db.dart';
 import 'package:studentnot/screens/editing_screen.dart';
 import 'package:studentnot/screens/note_screen.dart';
 
@@ -15,7 +15,7 @@ class NotelistViewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text("xcvbnm",style: TextStyle(color: Colors.white),),
+        title:  Text("notes",style: TextStyle(color: Colors.white),),
         backgroundColor: const Color.fromARGB(207, 13, 20, 78),
         elevation: 0,
       ),

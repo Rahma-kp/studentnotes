@@ -5,7 +5,7 @@ import 'package:studentnot/bottombar.dart';
 import 'package:studentnot/db/db_functions/db_functions.dart';
 import 'package:studentnot/db/db_functions/db_note_function.dart';
 import 'package:studentnot/db/db_model/data_model.dart';
-import 'package:studentnot/db/db_model/note_dbmodel.dart';
+import 'package:studentnot/db/db_model/note_db.dart';
 
 
 
