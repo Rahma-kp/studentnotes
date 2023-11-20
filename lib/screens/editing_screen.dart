@@ -1,43 +1,45 @@
 import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:studentnot/db/db_functions/db_note_function.dart';
 import 'package:studentnot/db/db_model/note_db.dart';
+import 'package:studentnot/screens/note_screen.dart';
 import 'package:studentnot/screens/notes_listview.dart';
-import 'package:studentnot/widget/common.dart';
 
 class noteEditingScreen extends StatefulWidget {
   final String notetitle;
   final String note;
-  final String Category;
-  final List imagelist;
-  final List documentlists;
+  final String catogery;
+  final List documentlist;
+  final List imagelists;
   int index;
-  noteEditingScreen(
-      {super.key,
-      required this.notetitle,
-      required this.note,
-      required this.Category,
-      required this.documentlists,
-      required this.imagelist,
-      required this.index});
+  noteEditingScreen({required this.notetitle,required this.note,required this.catogery,required this.documentlist,required this.imagelists,required this.index});
 
   @override
   State<noteEditingScreen> createState() => _noteEditingScreenState();
 }
 
 class _noteEditingScreenState extends State<noteEditingScreen> {
-  TextEditingController _notetitilecontroller=TextEditingController();
-  TextEditingController __chaptercontrolle=TextEditingController();
+  TextEditingController _notetitilecontroller = TextEditingController();
+  TextEditingController _chaptercontrolle = TextEditingController();
   TextEditingController _categoryController = TextEditingController();
-  late List<File> imagelist = [];
-  late List<dynamic> documentlists = [];
-  final List<String> _sujectList = ['eng', 'phy', 'maths'];
+  final List<File> _imagelist = [];
+  final List<dynamic> _documentlists = [];
+  final List<String> _sujectList = ['subjects','ENGLISH', 'PHYSICS', 'MATH'];
   String selectedsub = 'subjects';
   
 
+  @override
+  void initState() {
+    _notetitilecontroller =TextEditingController(text: widget.notetitle);
+    _chaptercontrolle =TextEditingController(text: widget.note);
+    _categoryController =TextEditingController(text: widget.catogery);
+    _imagelist.addAll(widget.imagelists.cast<File>());
+    _documentlists.addAll(widget.documentlist);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +47,17 @@ class _noteEditingScreenState extends State<noteEditingScreen> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: const Color.fromARGB(207, 13, 20, 78),
-        title: const Text("Edit"),
+        title: const Text("Edit", style: TextStyle(color: Colors.white)),
+        actions: [
+          TextButton(
+              onPressed: () {
+                EditSaveOnclick();
+              },
+              child: Text(
+                "Save",
+                style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+              ))
+        ],
       ),
       floatingActionButton: SpeedDial(
         animatedIcon: AnimatedIcons.menu_arrow,
@@ -72,9 +84,9 @@ class _noteEditingScreenState extends State<noteEditingScreen> {
             children: [
               TextFormField(
                 style:
-                    const TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
-                decoration: const InputDecoration(
-                  hintText: "Title",
+                    const TextStyle(fontSize: 35, fontWeight: FontWeight.bold,),
+                controller: _notetitilecontroller,
+                decoration: const InputDecoration(hintText: "Titile",
                   border: UnderlineInputBorder(
                     borderSide: BorderSide.none,
                   ),
@@ -84,7 +96,7 @@ class _noteEditingScreenState extends State<noteEditingScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Select the category',
+                    'Select the subject',
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.red,
@@ -96,7 +108,7 @@ class _noteEditingScreenState extends State<noteEditingScreen> {
                     children: [
                       Expanded(
                         child: TextFormField(
-                          controller: _notetitilecontroller,
+                          controller: _categoryController,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -155,31 +167,32 @@ class _noteEditingScreenState extends State<noteEditingScreen> {
                 height: 30,
               ),
               const Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    "𝐍𝐎𝐓𝐄𝐒",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )),
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "𝐍𝐎𝐓𝐄𝐒",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
               Container(
                 decoration: BoxDecoration(
-                    border: Border.all(style: BorderStyle.solid),
-                    borderRadius: BorderRadius.circular(10)),
+                  border: Border.all(style: BorderStyle.solid),
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 height: 400,
                 width: 500,
                 child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: TextFormField(
-                    controller: __chaptercontrolle,
+                    controller: _chaptercontrolle,
                     keyboardType: TextInputType.multiline,
                     maxLines: 20,
                     style: const TextStyle(
                       fontSize: 20,
                     ),
                     decoration: const InputDecoration(
-                      hintText: "Start writing.........",
                       border: UnderlineInputBorder(
                         borderSide: BorderSide.none,
                       ),
@@ -187,72 +200,71 @@ class _noteEditingScreenState extends State<noteEditingScreen> {
                   ),
                 ),
               ),
-              // ---------------------------------------------imagelist------------------------------------------------------------------------
               const SizedBox(
                 height: 40,
               ),
               const Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    "𝐈𝐌𝐀𝐆𝐄𝐒",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )),
-              Container(
-                height: 400,
-                width: 500,
-                decoration: BoxDecoration(
-                    border: Border.all(style: BorderStyle.solid),
-                    borderRadius: BorderRadius.circular(10)),
-                child: ListView.builder(
-                  itemCount: imagelist.length,
-                  itemBuilder: (context, index) {
-                    final img = imagelist[index];
-                    return Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Container(
-                        height: 200,
-                        width: 200,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            image: DecorationImage(
-                                image: FileImage(img), fit: BoxFit.fill)),
-                      ),
-                    );
-                  },
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "𝐈𝐌𝐀𝐆𝐄𝐒",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-// -------------------------------------------file-list--------------------------------------------------------------------------------------------
+              // Container(
+              //   height: 400,
+              //   width: 500,
+              //   decoration: BoxDecoration(
+              //     border: Border.all(style: BorderStyle.solid),
+              //     borderRadius: BorderRadius.circular(10),
+              //   ),
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(15),
+              //     child: Container(
+              //       height: 200,
+              //       width: 200,
+              //       child: Image.file(
+              //         _imagelist.isNotEmpty
+              //             ? _imagelist[0]
+              //             : File(
+              //                 ''), // Handle the case when _imagelist is empty
+              //       ),
+              //     ),
+              //   ),
+              // ),
               const SizedBox(
                 height: 40,
               ),
               const Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    "𝐃𝐎𝐂𝐔𝐌𝐄𝐍𝐓𝐒",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )),
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "𝐃𝐎𝐂𝐔𝐌𝐄𝐍𝐓𝐒",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
               Container(
                 height: 400,
                 width: 500,
                 decoration: BoxDecoration(
-                    border: Border.all(style: BorderStyle.solid),
-                    borderRadius: BorderRadius.circular(10)),
+                  border: Border.all(style: BorderStyle.solid),
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: ListView.builder(
-                  itemCount: documentlists.length,
+                  itemCount: _documentlists.length,
                   itemBuilder: (context, index) {
-                    final dmc = documentlists[index];
+                    final dmc = _documentlists[index];
                     return Padding(
                       padding: const EdgeInsets.all(10),
                       child: GestureDetector(
-                          child: PDFView(
-                        filePath: dmc.path,
-                      )),
+                        child: PDFView(
+                          filePath: dmc.path,
+                        ),
+                      ),
                     );
                   },
                 ),
@@ -263,4 +275,26 @@ class _noteEditingScreenState extends State<noteEditingScreen> {
       ),
     );
   }
+// -----------------------------------------------------------------------
+
+Future <void> EditSaveOnclick()async{
+  final editedTitile=_notetitilecontroller.text.trim();
+  final editedNote=_chaptercontrolle.text.trim();
+  final editedCategoery=_categoryController.text.trim();
+  if(editedTitile.isNotEmpty||editedNote.isNotEmpty||editedCategoery.isNotEmpty){
+    return;
+  }else{
+    final updatedNonte=notesData(notetitle: editedTitile, note:editedNote, category:editedCategoery,documentlist: [],imagelists: []);
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        margin: EdgeInsets.all(10),
+        backgroundColor: Colors.grey,
+        behavior: SnackBarBehavior.floating,
+        content: Text("updated successfully"),
+      ));
+      editnote(widget.index, updatedNonte);
+      Navigator.of(context).push(MaterialPageRoute(builder:(context)=>NotelistViewScreen(note1: updatedNonte,)));
+
+      
+  }
+}
 }

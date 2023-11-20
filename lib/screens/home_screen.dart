@@ -7,7 +7,7 @@ import 'package:studentnot/screens/notes_listview.dart';
 
 class homeScreen extends StatelessWidget {
    
-   List <String>subject=["dfg","fghjk","fghj"];
+   List <String>subject=['ENGLISH', 'PHYSICS', 'MATH'];
    
    homeScreen({Key? key, required subdata sub1,}):super(key: key);
    
@@ -22,15 +22,14 @@ class homeScreen extends StatelessWidget {
             child: CircleAvatar(
                 backgroundImage: AssetImage("assets/images/person.jpeg")),
           ),
-          title: Text("Adil"),
+          title: Text("Adil",style: TextStyle(color: Colors.white),),
           elevation: 0,
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
         ),
         endDrawer: const drawer(),
         body: SingleChildScrollView(
           child: Column(children: [
-
-            // containe the half part--------------------------------------------------------------------------------------
+ // containe the half part--------------------------------------------------------------------------------------
             Container(
               height: 200,
               width: double.infinity,
@@ -66,7 +65,6 @@ class homeScreen extends StatelessWidget {
                 ),
               ]),
             ),
-            //-------------------------------------------------------------------
             const SizedBox(
               height: 10,
             ),
@@ -78,8 +76,7 @@ class homeScreen extends StatelessWidget {
                     "Subjects",
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   )),
-            ),
-          
+            ),      
 //  grid view code----------------------------------------------------------------------------------------------
             Builder(
               builder: (context) {
@@ -100,7 +97,7 @@ class homeScreen extends StatelessWidget {
                               padding: const EdgeInsets.all(10),
                               child: GestureDetector(
                                 onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(builder:(context) => NotelistViewScreen(note1: notesData(notetitle: '', category: '',)) ));
+                                  Navigator.of(context).push(MaterialPageRoute(builder:(context) => NotelistViewScreen(note1:notesData(notetitle: "", note: "", category: "",documentlist: [],imagelists:[] )) ));
                                 },
                                 child: Container(
                                                   height: 70,

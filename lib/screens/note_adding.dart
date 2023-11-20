@@ -20,8 +20,8 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
   final _notetitilecontroller = TextEditingController();
   final _chaptercontroller=TextEditingController();
   final _categoryController = TextEditingController();
-  late List<File> imagelist = [];
-  late List<dynamic> documentlists = [];
+  late List<File> _imagelist = [];
+  late List<dynamic> _documentlists = [];
   String selectedsub = 'subjects';
 
   final List<String> _sujectList = ['subjects','eng', 'phy', 'maths'];
@@ -211,9 +211,9 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
                       border: Border.all(style: BorderStyle.solid),
                       borderRadius: BorderRadius.circular(10)),
                   child: ListView.builder(
-                    itemCount: imagelist.length,
+                    itemCount: _imagelist.length,
                     itemBuilder: (context, index) {
-                      final img = imagelist[index];
+                      final img =_imagelist[index];
                       return Padding(
                         padding: const EdgeInsets.all(10),
                         child: Container(
@@ -248,17 +248,18 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
                       border: Border.all(style: BorderStyle.solid),
                       borderRadius: BorderRadius.circular(10)),
                   child: ListView.builder(
-                    itemCount: documentlists.length,
-                    itemBuilder: (context, index) {
-                      final dmc = documentlists[index];
-                      return Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: GestureDetector(
-                          child: PDFView(filePath: dmc.path,)
-                        ),
-                      );
-                    },
-                  ),
+  itemCount: _documentlists.length,
+  itemBuilder: (context, index) {
+    final dmc = _documentlists[index];
+    print('Document Path: ${dmc.path}');
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: GestureDetector(
+        child: PDFView(filePath: dmc.path),
+      ),
+    );
+  },
+),
                 ),
               ],
             ),
@@ -268,7 +269,6 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
     );
   }
   // image picking function--------------------------------------------------
-
   Future<void> pickImages() async {
     final picker = ImagePicker();
     final pickedImages = await picker.pickImage(source: ImageSource.gallery);
@@ -276,7 +276,7 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
     if (pickedImages != null) {
       final imageFile = File(pickedImages.path); // Convert XFile to File
       setState(() {
-        imagelist.add(imageFile);
+       _imagelist.add(imageFile);
       });
     }
   }
@@ -290,7 +290,7 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
 
     if (result != null) {
       setState(() {
-        documentlists = result.files;
+        _documentlists = result.files;
       });
     }
   }
@@ -298,16 +298,18 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
   Future<void> onAddNoteOnClick(BuildContext context) async {
     final _notetile = _notetitilecontroller.text.trim();
     final _chapt = _chaptercontroller.text.trim();
-    if (_notetile.isEmpty || _chapt.isEmpty) {
+    final _category=_categoryController.text.trim();
+    if (_notetile.isEmpty || _chapt.isEmpty||_category.isEmpty) {
       return;
     } else {
-      final note1 = notesData(notetitle:_notetile,note: _chapt,documentlist: documentlists,imagelists: imagelist, category: '');
-      print("$_notetile");
-      
+      final note1 = notesData(notetitle:_notetile,note: _chapt,documentlist:_documentlists,imagelists: _imagelist, category:_category);
       addnote(note1);
       _notetitilecontroller.clear();
       _chaptercontroller.clear();
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => NotelistViewScreen(note1: notesData(notetitle: "",documentlist: [],imagelists: [],note:"", category: '' )),));
+      _categoryController.clear();
+      _imagelist.clear();
+      _documentlists.clear();
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => NotelistViewScreen(note1: note1,)));
     }
   }
 }

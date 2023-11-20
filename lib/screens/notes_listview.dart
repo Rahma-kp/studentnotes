@@ -5,17 +5,16 @@ import 'package:studentnot/screens/editing_screen.dart';
 import 'package:studentnot/screens/note_screen.dart';
 
 class NotelistViewScreen extends StatelessWidget {
-
   notesData note1;
 
-  NotelistViewScreen({Key? key, required this.note1,}) : super(key: key);
-  List notelist = [];
+  NotelistViewScreen({required this.note1});
+  List<notesData> notelist = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text("notes",style: TextStyle(color: Colors.white),),
+        title: Text("notes", style: TextStyle(color: Colors.white)),
         backgroundColor: const Color.fromARGB(207, 13, 20, 78),
         elevation: 0,
       ),
@@ -26,32 +25,34 @@ class NotelistViewScreen extends StatelessWidget {
             separatorBuilder: (context, index) => Divider(
               thickness: 5,
             ),
-            itemCount: notelist.length, // Use notelist.length as the item count
+            itemCount: notelist.length,
             itemBuilder: (ctx, index) {
               final datas = notelist[index];
               return Padding(
                 padding: const EdgeInsets.only(),
                 child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => noteViewScreen(),));
-                  },
+                  // onTap: () {
+                  //   Navigator.of(context).push(MaterialPageRoute(
+                  //       builder: (context) => noteViewScreen(
+                  //             note1: note1,
+                  //           )));
+                  // },
                   child: ListTile(
                     tileColor: Colors.transparent,
                     title: Text(
                       " 𝐜𝐡𝐚𝐩𝐭𝐞𝐫:${datas.notetitle}",
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400,),
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
                     ),
                     subtitle: Text(
-                    " ${datas.note}",
+                      " ${datas.note}",
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w300,
                         color: Colors.black,
                         overflow: TextOverflow.ellipsis,
-                        
-                        
                       ),
-                      maxLines:2,
+                      maxLines: 2,
                     ),
                     trailing: SizedBox(
                       width: 100,
@@ -60,7 +61,13 @@ class NotelistViewScreen extends StatelessWidget {
                           IconButton(
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => noteEditingScreen(Category: "",note: "", notetitle: "",documentlists: [],imagelist: [],index: index),
+                                builder: (context) => noteEditingScreen(
+                                    catogery: datas.category!,
+                                    documentlist: [],
+                                    imagelists: [],
+                                    notetitle: datas.notetitle!,
+                                    note: datas.note!,
+                                    index: index),
                               ));
                             },
                             icon: Icon(Icons.edit,
@@ -68,7 +75,7 @@ class NotelistViewScreen extends StatelessWidget {
                           ),
                           IconButton(
                             onPressed: () {
-                              showDeleteConfirmationDialog(context,index);
+                              showDeleteConfirmationDialog(context, index);
                             },
                             icon: Icon(Icons.delete,
                                 color: const Color.fromARGB(255, 175, 62, 54)),
@@ -83,11 +90,10 @@ class NotelistViewScreen extends StatelessWidget {
           );
         },
       ),
-     
     );
   }
 
-  void showDeleteConfirmationDialog(BuildContext context,index) {
+  void showDeleteConfirmationDialog(BuildContext context, index) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -102,8 +108,9 @@ class NotelistViewScreen extends StatelessWidget {
               child: Text("Cancel"),
             ),
             TextButton(
-              onPressed: () {
-                deleteNote(index);
+              onPressed: () async {
+                await deleteNote(index);
+                Navigator.of(context).pop();
               },
               child: Text("Delete"),
             ),
