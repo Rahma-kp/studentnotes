@@ -24,7 +24,7 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
   late List<dynamic> _documentlists = [];
   String selectedsub = 'subjects';
 
-  final List<String> _sujectList = ['subjects','eng', 'phy', 'maths'];
+  final List<String> _sujectList = ['subjects','ENGLISH', 'PHYSICS', 'MATH'];
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
-          title: const Text("Add chapter"),
+          title: const Text("Add chapter",style: TextStyle(color: Colors.white),),
           actions: [
             TextButton(
                 onPressed: () {
@@ -309,7 +309,7 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
       _categoryController.clear();
       _imagelist.clear();
       _documentlists.clear();
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => NotelistViewScreen(note1: note1,)));
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => NotelistViewScreen(note1: note1,selectedsub: selectedsub,)));
     }
   }
 }

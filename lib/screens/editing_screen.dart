@@ -275,7 +275,6 @@ class _noteEditingScreenState extends State<noteEditingScreen> {
       ),
     );
   }
-// -----------------------------------------------------------------------
 
 Future <void> EditSaveOnclick()async{
   final editedTitile=_notetitilecontroller.text.trim();
@@ -292,7 +291,7 @@ Future <void> EditSaveOnclick()async{
         content: Text("updated successfully"),
       ));
       editnote(widget.index, updatedNonte);
-      Navigator.of(context).push(MaterialPageRoute(builder:(context)=>NotelistViewScreen(note1: updatedNonte,)));
+      Navigator.of(context).push(MaterialPageRoute(builder:(context)=>NotelistViewScreen(note1: updatedNonte,selectedsub: selectedsub,)));
 
       
   }
