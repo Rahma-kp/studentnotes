@@ -6,7 +6,8 @@ class aboutPageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Color.fromARGB(207, 13, 20, 78),),
+      appBar: AppBar(title: Text('About',style: TextStyle(color: Colors.white),),
+        backgroundColor: Color.fromARGB(207, 13, 20, 78),),
       body: Column(
         children: [
           

@@ -1,13 +1,23 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:studentnot/db/db_model/note_db.dart';
 import 'package:studentnot/widget/common.dart';
 
 class noteViewScreen extends StatefulWidget {
-
+  final String notetitle;
+  final String note;
+  final String catogery;
+  final List documentlist;
+  final List imagelists;
+  int index;
   noteViewScreen(
-      {super.key});
+      {super.key,
+      required this.notetitle,
+      required this.note,
+      required this.catogery,
+      required this.documentlist,
+      required this.imagelists,
+      required this.index});
 
   @override
   State<noteViewScreen> createState() => _noteViewScreenState();
@@ -19,11 +29,10 @@ class _noteViewScreenState extends State<noteViewScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(207, 13, 20, 78),
-        title:Text("vbnm",style: TextStyle(color: Colors.white)),
+        title: Text(widget.notetitle, style: TextStyle(color: Colors.white)),
       ),
-      body: Column(children: [
-        Text("sdfgh")
-      ]),
+      body: Column(mainAxisAlignment: MainAxisAlignment.center,
+        children: [Text(widget.note,style: TextStyle(fontSize: 20),)]),
     );
   }
 }

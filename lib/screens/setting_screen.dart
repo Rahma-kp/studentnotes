@@ -12,7 +12,7 @@ class settingScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(backgroundColor:const Color.fromARGB(207, 13, 20, 78),elevation:0,
-        title:const Text("Settings"),
+        title:const Text("Settings",style: TextStyle(color: Colors.white),),
         ),endDrawer: drawer(),
         body: Column(
           children: [

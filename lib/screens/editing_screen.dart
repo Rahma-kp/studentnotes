@@ -15,7 +15,13 @@ class noteEditingScreen extends StatefulWidget {
   final List documentlist;
   final List imagelists;
   int index;
-  noteEditingScreen({required this.notetitle,required this.note,required this.catogery,required this.documentlist,required this.imagelists,required this.index});
+  noteEditingScreen(
+      {required this.notetitle,
+      required this.note,
+      required this.catogery,
+      required this.documentlist,
+      required this.imagelists,
+      required this.index});
 
   @override
   State<noteEditingScreen> createState() => _noteEditingScreenState();
@@ -27,19 +33,19 @@ class _noteEditingScreenState extends State<noteEditingScreen> {
   TextEditingController _categoryController = TextEditingController();
   final List<File> _imagelist = [];
   final List<dynamic> _documentlists = [];
-  final List<String> _sujectList = ['subjects','ENGLISH', 'PHYSICS', 'MATH'];
+  final List<String> _sujectList = ['subjects', 'ENGLISH', 'PHYSICS', 'MATH'];
   String selectedsub = 'subjects';
-  
 
   @override
   void initState() {
-    _notetitilecontroller =TextEditingController(text: widget.notetitle);
-    _chaptercontrolle =TextEditingController(text: widget.note);
-    _categoryController =TextEditingController(text: widget.catogery);
+    _notetitilecontroller = TextEditingController(text: widget.notetitle);
+    _chaptercontrolle = TextEditingController(text: widget.note);
+    _categoryController = TextEditingController(text: widget.catogery);
     _imagelist.addAll(widget.imagelists.cast<File>());
     _documentlists.addAll(widget.documentlist);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,11 +57,14 @@ class _noteEditingScreenState extends State<noteEditingScreen> {
         actions: [
           TextButton(
               onPressed: () {
-                EditSaveOnclick();
+                setState(() {
+                  EditSaveOnclick();
+                });
               },
               child: Text(
                 "Save",
-                style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ))
         ],
       ),
@@ -83,10 +92,13 @@ class _noteEditingScreenState extends State<noteEditingScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextFormField(
-                style:
-                    const TextStyle(fontSize: 35, fontWeight: FontWeight.bold,),
+                style: const TextStyle(
+                  fontSize: 35,
+                  fontWeight: FontWeight.bold,
+                ),
                 controller: _notetitilecontroller,
-                decoration: const InputDecoration(hintText: "Titile",
+                decoration: const InputDecoration(
+                  hintText: "Titile",
                   border: UnderlineInputBorder(
                     borderSide: BorderSide.none,
                   ),
@@ -213,27 +225,27 @@ class _noteEditingScreenState extends State<noteEditingScreen> {
                   ),
                 ),
               ),
-              // Container(
-              //   height: 400,
-              //   width: 500,
-              //   decoration: BoxDecoration(
-              //     border: Border.all(style: BorderStyle.solid),
-              //     borderRadius: BorderRadius.circular(10),
-              //   ),
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(15),
-              //     child: Container(
-              //       height: 200,
-              //       width: 200,
-              //       child: Image.file(
-              //         _imagelist.isNotEmpty
-              //             ? _imagelist[0]
-              //             : File(
-              //                 ''), // Handle the case when _imagelist is empty
-              //       ),
-              //     ),
-              //   ),
-              // ),
+              Container(
+                height: 400,
+                width: 500,
+                decoration: BoxDecoration(
+                  border: Border.all(style: BorderStyle.solid),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Container(
+                    height: 200,
+                    width: 200,
+                    // child: Image.file(
+                    //   _imagelist.isNotEmpty
+                    //       ? _imagelist[0]
+                    //       : File(
+                    //           ''), // Handle the case when _imagelist is empty
+                    // ),
+                  ),
+                ),
+              ),
               const SizedBox(
                 height: 40,
               ),
@@ -276,24 +288,31 @@ class _noteEditingScreenState extends State<noteEditingScreen> {
     );
   }
 
-Future <void> EditSaveOnclick()async{
-  final editedTitile=_notetitilecontroller.text.trim();
-  final editedNote=_chaptercontrolle.text.trim();
-  final editedCategoery=_categoryController.text.trim();
-  if(editedTitile.isNotEmpty||editedNote.isNotEmpty||editedCategoery.isNotEmpty){
-    return;
-  }else{
-    final updatedNonte=notesData(notetitle: editedTitile, note:editedNote, category:editedCategoery,documentlist: [],imagelists: []);
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+  Future<void> EditSaveOnclick() async {
+    final editedTitile = _notetitilecontroller.text.trim();
+    final editedNote = _chaptercontrolle.text.trim();
+    final editedCategoery = _categoryController.text.trim();
+    if (editedTitile.isNotEmpty &&
+        editedNote.isNotEmpty &&
+        editedCategoery.isNotEmpty) {
+    
+      return;
+    } else {
+      final updatedNonte = notesData(
+          notetitle: editedTitile,
+          note: editedNote,
+          category: editedCategoery,
+          documentlist: [],
+          imagelists: []);
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         margin: EdgeInsets.all(10),
-        backgroundColor: Colors.grey,
+        backgroundColor: Color.fromARGB(255, 212, 30, 30),
         behavior: SnackBarBehavior.floating,
         content: Text("updated successfully"),
       ));
-      editnote(widget.index, updatedNonte);
-      Navigator.of(context).push(MaterialPageRoute(builder:(context)=>NotelistViewScreen(note1: updatedNonte,selectedsub: selectedsub,)));
 
-      
+     await editnote(widget.index, updatedNonte);
+      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>NotelistViewScreen(note1: updatedNonte, selectedsub: selectedsub)));
+    }
   }
-}
 }
