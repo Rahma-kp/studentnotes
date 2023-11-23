@@ -21,7 +21,7 @@ class _bottombarState extends State<bottombar> {
    
     final Pages=[
        homeScreen(sub1: subdata(subtitle: '', subabout: '')),
-       time_table(),
+       TimeTable(),
        noteaddingscreen(),
        chartViewScreen(),
        settingScreen()
