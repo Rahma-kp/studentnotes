@@ -104,10 +104,7 @@ class _EditTimeTableState extends State<EditTimeTable> {
   }
 
   String getDayName(int index) {
-    // Implement a logic to get the corresponding day name based on the index.
-    // For example: ['Monday', 'Tuesday', ...]
-    // You can use a List<String> to store day names and return the name based on the index.
-    // Remember that index 0 corresponds to 'Monday', index 1 to 'Tuesday', and so on.
+   
     return ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][index];
   }
 

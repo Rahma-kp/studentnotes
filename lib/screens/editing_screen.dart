@@ -288,31 +288,26 @@ class _noteEditingScreenState extends State<noteEditingScreen> {
     );
   }
 
-  Future<void> EditSaveOnclick() async {
-    final editedTitile = _notetitilecontroller.text.trim();
-    final editedNote = _chaptercontrolle.text.trim();
-    final editedCategoery = _categoryController.text.trim();
-    if (editedTitile.isNotEmpty &&
-        editedNote.isNotEmpty &&
-        editedCategoery.isNotEmpty) {
-    
-      return;
-    } else {
-      final updatedNonte = notesData(
-          notetitle: editedTitile,
-          note: editedNote,
-          category: editedCategoery,
-          documentlist: [],
-          imagelists: []);
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+ EditSaveOnclick()async{
+  final editedTitile=_notetitilecontroller.text.trim();
+  final editedNote=_chaptercontrolle.text.trim();
+  final editedCategoery=_categoryController.text.trim();
+  if(editedTitile.isEmpty ||  editedNote.isEmpty || editedCategoery.isEmpty){
+    return;
+  }
+    final updatedNonte=
+    notesData(
+        notetitle: editedTitile, note:editedNote, category:editedCategoery,documentlist: [],imagelists: []);
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         margin: EdgeInsets.all(10),
-        backgroundColor: Color.fromARGB(255, 212, 30, 30),
+        backgroundColor: Colors.grey,
         behavior: SnackBarBehavior.floating,
         content: Text("updated successfully"),
       ));
 
-     await editnote(widget.index, updatedNonte);
-      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>NotelistViewScreen(note1: updatedNonte, selectedsub: selectedsub)));
-    }
-  }
+    editnote(widget.index, updatedNonte);
+    Navigator.of(context).push(MaterialPageRoute(builder:(context)=>NotelistViewScreen(selectedsub: selectedsub,)));
+
+
+}
 }

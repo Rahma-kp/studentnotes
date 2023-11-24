@@ -8,7 +8,7 @@ Future<void> addnote(notesData value) async{
 
   final notDB= await Hive.openBox<notesData>("note_db");
   await notDB.add(value);
-  // noteListNotifier.value.add(value);
+  // noteListNotifier.value.add(value); 
   noteListNotifier.notifyListeners();
 }
 Future<void> getAllNoteData()async{

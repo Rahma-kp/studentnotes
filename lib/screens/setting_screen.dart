@@ -13,7 +13,7 @@ class settingScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(backgroundColor:const Color.fromARGB(207, 13, 20, 78),elevation:0,
         title:const Text("Settings",style: TextStyle(color: Colors.white),),
-        ),endDrawer: drawer(),
+        ),endDrawer: Drawer(),
         body: Column(
           children: [
             ListTile( leading:const Icon(Icons.info_outline),

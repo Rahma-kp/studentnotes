@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
@@ -309,7 +308,7 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
       _categoryController.clear();
       _imagelist.clear();
       _documentlists.clear();
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => NotelistViewScreen(note1: note1,selectedsub: selectedsub,)));
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => NotelistViewScreen(selectedsub: selectedsub,)));
     }
   }
 }

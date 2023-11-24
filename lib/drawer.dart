@@ -24,10 +24,9 @@ class drawer extends StatelessWidget {
           title: Text("10 th",style: TextStyle(fontSize: 20)),
         ),
         FloatingActionButton(onPressed: (){
-          Navigator.of(context).push(MaterialPageRoute(builder:(context) => profileEditingScreen(), ));
-        },child: Icon(Icons.edit),backgroundColor:Color.fromARGB(207, 13, 20, 78),)
+          Navigator.of(context).push(MaterialPageRoute(builder:(context) => ProfileEditingScreen(), ));
+        },child: Icon(Icons.edit,color: Colors.white),backgroundColor:Color.fromARGB(207, 13, 20, 78),)
       ]),
     ); 
-    
   }
 }
