@@ -31,12 +31,14 @@ class _noteViewScreenState extends State<noteViewScreen> {
         backgroundColor: const Color.fromARGB(207, 13, 20, 78),
         title: Text(widget.notetitle, style: TextStyle(color: Colors.white)),
       ),
-      body: Center(
-        child: Column(
-          children: [Padding(
-            padding: const EdgeInsets.only(top: 20,left: 20,right: 20),
-            child: Text(widget.note,style: TextStyle(fontSize: 20),),
-          )]),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [Padding(
+              padding: const EdgeInsets.only(top: 20,left: 20,right: 20),
+              child: Text(widget.note,style: TextStyle(fontSize: 20),),
+            )]),
+        ),
       ),
     );
   }
