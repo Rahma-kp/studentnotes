@@ -26,7 +26,7 @@ class loginScreen extends StatelessWidget {
               ),
               SizedBox(height: 40,),
             GestureDetector(onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) =>bottombar(),));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) =>BottomBar(),));
             },
               child: Container(height: 40,width:100,
                 decoration: BoxDecoration(color:Color.fromARGB(207, 13, 20, 78),borderRadius: BorderRadius.circular(20)

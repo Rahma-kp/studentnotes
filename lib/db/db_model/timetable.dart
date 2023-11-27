@@ -1,4 +1,4 @@
-import 'package:flutter/rendering.dart';
+
 import 'package:hive/hive.dart';
 
 part 'timetable.g.dart';

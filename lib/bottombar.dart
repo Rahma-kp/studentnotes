@@ -1,29 +1,46 @@
 
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:studentnot/db/db_model/data_model.dart';
-import 'package:studentnot/screens/add_screen.dart';
 import 'package:studentnot/screens/chart_screen.dart';
 import 'package:studentnot/screens/home_screen.dart';
 import 'package:studentnot/screens/note_adding.dart';
 import 'package:studentnot/screens/setting_screen.dart';
 import 'package:studentnot/screens/time_table.dart';
 
-class bottombar extends StatefulWidget {
-  const bottombar({super.key});
+class BottomBar extends StatefulWidget {
+  const BottomBar({super.key});
 
   @override
-  State<bottombar> createState() => _bottombarState();
+  State<BottomBar> createState() => _BottomBarState();
 }
 
-class _bottombarState extends State<bottombar> {
+class _BottomBarState extends State<BottomBar> {
    int myindex=0;
-   
+
+  //  late SharedPreferences prefs;
+  String name = '';
+  String className = '';
+  String imagePath = '';
+
+  @override
+  void initState() {
+    super.initState();
+    // _loadPreferences();
+  }
+
+  // Future<void> _loadPreferences() async {
+  //   prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     name = prefs.getString('name') ?? '';
+  //     className = prefs.getString('class name') ?? '';
+  //     imagePath = prefs.getString('imagepath') ?? '';
+  //   });
+  // }
     final Pages=[
-       homeScreen(sub1: subdata(subtitle: '', subabout: '')),
-       TimeTable(),
+       HomeScreen(),
+       TimeTable([]),
        noteaddingscreen(),
-       chartViewScreen(),
+       ChartScreen(),
        settingScreen()
     ];
 

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:studentnot/db/db_model/timetable.dart';
@@ -39,7 +38,7 @@ class _EditTimeTableState extends State<EditTimeTable> {
               onPressed: () {
                 _saveDataToHive();
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => TimeTable()),
+                  MaterialPageRoute(builder: (context) => TimeTable([])),
                 );
               },
               child: Text(
@@ -67,7 +66,8 @@ class _EditTimeTableState extends State<EditTimeTable> {
                         Center(
                           child: Text(
                             'Days',
-                            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold),
                           ),
                         ),
                         for (int i = 1; i <= 5; i++)
@@ -86,11 +86,11 @@ class _EditTimeTableState extends State<EditTimeTable> {
                             padding: const EdgeInsets.only(top: 20, left: 10),
                             child: Text(
                               getDayName(i),
-                              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.bold),
                             ),
                           ),
-                          for (int j = 0; j < 5; j++)
-                            _buildEditTableCell(i, j),
+                          for (int j = 0; j < 5; j++) _buildEditTableCell(i, j),
                         ],
                       ),
                   ],
@@ -104,8 +104,14 @@ class _EditTimeTableState extends State<EditTimeTable> {
   }
 
   String getDayName(int index) {
-   
-    return ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][index];
+    return [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday'
+    ][index];
   }
 
   Widget _buildEditTableCell(int row, int col) {
@@ -127,7 +133,8 @@ class _EditTimeTableState extends State<EditTimeTable> {
 
     for (int i = 0; i < 6; i++) {
       final day = getDayName(i);
-      final timetableData = TimeTableData(day, controllers[i].map((controller) => controller.text).toList());
+      final timetableData = TimeTableData(
+          day, controllers[i].map((controller) => controller.text).toList());
       box.add(timetableData);
     }
   }

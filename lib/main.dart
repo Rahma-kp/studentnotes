@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
     getAllNoteData();
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:bottombar(),
+      home:BottomBar(),
     );
   }
 }

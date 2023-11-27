@@ -23,7 +23,7 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
   late List<dynamic> _documentlists = [];
   String selectedsub = 'subjects';
 
-  final List<String> _sujectList = ['subjects','ENGLISH', 'PHYSICS', 'MATH'];
+  final List<String> _sujectList = ['subjects','ENGLISH', 'PHYSICS', 'MATHEMATICS','CHEMISTRY','SOCIAL SCIENCE','BIOLOGY','ZOOLOGY','BOTANY'];
 
   @override
   Widget build(BuildContext context) {

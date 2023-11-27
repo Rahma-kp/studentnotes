@@ -18,7 +18,7 @@ class settingScreen extends StatelessWidget {
           children: [
             ListTile( leading:const Icon(Icons.info_outline),
               title:const Text("About"), trailing:const Text(">",style: TextStyle(fontSize: 30),),onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => aboutPageScreen(),));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => AboutPage(),));
               },),
               const Divider(),
                ListTile( leading:const Icon(Icons.document_scanner),

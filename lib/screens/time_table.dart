@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_timetable/flutter_timetable.dart';
+import 'package:studentnot/db/db_model/timetable.dart';
 import 'package:studentnot/screens/edit_timetable.dart';
 
 class TimeTable extends StatelessWidget {
-  TimeTable({super.key});
+   final List<TimeTableData> timetableDataList;
+
+  TimeTable(this.timetableDataList);
+ 
 
   @override
   Widget build(BuildContext context) {

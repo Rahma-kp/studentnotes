@@ -1,29 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:studentnot/db/db_functions/db_functions.dart';
-import 'package:studentnot/db/db_model/data_model.dart';
-import 'package:studentnot/db/db_model/note_db.dart';
-import 'package:studentnot/drawer.dart';
 import 'package:studentnot/screens/notes_listview.dart';
 
-class homeScreen extends StatefulWidget {
-   
-
-   homeScreen({Key? key, required subdata sub1,}):super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<homeScreen> createState() => _homeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _homeScreenState extends State<homeScreen> {
-   List <String>subject=['ENGLISH', 'PHYSICS', 'MATH'];
+class _HomeScreenState extends State<HomeScreen> {
+  List<String> subject = [
+    'ENGLISH',
+    'PHYSICS',
+    'MATHEMATICS',
+    'CHEMISTRY',
+    'SOCIAL SCIENCE',
+    'BIOLOGY',
+    'ZOOLOGY',
+    'BOTANY'
+  ];
 
-   List<String> filteredsubject = [];
+  List<String> filteredsubject = [];
 
-     TextEditingController searchController = TextEditingController();
+  TextEditingController searchController = TextEditingController();
 
-    @override
+  @override
   void initState() {
-    filteredsubject =subject;
+    filteredsubject = subject;
     super.initState();
   }
 
@@ -35,16 +38,20 @@ class _homeScreenState extends State<homeScreen> {
           leading: Padding(
             padding: const EdgeInsets.all(8.0),
             child: CircleAvatar(
-                backgroundImage: AssetImage("assets/images/person.jpeg")),
+              backgroundImage: AssetImage("assets/images/person.jpeg"),
+            ),
           ),
-          title: Text("Adil",style: TextStyle(color: Colors.white),),
+          title: Text(
+            "Adil",
+            style: TextStyle(color: Colors.white),
+          ),
           elevation: 0,
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
         ),
-        endDrawer: const drawer(),
+        endDrawer: const Drawer(),
         body: SingleChildScrollView(
           child: Column(children: [
- // containe the half part--------------------------------------------------------------------------------------
+            // containe the half part--------------------------------------------------------------------------------------
             Container(
               height: 200,
               width: double.infinity,
@@ -63,7 +70,7 @@ class _homeScreenState extends State<homeScreen> {
                     padding: const EdgeInsets.only(left: 30, right: 30),
                     child: TextFormField(
                       controller: searchController,
-                        onChanged: (value) {
+                      onChanged: (value) {
                         filterSubjects(value);
                       },
                       decoration: InputDecoration(
@@ -93,67 +100,78 @@ class _homeScreenState extends State<homeScreen> {
                   alignment: Alignment.topLeft,
                   child: Text(
                     "Subjects",
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    style:
+                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   )),
-            ),      
-//  grid view code----------------------------------------------------------------------------------------------
+            ),
+            //  grid view code----------------------------------------------------------------------------------------------
             Builder(
               builder: (context) {
                 return Container(
                   height: 500,
                   child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-                    itemCount:filteredsubject.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3),
+                    itemCount: filteredsubject.length,
                     itemBuilder: (context, index) {
-                      if(filteredsubject.isEmpty){
-                        return Center(child: Text("no subjects found"));
-                      }
-                      else{
-                      return Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: GestureDetector(
-                              onTap: () {
-                               String selectedsub=subject[index]; 
-                                Navigator.of(context).push(MaterialPageRoute(builder:(context) => NotelistViewScreen(selectedsub: selectedsub,) ));
-                              },
-                              child: Container(
-                                                height: 70,
-                                                width: 70,
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(10),
-                                                  color: Color.fromARGB(255, 147, 143, 143),
-                                                ),
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: Column(mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      Title(color: Colors.black, child: Text(subject[index],
-                                                      style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
-                                                     
-                                                    ],
-                                                  ),
-                                                ),
+                      if (filteredsubject.isEmpty) {
+                        return Center(child: Text("No subjects found"));
+                      } else {
+                        return Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: GestureDetector(
+                            onTap: () {
+                              String selectedsub = filteredsubject[index];
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => NotelistViewScreen(
+                                  selectedsub: selectedsub,
+                                ),
+                              ));
+                            },
+                            child: Container(
+                              height: 70,
+                              width: 70,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Color.fromARGB(255, 147, 143, 143),
                               ),
-                            ), 
-                      );
-                    }
-                    }
-                    
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Title(
+                                      color: Colors.black,
+                                      child: Text(
+                                        filteredsubject[index],
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+                    },
                   ),
                 );
-              }
+              },
             )
           ]),
         ),
       ),
     );
-  }  
+  }
 
-    void filterSubjects(String query) {
+  void filterSubjects(String query) {
     setState(() {
       filteredsubject = subject
-          .where(
-              (subject) => subject.toLowerCase().contains(query.toLowerCase()))
+          .where((subject) =>
+              subject.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }

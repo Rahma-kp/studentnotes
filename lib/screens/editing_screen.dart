@@ -2,20 +2,18 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:studentnot/db/db_functions/db_note_function.dart';
 import 'package:studentnot/db/db_model/note_db.dart';
-import 'package:studentnot/screens/note_screen.dart';
-import 'package:studentnot/screens/notes_listview.dart';
 
-class noteEditingScreen extends StatefulWidget {
+
+class NotEditingScreen extends StatefulWidget {
   final String notetitle;
   final String note;
   final String catogery;
   final List documentlist;
   final List imagelists;
   int index;
-  noteEditingScreen(
+  NotEditingScreen(
       {required this.notetitle,
       required this.note,
       required this.catogery,
@@ -24,16 +22,16 @@ class noteEditingScreen extends StatefulWidget {
       required this.index});
 
   @override
-  State<noteEditingScreen> createState() => _noteEditingScreenState();
+  State<NotEditingScreen> createState() => _NotEditingScreenState();
 }
 
-class _noteEditingScreenState extends State<noteEditingScreen> {
+class _NotEditingScreenState extends State<NotEditingScreen> {
   TextEditingController _notetitilecontroller = TextEditingController();
   TextEditingController _chaptercontrolle = TextEditingController();
   TextEditingController _categoryController = TextEditingController();
   final List<File> _imagelist = [];
   final List<dynamic> _documentlists = [];
-  final List<String> _sujectList = ['subjects', 'ENGLISH', 'PHYSICS', 'MATH'];
+  final List<String> _sujectList = ['subjects', 'ENGLISH', 'PHYSICS','MATHEMATICS','CHEMISTRY','SOCIAL SCIENCE','BIOLOGY','ZOOLOGY','BOTANY'];
   String selectedsub = 'subjects';
 
   @override
@@ -306,7 +304,7 @@ class _noteEditingScreenState extends State<noteEditingScreen> {
       ));
 
     editnote(widget.index, updatedNonte);
-    Navigator.of(context).push(MaterialPageRoute(builder:(context)=>NotelistViewScreen(selectedsub: selectedsub,)));
+    Navigator.of(context).pop();
 
 
 }

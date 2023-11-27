@@ -1,12 +1,10 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studentnot/bottombar.dart';
 
 class ProfileEditingScreen extends StatefulWidget {
-  const ProfileEditingScreen({Key? key});
+  const ProfileEditingScreen({Key? key}) : super(key: key);
 
   @override
   State<ProfileEditingScreen> createState() => _ProfileEditingScreenState();
@@ -74,19 +72,18 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
                     String className = classController.text;
 
                     // Save user information to SharedPreferences
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    prefs.setString('name', name);
-                    prefs.setString('className', className);
+                    // SharedPreferences prefs =
+                    //     await SharedPreferences.getInstance();
+                    // prefs.setString('name', name);
+                    // prefs.setString('className', className);
 
-                    if (_img != null) {
-                      // Save the image path or upload the image to a server and save the URL
-                      // For simplicity, saving the local path here
-                      prefs.setString('imagePath', _img!.path);
-                    }
+                    // if (_img != null) {
+                    //   prefs.setString('imagePath', _img!.path);
+                    // }
 
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => bottombar()));
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => BottomBar()),
+                    );
                   },
                   child: Container(
                     height: 35,
