@@ -5,7 +5,6 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:studentnot/db/db_functions/db_note_function.dart';
 import 'package:studentnot/db/db_model/note_db.dart';
 
-
 class NotEditingScreen extends StatefulWidget {
   final String notetitle;
   final String note;
@@ -31,7 +30,17 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
   TextEditingController _categoryController = TextEditingController();
   final List<File> _imagelist = [];
   final List<dynamic> _documentlists = [];
-  final List<String> _sujectList = ['subjects', 'ENGLISH', 'PHYSICS','MATHEMATICS','CHEMISTRY','SOCIAL SCIENCE','BIOLOGY','ZOOLOGY','BOTANY'];
+  final List<String> _sujectList = [
+    'subjects',
+    'ENGLISH',
+    'PHYSICS',
+    'MATHEMATICS',
+    'CHEMISTRY',
+    'SOCIAL SCIENCE',
+    'BIOLOGY',
+    'ZOOLOGY',
+    'BOTANY'
+  ];
   String selectedsub = 'subjects';
 
   @override
@@ -233,15 +242,23 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(15),
                   child: Container(
-                    height: 200,
-                    width: 200,
-                    // child: Image.file(
-                    //   _imagelist.isNotEmpty
-                    //       ? _imagelist[0]
-                    //       : File(
-                    //           ''), // Handle the case when _imagelist is empty
-                    // ),
-                  ),
+                      height: 200,
+                      width: 200,
+                      child: ListView.builder(
+                        itemCount: _imagelist.length,
+                        itemBuilder: (context, index){
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              width: 200,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  image: DecorationImage(
+                                      image: FileImage(_imagelist[index]))),
+                            ),
+                          );
+                        },
+                      )),
                 ),
               ),
               const SizedBox(
@@ -286,26 +303,27 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
     );
   }
 
- EditSaveOnclick()async{
-  final editedTitile=_notetitilecontroller.text.trim();
-  final editedNote=_chaptercontrolle.text.trim();
-  final editedCategoery=_categoryController.text.trim();
-  if(editedTitile.isEmpty ||  editedNote.isEmpty || editedCategoery.isEmpty){
-    return;
-  }
-    final updatedNonte=
-    notesData(
-        notetitle: editedTitile, note:editedNote, category:editedCategoery,documentlist: [],imagelists: []);
+  EditSaveOnclick() async {
+    final editedTitile = _notetitilecontroller.text.trim();
+    final editedNote = _chaptercontrolle.text.trim();
+    final editedCategoery = _categoryController.text.trim();
+    if (editedTitile.isEmpty || editedNote.isEmpty || editedCategoery.isEmpty) {
+      return;
+    }
+    final updatedNonte = notesData(
+        notetitle: editedTitile,
+        note: editedNote,
+        category: editedCategoery,
+        documentlist: [],
+        imagelists: []);
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        margin: EdgeInsets.all(10),
-        backgroundColor: Colors.grey,
-        behavior: SnackBarBehavior.floating,
-        content: Text("updated successfully"),
-      ));
+      margin: EdgeInsets.all(10),
+      backgroundColor: Colors.grey,
+      behavior: SnackBarBehavior.floating,
+      content: Text("updated successfully"),
+    ));
 
     editnote(widget.index, updatedNonte);
     Navigator.of(context).pop();
-
-
-}
+  }
 }

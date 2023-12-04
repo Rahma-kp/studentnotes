@@ -10,6 +10,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<String> subject = [
+    'LANGUAGE',
     'ENGLISH',
     'PHYSICS',
     'MATHEMATICS',
@@ -18,6 +19,19 @@ class _HomeScreenState extends State<HomeScreen> {
     'BIOLOGY',
     'ZOOLOGY',
     'BOTANY'
+  ];
+
+  List<String> catogry = [
+    'assets/catogory/lang.jpg',
+    'assets/catogory/eng.jpg',
+    'assets/catogory/phy.jpg',
+    'assets/catogory/math.jpg',
+    'assets/catogory/ch.jpg',
+    'assets/catogory/so.jpg',
+    'assets/catogory/bio.jpg',
+    'assets/catogory/zoo.jpg',
+    'assets/catogory/botany.jpg',
+    'assets/catogory/math.jpg',
   ];
 
   List<String> filteredsubject = [];
@@ -34,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Color.fromARGB(221, 202, 194, 194),
         appBar: AppBar(
           leading: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -51,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
         endDrawer: const Drawer(),
         body: SingleChildScrollView(
           child: Column(children: [
-            // containe the half part--------------------------------------------------------------------------------------
+            // container for the half part--------------------------------------------------------------------------------------
             Container(
               height: 200,
               width: double.infinity,
@@ -100,8 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   alignment: Alignment.topLeft,
                   child: Text(
                     "Subjects",
-                    style:
-                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   )),
             ),
             //  grid view code----------------------------------------------------------------------------------------------
@@ -110,13 +124,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Container(
                   height: 500,
                   child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3),
+                    gridDelegate:
+                        SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
                     itemCount: filteredsubject.length,
                     itemBuilder: (context, index) {
                       if (filteredsubject.isEmpty) {
                         return Center(child: Text("No subjects found"));
                       } else {
+                        // Get the original index from the subject list
+                        int originalIndex =
+                            subject.indexOf(filteredsubject[index]);
+
                         return Padding(
                           padding: const EdgeInsets.all(10),
                           child: GestureDetector(
@@ -132,25 +150,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 70,
                               width: 70,
                               decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: AssetImage(catogry[originalIndex])),
                                 borderRadius: BorderRadius.circular(10),
                                 color: Color.fromARGB(255, 147, 143, 143),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Title(
-                                      color: Colors.black,
-                                      child: Text(
-                                        filteredsubject[index],
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ],
-                                ),
                               ),
                             ),
                           ),
@@ -170,8 +174,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void filterSubjects(String query) {
     setState(() {
       filteredsubject = subject
-          .where((subject) =>
-              subject.toLowerCase().contains(query.toLowerCase()))
+          .where(
+              (subject) => subject.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }

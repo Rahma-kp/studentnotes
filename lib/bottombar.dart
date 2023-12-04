@@ -40,7 +40,7 @@ class _BottomBarState extends State<BottomBar> {
        HomeScreen(),
        TimeTable([]),
        noteaddingscreen(),
-       ChartScreen(),
+       PieChart(),
        settingScreen()
     ];
 

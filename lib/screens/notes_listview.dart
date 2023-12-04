@@ -39,7 +39,6 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
       body: ValueListenableBuilder(
         valueListenable: noteListNotifier,
         builder: (BuildContext ctx, List<notesData> notelist, Widget? child) {
-          // Filter notes based on the selected category
           List<notesData> filteredNotes = notelist
               .where((not) => not.category == widget.selectedsub)
               .toList();
