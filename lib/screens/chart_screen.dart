@@ -38,11 +38,12 @@ class _PieData {
 
 final List<_PieData> pieData = [
   _PieData('ENGLISH', 30, '30%'),
+  _PieData('LANGUAGE', 50, "50%"),
   _PieData('PHYSICS', 30, '30%'),
   _PieData('MATHEMATICS', 20, '20%'),
   _PieData('CHEMISTRY', 15, '15%'),
   _PieData('SOCIAL SCIENCE', 10, '10%'),
   _PieData('BIOLOGY', 25, '25%'),
   _PieData('ZOOLOGY', 45, '45%'),
-  _PieData('BOTANY', 20, '20%')
+  _PieData('BOTANY', 20, '20%'),
 ];

@@ -31,7 +31,8 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
   final List<File> _imagelist = [];
   final List<dynamic> _documentlists = [];
   final List<String> _sujectList = [
-    'subjects',
+    'SUBJECTS',
+    'LANGUAGE',
     'ENGLISH',
     'PHYSICS',
     'MATHEMATICS',
@@ -41,7 +42,7 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
     'ZOOLOGY',
     'BOTANY'
   ];
-  String selectedsub = 'subjects';
+  String selectedsub = 'SUBJECTS';
 
   @override
   void initState() {

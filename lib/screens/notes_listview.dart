@@ -88,8 +88,8 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
                     MaterialPageRoute(
                       builder: (context) => NotEditingScreen(
                         catogery: datas.category!,
-                        documentlist: [],
-                        imagelists: [],
+                        documentlist: datas.documentlist!,
+                        imagelists: datas.imagelists!,
                         notetitle: datas.notetitle!,
                         note: datas.note!,
                         index: index,

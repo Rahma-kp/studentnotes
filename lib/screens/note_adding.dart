@@ -21,9 +21,9 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
   final _categoryController = TextEditingController();
   late List<File> _imagelist = [];
   late List<dynamic> _documentlists = [];
-  String selectedsub = 'subjects';
+  String selectedsub = 'SUBJECTS';
 
-  final List<String> _sujectList = ['subjects','ENGLISH', 'PHYSICS', 'MATHEMATICS','CHEMISTRY','SOCIAL SCIENCE','BIOLOGY','ZOOLOGY','BOTANY'];
+  final List<String> _sujectList = ['SUBJECTS','LANGUAGE','ENGLISH', 'PHYSICS', 'MATHEMATICS','CHEMISTRY','SOCIAL SCIENCE','BIOLOGY','ZOOLOGY','BOTANY'];
 
   @override
   Widget build(BuildContext context) {
@@ -302,6 +302,7 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
       return;
     } else {
       final note1 = notesData(notetitle:_notetile,note: _chapt,documentlist:_documentlists,imagelists: _imagelist, category:_category);
+      print(_imagelist.length);
       addnote(note1);
       _notetitilecontroller.clear();
       _chaptercontroller.clear();
