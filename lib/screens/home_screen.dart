@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:studentnot/screens/notes_listview.dart';
 
 class HomeScreen extends StatefulWidget {
-   final String username;
-  const HomeScreen({Key? key, this.username}) : super(key: key);
+  //  final String username;
+  const HomeScreen({Key? key,}) : super(key: key);
  
 
   @override
@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           title: Text(
-            widget.username ?? "user",
+            'hal',
             style: TextStyle(color: Colors.white),
           ),
           elevation: 0,
