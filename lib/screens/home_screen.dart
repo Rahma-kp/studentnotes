@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:studentnot/screens/notes_listview.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+   final String username;
+  const HomeScreen({Key? key, this.username}) : super(key: key);
+ 
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -57,13 +59,14 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           title: Text(
-            "Adil",
+            widget.username ?? "user",
             style: TextStyle(color: Colors.white),
           ),
           elevation: 0,
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
+          iconTheme: IconThemeData(color: Colors.white),
         ),
-        endDrawer: const Drawer(),
+        endDrawer:  Drawer(),
         body: SingleChildScrollView(
           child: Column(children: [
             // container for the half part--------------------------------------------------------------------------------------
@@ -114,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    "Subjects",
+                    "𝐒𝐮𝐛𝐣𝐞𝐜𝐭𝐬",
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   )),
             ),

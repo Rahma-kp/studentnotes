@@ -15,15 +15,9 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
   late TextEditingController classController;
   File? _img;
 
-  @override
-  void initState() {
-    nameController = TextEditingController();
-    classController = TextEditingController();
-    super.initState();
-  }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(207, 13, 20, 78),
@@ -68,21 +62,8 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    String name = nameController.text;
-                    String className = classController.text;
-
-                    // Save user information to SharedPreferences
-                    // SharedPreferences prefs =
-                    //     await SharedPreferences.getInstance();
-                    // prefs.setString('name', name);
-                    // prefs.setString('className', className);
-
-                    // if (_img != null) {
-                    //   prefs.setString('imagePath', _img!.path);
-                    // }
-
                     Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => BottomBar()),
+                      MaterialPageRoute(builder: (context) => BottomBar(username: '',)),
                     );
                   },
                   child: Container(

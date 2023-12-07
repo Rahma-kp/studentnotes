@@ -1,32 +1,42 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:studentnot/screens/profile_editing_screen.dart';
 
-class drawer extends StatelessWidget {
-  const drawer({super.key});
+class CustomDrawer extends StatelessWidget {
+  const CustomDrawer({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Colors.grey,
+      backgroundColor: const Color.fromARGB(255, 106, 86, 86),
       elevation: 10,
-      child: Column(children: [
-        SizedBox(height: 30),
-        CircleAvatar(radius: 70,
-        backgroundImage: AssetImage("assets/images/person.jpeg")),
-        ListTile(
-          leading: Text("Name:",style: TextStyle(fontSize: 20),),
-          title: Text("Adil",style: TextStyle(fontSize: 20)),
-        ),
-         ListTile(
-          leading: Text("Class:",style: TextStyle(fontSize: 20),),
-          title: Text("10 th",style: TextStyle(fontSize: 20)),
-        ),
-        FloatingActionButton(onPressed: (){
-          Navigator.of(context).push(MaterialPageRoute(builder:(context) => ProfileEditingScreen(), ));
-        },child: Icon(Icons.edit,color: Colors.white),backgroundColor:Color.fromARGB(207, 13, 20, 78),)
-      ]),
-    ); 
+      child: Column(
+        children: [
+          const SizedBox(height: 30),
+          const CircleAvatar(
+            radius: 70,
+            backgroundImage: AssetImage("assets/images/person.jpeg"),
+          ),
+          const ListTile(
+            leading: Text("Name:", style: TextStyle(fontSize: 20)),
+            title: Text("Adil", style: TextStyle(fontSize: 20)),
+          ),
+          const ListTile(
+            leading: Text("Class:", style: TextStyle(fontSize: 20)),
+            title: Text("10th", style: TextStyle(fontSize: 20)),
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const ProfileEditingScreen(),
+                ),
+              );
+            },
+            child: const Icon(Icons.edit, color: Colors.white),
+            backgroundColor: const Color.fromARGB(207, 13, 20, 78),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -31,7 +31,7 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
-          title: const Text("Add chapter",style: TextStyle(color: Colors.white),),
+          title: const Text("𝐀𝐝𝐝𝐂𝐡𝐚𝐩𝐭𝐞𝐫",style: TextStyle(color: Colors.white),),
           actions: [
             TextButton(
                 onPressed: () {
@@ -79,7 +79,7 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
                               fontWeight: FontWeight.bold
                             ),
                             decoration: const InputDecoration(
-                              hintText: "Title",
+                              hintText: "𝐓𝐢𝐭𝐥𝐞",
                               border: UnderlineInputBorder(
                                 borderSide: BorderSide.none,
                               ),
@@ -89,7 +89,7 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'Select the category',
+                      '𝐒𝐞𝐥𝐞𝐜𝐭 𝐒𝐮𝐛𝐣𝐞𝐜𝐭',
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.red,
