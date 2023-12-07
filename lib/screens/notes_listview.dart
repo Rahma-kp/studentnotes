@@ -23,6 +23,7 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         title: Text(widget.selectedsub, style: TextStyle(color: Colors.white)),
         backgroundColor: const Color.fromARGB(207, 13, 20, 78),
         elevation: 0,

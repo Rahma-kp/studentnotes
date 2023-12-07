@@ -75,8 +75,10 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ))
         ],
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       floatingActionButton: SpeedDial(
+        animatedIconTheme: IconThemeData(color: Colors.white),
         animatedIcon: AnimatedIcons.menu_arrow,
         backgroundColor: const Color.fromARGB(207, 13, 20, 78),
         children: [

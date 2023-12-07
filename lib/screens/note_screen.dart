@@ -30,6 +30,7 @@ class _noteViewScreenState extends State<noteViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: const Color.fromARGB(207, 13, 20, 78),
         title: Text(widget.notetitle, style: TextStyle(color: Colors.white)),
       ),

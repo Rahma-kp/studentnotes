@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:studentnot/drawer.dart';
 import 'package:studentnot/screens/setting/about_page.dart';
 import 'package:studentnot/screens/login_screen.dart';
+import 'package:studentnot/screens/setting/logout.dart';
+import 'package:studentnot/screens/setting/restart.dart';
 import 'package:studentnot/screens/setting/terms_screen.dart';
 
 class settingScreen extends StatelessWidget {
@@ -28,13 +30,11 @@ class settingScreen extends StatelessWidget {
               const Divider(), 
               ListTile( leading:const Icon(Icons.restore_outlined),
               title:const Text("Reset App"), trailing:const Text(">",style: TextStyle(fontSize: 30),),onTap: () {
-                
+                resetDB(context);
               },),
               const Divider(),
                ListTile( leading:const Icon(Icons.logout_outlined),
-              title:const Text("Logout"), trailing:const Text(">",style: TextStyle(fontSize: 30),),onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => loginScreen(),));
-              },),
+              title:const Text("Logout"), trailing:const Text(">",style: TextStyle(fontSize: 30),),onTap: () {exitpopup(context);},),
               const Divider(),
     
           ],

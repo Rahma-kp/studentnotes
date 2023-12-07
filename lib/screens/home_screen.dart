@@ -3,8 +3,9 @@ import 'package:studentnot/screens/notes_listview.dart';
 
 class HomeScreen extends StatefulWidget {
   //  final String username;
-  const HomeScreen({Key? key,}) : super(key: key);
- 
+  const HomeScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -66,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
           iconTheme: IconThemeData(color: Colors.white),
         ),
-        endDrawer:  Drawer(),
+        endDrawer: Drawer(),
         body: SingleChildScrollView(
           child: Column(children: [
             // container for the half part--------------------------------------------------------------------------------------
@@ -127,8 +128,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Container(
                   height: 500,
                   child: GridView.builder(
-                    gridDelegate:
-                        SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3),
                     itemCount: filteredsubject.length,
                     itemBuilder: (context, index) {
                       if (filteredsubject.isEmpty) {
