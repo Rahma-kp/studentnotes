@@ -19,13 +19,18 @@ class TodoviewPage extends StatelessWidget {
           backgroundColor: selectedColor, 
           title: Text('𝐓𝐨 𝐃𝐨', style: TextStyle(color: Colors.white)),
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(child: Text(selectedData.subtitle, style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold))),
-              Center(child: Text(selectedData.subabout, style: TextStyle(fontSize: 20))),
-            ],
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(child: Text(selectedData.subtitle, style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold))),
+                  Center(child: Text(selectedData.subabout, style: TextStyle(fontSize: 20))),
+                ],
+              ),
+            ),
           ),
         ),
       ),

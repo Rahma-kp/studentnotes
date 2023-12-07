@@ -15,7 +15,7 @@ class settingScreen extends StatelessWidget {
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
           elevation: 0,
           title: const Text(
-            "Settings",
+            "𝐒𝐞𝐭𝐭𝐢𝐧𝐠𝐬",
             style: TextStyle(color: Colors.white),
           ),
         ),
@@ -31,7 +31,7 @@ class settingScreen extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => AboutPage(),
+                  builder: (context) => About(),
                 ));
               },
             ),
@@ -58,7 +58,7 @@ class settingScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 30),
               ),
               onTap: () {
-               reset();
+              reset().resetApp(context);
               },
             ),
             const Divider(),

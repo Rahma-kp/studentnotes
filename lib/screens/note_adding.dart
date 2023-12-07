@@ -19,21 +19,25 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
   final _notetitilecontroller = TextEditingController();
   final _chaptercontroller = TextEditingController();
   final _categoryController = TextEditingController();
-  final List<File> _imagelist = [];
+  final List<File>? _imagelist = [];
   late List<PlatformFile>? _documentlists = [];
   String selectedsub = 'SUBJECTS';
 
   final List<String> _sujectList = [
     'SUBJECTS',
-    'LANGUAGE',
-    'ENGLISH',
-    'PHYSICS',
-    'MATHEMATICS',
-    'CHEMISTRY',
-    'SOCIAL SCIENCE',
-    'BIOLOGY',
-    'ZOOLOGY',
-    'BOTANY'
+    'Language',
+    'English',
+    'Physics',
+    'Mathematics',
+    'Chemistry',
+    'Social Science',
+    'Biology',
+    'Zoology',
+    'Botany',
+    'Computer',
+    'Snvironmental Management',
+    'Geography',
+    'Health Sciences',
   ];
 
   @override
@@ -222,19 +226,19 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
                     )),
                 Container(
                   height: 400,
-                  width: 500,
+                  width: 900,
                   decoration: BoxDecoration(
                       border: Border.all(style: BorderStyle.solid),
                       borderRadius: BorderRadius.circular(10)),
                   child: ListView.builder(
-                    itemCount: _imagelist.length,
+                    itemCount: _imagelist!.length,
                     itemBuilder: (context, index) {
-                      final img = _imagelist[index];
+                      final img = _imagelist![index];
                       return Padding(
                         padding: const EdgeInsets.all(10),
                         child: GestureDetector(onLongPress: () {
                           setState(() {
-                            _imagelist.removeAt(index);
+                            _imagelist!.removeAt(index);
                           });
                         },
                           child: Container(
@@ -265,7 +269,7 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
                     )),
                 Container(
                   height: 400,
-                  width: 500,
+                  width: 900,
                   decoration: BoxDecoration(
                       border: Border.all(style: BorderStyle.solid),
                       borderRadius: BorderRadius.circular(10)),
@@ -312,7 +316,7 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
     if (pickedImages != null) {
       final imageFile = File(pickedImages.path); // Convert XFile to File
       setState(() {
-        _imagelist.add(imageFile);
+        _imagelist!.add(imageFile);
       });
     }
   }
@@ -360,7 +364,7 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
       _notetitilecontroller.clear();
       _chaptercontroller.clear();
       _categoryController.clear();
-      _imagelist.clear();
+      _imagelist!.clear();
       _documentlists!.clear();
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => NotelistViewScreen(

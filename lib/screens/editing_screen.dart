@@ -32,15 +32,19 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
   final List<dynamic> _documentlists = [];
   final List<String> _sujectList = [
     'SUBJECTS',
-    'LANGUAGE',
-    'ENGLISH',
-    'PHYSICS',
-    'MATHEMATICS',
-    'CHEMISTRY',
-    'SOCIAL SCIENCE',
-    'BIOLOGY',
-    'ZOOLOGY',
-    'BOTANY'
+     'Language',
+    'English',
+    'Physics',
+    'Mathematics',
+    'Chemistry',
+    'Social Science',
+    'Biology',
+    'Zoology',
+    'Botany',
+    'Computer',
+    'Snvironmental Management',
+    'Geography',
+    'Health Sciences',
   ];
   String selectedsub = 'SUBJECTS';
 
@@ -58,7 +62,7 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 158, 156, 156),
-      appBar: AppBar(
+      appBar: AppBar(actionsIconTheme: IconThemeData(color: Colors.white),
         elevation: 0,
         backgroundColor: const Color.fromARGB(207, 13, 20, 78),
         title: const Text("Edit", style: TextStyle(color: Colors.white)),

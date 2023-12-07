@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:studentnot/db/db_model/data_model.dart';
 import 'package:studentnot/db/db_model/note_db.dart';
 import 'package:studentnot/screens/login_screen.dart';
 
@@ -17,11 +18,19 @@ class reset extends ChangeNotifier {
             ),
             actions: [
               TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text(
+                    'Cancel',
+                  )),
+                  TextButton(
                 onPressed: (() async {
                   Navigator.of(context).pop();
-                  final expenseDB =
-                      await Hive.openBox<notesData>('expense_db');
-                  expenseDB.clear();
+                  final notDB= await Hive.openBox<notesData>("note_db");
+                  notDB.clear();
+                  final subDB= await Hive.openBox<subdata>("subdata_db");
+                  subDB.clear();
                 
 
                   Navigator.of(context).pushReplacement(
@@ -36,19 +45,9 @@ class reset extends ChangeNotifier {
                 }),
                 child: const Text(
                   'Yes',
-                  style: TextStyle(
-                    color: Colors.red,
-                  ),
                 ),
               ),
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text(
-                    'No',
-                    style: TextStyle(color: Colors.green),
-                  ))
+
             ],
           );
         });

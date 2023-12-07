@@ -1,7 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:studentnot/db/db_model/note_db.dart';
-import 'package:studentnot/widget/common.dart';
 
 class noteViewScreen extends StatefulWidget {
   final String notetitle;
@@ -11,14 +9,15 @@ class noteViewScreen extends StatefulWidget {
   final List imagelists;
   int index;
 
-  noteViewScreen(
-      {super.key,
-      required this.notetitle,
-      required this.note,
-      required this.catogery,
-      required this.documentlist,
-      required this.imagelists,
-      required this.index});
+  noteViewScreen({
+    Key? key,
+    required this.notetitle,
+    required this.note,
+    required this.catogery,
+    required this.documentlist,
+    required this.imagelists,
+    required this.index,
+  }) : super(key: key);
 
   @override
   State<noteViewScreen> createState() => _noteViewScreenState();
@@ -37,37 +36,71 @@ class _noteViewScreenState extends State<noteViewScreen> {
         child: Center(
           child: Padding(
             padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-            child: Column(children: [
-              Text(
-                widget.note,
-                style: TextStyle(fontSize: 20),
-              ),
-              const SizedBox(height: 20),
-              // if (widget.imagelists.isNotEmpty)
-              //   Text(
-              //     'Images:',
-              //     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              //   ),
-              // if (widget.imagelists.isNotEmpty)
-              //   SizedBox(
-              //     height: 150,
-              //     child: ListView.builder(
-              //       scrollDirection: Axis.horizontal,
-              //       itemCount: widget.imagelists.length,
-              //       itemBuilder: (context, index) {
-              //         return Padding(
-              //           padding: const EdgeInsets.all(8.0),
-              //           child: Image.file(
-              //             File(widget.imagelists[index].path),
-              //             width: 120,
-              //             height: 120,
-              //             fit: BoxFit.cover,
-              //           ),
-              //         );
-              //       },
-              //     ),
-              //   ),
-            ]),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.note,
+                  style: TextStyle(fontSize: 20),
+                ),
+                const SizedBox(height: 20),
+                if (widget.documentlist.isNotEmpty)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Documents:',
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: List.generate(
+                            widget.documentlist.length,
+                            (index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Document ${index + 1}: ${widget.documentlist[index]}',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                if (widget.imagelists.isNotEmpty)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Images:',
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 150,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: widget.imagelists.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.file(
+                                File(widget.imagelists[index].path),
+                                width: 120,
+                                height: 120,
+                                fit: BoxFit.cover,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+              ],
+            ),
           ),
         ),
       ),

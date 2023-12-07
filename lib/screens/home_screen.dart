@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:studentnot/screens/notes_listview.dart';
 
 class HomeScreen extends StatefulWidget {
-  //  final String username;
-  const HomeScreen({
-    Key? key,
-  }) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -13,15 +10,19 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<String> subject = [
-    'LANGUAGE',
-    'ENGLISH',
-    'PHYSICS',
-    'MATHEMATICS',
-    'CHEMISTRY',
-    'SOCIAL SCIENCE',
-    'BIOLOGY',
-    'ZOOLOGY',
-    'BOTANY'
+    'Language',
+    'English',
+    'Physics',
+    'Mathematics',
+    'Chemistry',
+    'Social Science',
+    'Biology',
+    'Zoology',
+    'Botany',
+    'Computer',
+    'Snvironmental Management',
+    'Geography',
+    'Health Sciences',
   ];
 
   List<String> catogry = [
@@ -34,7 +35,10 @@ class _HomeScreenState extends State<HomeScreen> {
     'assets/catogory/bio.jpg',
     'assets/catogory/zoo.jpg',
     'assets/catogory/botany.jpg',
-    'assets/catogory/math.jpg',
+    'assets/catogory/cmp.jpg',
+    'assets/catogory/env.jpg',
+    'assets/catogory/geyo.jpg',
+    'assets/catogory/health.jpg'
   ];
 
   List<String> filteredsubject = [];
@@ -52,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color.fromARGB(221, 202, 194, 194),
-        appBar: AppBar(
+        appBar: AppBar(iconTheme: IconThemeData(color:Colors.white),
           leading: Padding(
             padding: const EdgeInsets.all(8.0),
             child: CircleAvatar(
@@ -60,14 +64,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           title: Text(
-            'hal',
+            "Adil",
             style: TextStyle(color: Colors.white),
           ),
           elevation: 0,
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
-          iconTheme: IconThemeData(color: Colors.white),
         ),
-        endDrawer: Drawer(),
+        endDrawer: const Drawer(),
         body: SingleChildScrollView(
           child: Column(children: [
             // container for the half part--------------------------------------------------------------------------------------
@@ -118,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    "𝐒𝐮𝐛𝐣𝐞𝐜𝐭𝐬",
+                    "𝐒𝐔𝐁𝐉𝐄𝐂𝐓𝐒",
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   )),
             ),
