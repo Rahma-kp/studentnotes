@@ -11,7 +11,6 @@ class noteViewScreen extends StatefulWidget {
   final List imagelists;
   int index;
 
-  // final List<String> imagelist;
   noteViewScreen(
       {super.key,
       required this.notetitle,
@@ -44,30 +43,30 @@ class _noteViewScreenState extends State<noteViewScreen> {
                 style: TextStyle(fontSize: 20),
               ),
               const SizedBox(height: 20),
-              if (widget.imagelists.isNotEmpty)
-                Text(
-                  'Images:',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-              if (widget.imagelists.isNotEmpty)
-                SizedBox(
-                  height: 150,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: widget.imagelists.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.file(
-                          File(widget.imagelists[index].path),
-                          width: 120,
-                          height: 120,
-                          fit: BoxFit.cover,
-                        ),
-                      );
-                    },
-                  ),
-                ),
+              // if (widget.imagelists.isNotEmpty)
+              //   Text(
+              //     'Images:',
+              //     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              //   ),
+              // if (widget.imagelists.isNotEmpty)
+              //   SizedBox(
+              //     height: 150,
+              //     child: ListView.builder(
+              //       scrollDirection: Axis.horizontal,
+              //       itemCount: widget.imagelists.length,
+              //       itemBuilder: (context, index) {
+              //         return Padding(
+              //           padding: const EdgeInsets.all(8.0),
+              //           child: Image.file(
+              //             File(widget.imagelists[index].path),
+              //             width: 120,
+              //             height: 120,
+              //             fit: BoxFit.cover,
+              //           ),
+              //         );
+              //       },
+              //     ),
+              //   ),
             ]),
           ),
         ),

@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:studentnot/bottombar.dart';
 import 'package:studentnot/db/db_functions/db_functions.dart';
 import 'package:studentnot/db/db_functions/db_note_function.dart';
 import 'package:studentnot/db/db_model/data_model.dart';

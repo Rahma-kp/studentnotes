@@ -1,12 +1,14 @@
 
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:studentnot/screens/add_screen.dart';
 import 'package:studentnot/screens/chart_screen.dart';
 import 'package:studentnot/screens/home_screen.dart';
 import 'package:studentnot/screens/login_screen.dart';
 import 'package:studentnot/screens/note_adding.dart';
 import 'package:studentnot/screens/setting/setting_screen.dart';
 import 'package:studentnot/screens/time_table.dart';
+import 'package:studentnot/screens/todaylist.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key, required String username});
@@ -38,9 +40,8 @@ class _BottomBarState extends State<BottomBar> {
   //   });
   // }
     final Pages=[
-      //  loginScreen(),
        HomeScreen(),
-      //  TimeTable([]),
+       TodoList(),
        noteaddingscreen(),
        PieChart(),
        settingScreen()
@@ -61,7 +62,7 @@ class _BottomBarState extends State<BottomBar> {
           },
           items: const [
             Icon(Icons.home),
-            // Icon(Icons.calendar_month_outlined),
+            Icon(Icons.calendar_month_outlined),
             Icon(Icons.add),
             Icon(Icons.bar_chart_sharp),
             Icon(Icons.settings)

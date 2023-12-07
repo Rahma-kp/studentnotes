@@ -7,7 +7,8 @@ class terms extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor:const Color.fromARGB(207, 13, 20, 78), title: Text("Terms and conditions"),),
+      appBar: AppBar(iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor:const Color.fromARGB(207, 13, 20, 78), title: Text("Terms and conditions",style: TextStyle(color: Colors.white),),),
       body: const SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(20),

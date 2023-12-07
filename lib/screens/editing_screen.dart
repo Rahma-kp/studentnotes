@@ -70,7 +70,7 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
                 });
               },
               child: Text(
-                "Save",
+                "𝐒𝐚𝐯𝐞",
                 style:
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ))

@@ -43,7 +43,7 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
           title: const Text(
-            "𝐀𝐝𝐝𝐂𝐡𝐚𝐩𝐭𝐞𝐫",
+            "𝐀𝐝𝐝 𝐂𝐡𝐚𝐩𝐭𝐞𝐫",
             style: TextStyle(color: Colors.white),
           ),
           actions: [
@@ -52,8 +52,8 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
                   onAddNoteOnClick(context);
                 },
                 child: const Text(
-                  "Save",
-                  style: TextStyle(color: Colors.white),
+                  "𝐒𝐚𝐯𝐞",
+                  style: TextStyle(color: Colors.white,fontSize: 19),
                 ))
           ],
           iconTheme: IconThemeData(color: Colors.white),
@@ -188,7 +188,7 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
                       border: Border.all(style: BorderStyle.solid),
                       borderRadius: BorderRadius.circular(10)),
                   height: 400,
-                  width: 500,
+                  width: 700,
                   child: Padding(
                     padding: const EdgeInsets.all(10),
                     child: TextFormField(
@@ -232,13 +232,19 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
                       final img = _imagelist[index];
                       return Padding(
                         padding: const EdgeInsets.all(10),
-                        child: Container(
-                          height: 300,
-                          width: 200,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              image: DecorationImage(
-                                  image: FileImage(img), fit: BoxFit.fill)),
+                        child: GestureDetector(onLongPress: () {
+                          setState(() {
+                            _imagelist.removeAt(index);
+                          });
+                        },
+                          child: Container(
+                            height: 300,
+                            width: 200,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                image: DecorationImage(
+                                    image: FileImage(img), fit: BoxFit.fill)),
+                          ),
                         ),
                       );
                     },
@@ -280,6 +286,9 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
                                   Color.fromARGB(221, 130, 136, 147),
                               title: Text('${_documentlists![index].name}'),
                               subtitle: Text('${_documentlists![index].path}'),
+                              trailing: IconButton(onPressed: (){setState(() {
+                                _documentlists!.removeAt(index);
+                              });}, icon:Icon(Icons.close)),
                             ),
                           ),
                         ),

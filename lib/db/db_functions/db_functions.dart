@@ -17,3 +17,8 @@ Future<void> getAlldata()async{
   SubListNotifier.value.addAll(subDB.values);
   SubListNotifier.notifyListeners();
 }
+Future<void> deleteTodo(int index)async{
+  final notDB= await Hive.openBox<subdata>("subdata_db"); 
+   await notDB.deleteAt(index);
+  getAlldata();
+}
