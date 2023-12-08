@@ -24,17 +24,17 @@ class About extends StatelessWidget {
                 const Text(''' 
               Welcome to the MyNote! 
         
-              Easy Tracker makes life easier!
+              Mynote make easy study!
         
-          A Easy Tracker app  designed to help individuals to monitor and manage their financial transactions.
-          These transactions can include everything from daily purchases and bills to larger expenses like rent and investments.
-          The primary goal of an expense tracker is to provide users with a comprehensive overview of their spending 
-          patterns,enabling them to make informed decisions about their finances.
+          A MyNote app  designed to help store , monitor and manage their notes.
+          These including doument and images also we can store daily bases notes.
+          The primary goal of an mynote is to provide users with a comprehensive overview of their spending 
+          patterns,enabling them to make informed decisions about their study.
         .
         
              
         
-              Is Easy Pay a safe app:-
+              Is Mynote a safe app:-
         
         Easy Tracker does not handle any cash transactions,nor does it link to personal banking details,making it safer than other Apps. 
         

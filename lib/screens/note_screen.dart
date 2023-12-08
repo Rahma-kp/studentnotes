@@ -79,18 +79,16 @@ class _noteViewScreenState extends State<noteViewScreen> {
                         'Images:',
                         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(
-                        height: 150,
+                      SizedBox(height: 1000,
                         child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
                           itemCount: widget.imagelists.length,
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Image.file(
-                                File(widget.imagelists[index].path),
-                                width: 120,
-                                height: 120,
+                                File(widget.imagelists[index]),
+                                width: 500,
+                                height: 300,
                                 fit: BoxFit.cover,
                               ),
                             );

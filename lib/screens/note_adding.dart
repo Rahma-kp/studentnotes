@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:open_file/open_file.dart';
 import 'package:studentnot/db/db_functions/db_note_function.dart';
@@ -19,7 +20,7 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
   final _notetitilecontroller = TextEditingController();
   final _chaptercontroller = TextEditingController();
   final _categoryController = TextEditingController();
-  final List<File>? _imagelist = [];
+  final List<String>? _imagelist = [];
   late List<PlatformFile>? _documentlists = [];
   String selectedsub = 'SUBJECTS';
 
@@ -35,7 +36,7 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
     'Zoology',
     'Botany',
     'Computer',
-    'Snvironmental Management',
+    'Environmental',
     'Geography',
     'Health Sciences',
   ];
@@ -57,7 +58,7 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
                 },
                 child: const Text(
                   "𝐒𝐚𝐯𝐞",
-                  style: TextStyle(color: Colors.white,fontSize: 19),
+                  style: TextStyle(color: Colors.white, fontSize: 19),
                 ))
           ],
           iconTheme: IconThemeData(color: Colors.white),
@@ -236,18 +237,20 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
                       final img = _imagelist![index];
                       return Padding(
                         padding: const EdgeInsets.all(10),
-                        child: GestureDetector(onLongPress: () {
-                          setState(() {
-                            _imagelist!.removeAt(index);
-                          });
-                        },
+                        child: GestureDetector(
+                          onLongPress: () {
+                            setState(() {
+                              _imagelist!.removeAt(index);
+                            });
+                          },
                           child: Container(
                             height: 300,
                             width: 200,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
                                 image: DecorationImage(
-                                    image: FileImage(img), fit: BoxFit.fill)),
+                                    image: FileImage(File(img)),
+                                    fit: BoxFit.fill)),
                           ),
                         ),
                       );
@@ -286,13 +289,16 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)),
                             child: ListTile(
-                              tileColor:
-                                  Color.fromARGB(221, 130, 136, 147),
+                              tileColor: Color.fromARGB(221, 130, 136, 147),
                               title: Text('${_documentlists![index].name}'),
                               subtitle: Text('${_documentlists![index].path}'),
-                              trailing: IconButton(onPressed: (){setState(() {
-                                _documentlists!.removeAt(index);
-                              });}, icon:Icon(Icons.close)),
+                              trailing: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      _documentlists!.removeAt(index);
+                                    });
+                                  },
+                                  icon: Icon(Icons.close)),
                             ),
                           ),
                         ),
@@ -315,8 +321,10 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
 
     if (pickedImages != null) {
       final imageFile = File(pickedImages.path); // Convert XFile to File
+      final imagePath = imageFile.path;
+
       setState(() {
-        _imagelist!.add(imageFile);
+        _imagelist!.add(imagePath);
       });
     }
   }
@@ -334,6 +342,8 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
     }
   }
 
+
+
   Future<void> openFile(PlatformFile file) async {
     final filePath = file.path;
     final fileName = file.name;
@@ -345,20 +355,21 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
       print(error);
     }
   }
-
   // ------save button function--------------------------------------
   Future<void> onAddNoteOnClick(BuildContext context) async {
     final _notetile = _notetitilecontroller.text.trim();
     final _chapt = _chaptercontroller.text.trim();
     final _category = _categoryController.text.trim();
+    final _doc = _documentlists!.toList();
+    final _imges = _imagelist!.toList();
     if (_notetile.isEmpty || _chapt.isEmpty || _category.isEmpty) {
       return;
     } else {
       final note1 = notesData(
           notetitle: _notetile,
           note: _chapt,
-          documentlist: _documentlists,
-          imagelists: _imagelist,
+          documentlist: _doc,
+          imagelists: _imges,
           category: _category);
       addnote(note1);
       _notetitilecontroller.clear();
@@ -369,6 +380,8 @@ class _noteaddingscreenState extends State<noteaddingscreen> {
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => NotelistViewScreen(
                 selectedsub: selectedsub,
+                documentlists: _doc,
+                imagelists: _imges,
               )));
     }
   }

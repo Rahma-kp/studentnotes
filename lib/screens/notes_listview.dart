@@ -1,4 +1,4 @@
-import 'dart:io';
+
 
 import 'package:flutter/material.dart';
 import 'package:studentnot/db/db_functions/db_note_function.dart';
@@ -9,7 +9,9 @@ import 'package:studentnot/screens/note_screen.dart';
 
 class NotelistViewScreen extends StatefulWidget {
   final String selectedsub;
-  NotelistViewScreen({required this.selectedsub,});
+  final List documentlists;
+  final List imagelists;
+  NotelistViewScreen({required this.selectedsub,required this.documentlists,required this.imagelists});
 
   @override
   State<NotelistViewScreen> createState() => _NotelistViewScreenState();

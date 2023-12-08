@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
     'Zoology',
     'Botany',
     'Computer',
-    'Snvironmental Management',
+    'Environmental',
     'Geography',
     'Health Sciences',
   ];
@@ -41,7 +41,8 @@ class _HomeScreenState extends State<HomeScreen> {
     'assets/catogory/health.jpg'
   ];
 
-  List<String> filteredsubject = [];
+  List<String> 
+  filteredsubject = [];
 
   TextEditingController searchController = TextEditingController();
 
@@ -136,9 +137,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemCount: filteredsubject.length,
                     itemBuilder: (context, index) {
                       if (filteredsubject.isEmpty) {
-                        return Center(child: Text("No subjects found"));
+                        return Center(child: Text("No subjects found",style: TextStyle(color: Colors.amber),));
                       } else {
-                        // Get the original index from the subject list
                         int originalIndex =
                             subject.indexOf(filteredsubject[index]);
 
@@ -149,6 +149,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               String selectedsub = filteredsubject[index];
                               Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => NotelistViewScreen(
+                                  documentlists:[],
+                                  imagelists: [],
                                   selectedsub: selectedsub,
                                 ),
                               ));
