@@ -20,7 +20,7 @@ class notesDataAdapter extends TypeAdapter<notesData> {
       notetitle: fields[0] as String?,
       note: fields[1] as String?,
       imagelists: (fields[2] as List?)?.cast<dynamic>(),
-      documentlist: (fields[3] as List?)?.cast<dynamic>(),
+      documentlist: (fields[3] as List?)?.cast<PlatformFile>(),
       category: fields[4] as String?,
     );
   }

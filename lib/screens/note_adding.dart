@@ -9,14 +9,14 @@ import 'package:studentnot/db/db_functions/db_note_function.dart';
 import 'package:studentnot/db/db_model/note_db.dart';
 import 'package:studentnot/screens/notes_listview.dart';
 
-class noteaddingscreen extends StatefulWidget {
-  noteaddingscreen({super.key});
+class NoteAdding extends StatefulWidget {
+  NoteAdding({super.key});
 
   @override
-  State<noteaddingscreen> createState() => _noteaddingscreenState();
+  State<NoteAdding> createState() => _NoteAddingState();
 }
 
-class _noteaddingscreenState extends State<noteaddingscreen> {
+class _NoteAddingState extends State<NoteAdding> {
   final _notetitilecontroller = TextEditingController();
   final _chaptercontroller = TextEditingController();
   final _categoryController = TextEditingController();

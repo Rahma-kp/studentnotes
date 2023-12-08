@@ -39,7 +39,7 @@ class _BottomBarState extends State<BottomBar> {
     final Pages=[
        HomeScreen(),
        TodoList(),
-       noteaddingscreen(),
+       NoteAdding(),
        PieChart(),
        settingScreen()
     ];

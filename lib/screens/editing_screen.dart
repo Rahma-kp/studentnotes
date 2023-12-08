@@ -298,7 +298,6 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
       behavior: SnackBarBehavior.floating,
       content: Text("updated successfully"),
     ));
-
     editnote(widget.index, updatedNonte);
     Navigator.of(context).pop();
   }
