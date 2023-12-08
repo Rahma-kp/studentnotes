@@ -1,4 +1,6 @@
 
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:studentnot/screens/chart_screen.dart';
@@ -25,23 +27,15 @@ class _BottomBarState extends State<BottomBar> {
   @override
   void initState() {
     super.initState();
-    // _loadPreferences();
   }
 
-  // Future<void> _loadPreferences() async {
-  //   prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     name = prefs.getString('name') ?? '';
-  //     className = prefs.getString('class name') ?? '';
-  //     imagePath = prefs.getString('imagepath') ?? '';
-  //   });
-  // }
+ 
     final Pages=[
-       HomeScreen(),
+       const HomeScreen(),
        TodoList(),
-       NoteAdding(),
-       PieChart(),
-       settingScreen()
+       const NoteAdding(),
+       const PieChart(),
+       const settingScreen()
     ];
 
   @override

@@ -6,7 +6,7 @@ import 'package:studentnot/db/db_model/note_db.dart';
 import 'package:studentnot/screens/login_screen.dart';
 
 
-class reset extends ChangeNotifier {
+class reSet extends ChangeNotifier {
   resetApp(BuildContext context) {
     showDialog(
         context: context,
@@ -29,13 +29,13 @@ class reset extends ChangeNotifier {
                   Navigator.of(context).pop();
                   final notDB= await Hive.openBox<notesData>("note_db");
                   notDB.clear();
-                  final subDB= await Hive.openBox<subdata>("subdata_db");
+                  final subDB= await Hive.openBox<SubData>("subdata_db");
                   subDB.clear();
                 
 
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context) => loginScreen(),
+                      builder: (context) => LoginScreen(),
                     ),
                   );
 

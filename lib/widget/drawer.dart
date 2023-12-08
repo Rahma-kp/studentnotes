@@ -32,8 +32,8 @@ class CustomDrawer extends StatelessWidget {
                 ),
               );
             },
-            child: const Icon(Icons.edit, color: Colors.white),
             backgroundColor: const Color.fromARGB(207, 13, 20, 78),
+            child: const Icon(Icons.edit, color: Colors.white),
           ),
         ],
       ),

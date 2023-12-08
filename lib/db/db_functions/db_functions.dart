@@ -2,23 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:studentnot/db/db_model/data_model.dart';
 
-ValueNotifier<List<subdata>>SubListNotifier= ValueNotifier([]);
+ValueNotifier<List<SubData>>subListNotifier= ValueNotifier([]);
 
-Future<void> addSub(subdata value) async{
+Future<void> addSub(SubData value) async{
 
-  final subDB= await Hive.openBox<subdata>("subdata_db");
+  final subDB= await Hive.openBox<SubData>("subdata_db");
   await subDB.add(value);
-  SubListNotifier.value.add(value);
-  SubListNotifier.notifyListeners();
+  subListNotifier.value.add(value);
+  subListNotifier.notifyListeners();
 }
 Future<void> getAlldata()async{
-  final subDB= await Hive.openBox<subdata>("subdata_db");
-  SubListNotifier.value.clear();
-  SubListNotifier.value.addAll(subDB.values);
-  SubListNotifier.notifyListeners();
+  final subDB= await Hive.openBox<SubData>("subdata_db");
+  subListNotifier.value.clear();
+  subListNotifier.value.addAll(subDB.values);
+  subListNotifier.notifyListeners();
 }
 Future<void> deleteTodo(int index)async{
-  final notDB= await Hive.openBox<subdata>("subdata_db"); 
+  final notDB= await Hive.openBox<SubData>("subdata_db"); 
    await notDB.deleteAt(index);
   getAlldata();
 }

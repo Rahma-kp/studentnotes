@@ -6,18 +6,18 @@ class TodoviewPage extends StatelessWidget {
   final int selectedIndex;
   final Color selectedColor;
 
-  TodoviewPage({Key? key, required this.selectedIndex, required this.selectedColor}) : super(key: key);
+  const TodoviewPage({super.key, required this.selectedIndex, required this.selectedColor});
 
   @override
   Widget build(BuildContext context) {
-    subdata selectedData = SubListNotifier.value[selectedIndex];
+    SubData selectedData = subListNotifier.value[selectedIndex];
 
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme: const IconThemeData(color: Colors.white),
           backgroundColor: selectedColor, 
-          title: Text('𝐓𝐨 𝐃𝐨', style: TextStyle(color: Colors.white)),
+          title: const Text('𝐓𝐨 𝐃𝐨', style: TextStyle(color: Colors.white)),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -26,8 +26,8 @@ class TodoviewPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Center(child: Text(selectedData.subtitle, style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold))),
-                  Center(child: Text(selectedData.subabout, style: TextStyle(fontSize: 20))),
+                  Center(child: Text(selectedData.subtitle, style: const TextStyle(fontSize: 35, fontWeight: FontWeight.bold))),
+                  Center(child: Text(selectedData.subabout, style: const TextStyle(fontSize: 20))),
                 ],
               ),
             ),

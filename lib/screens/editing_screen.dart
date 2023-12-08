@@ -1,9 +1,13 @@
 import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:open_file/open_file.dart';
 import 'package:studentnot/db/db_functions/db_note_function.dart';
 import 'package:studentnot/db/db_model/note_db.dart';
 
+// ignore: must_be_immutable
 class NotEditingScreen extends StatefulWidget {
   final String notetitle;
   final String note;
@@ -12,7 +16,8 @@ class NotEditingScreen extends StatefulWidget {
   final List imagelists;
   int index;
   NotEditingScreen(
-      {required this.notetitle,
+      {super.key,
+      required this.notetitle,
       required this.note,
       required this.catogery,
       required this.documentlist,
@@ -52,8 +57,7 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
     _notetitilecontroller = TextEditingController(text: widget.notetitle);
     _chaptercontrolle = TextEditingController(text: widget.note);
     _categoryController = TextEditingController(text: widget.catogery);
-    _imagelist!=List.from(widget.imagelists);
-    // _documentlists.addAll(widget.documentlist);
+    _imagelist != List.from(widget.imagelists);
     super.initState();
   }
 
@@ -63,7 +67,7 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 158, 156, 156),
         appBar: AppBar(
-          actionsIconTheme: IconThemeData(color: Colors.white),
+          actionsIconTheme: const IconThemeData(color: Colors.white),
           elevation: 0,
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
           title: const Text("Edit", style: TextStyle(color: Colors.white)),
@@ -71,35 +75,44 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
             TextButton(
                 onPressed: () {
                   setState(() {
-                    EditSaveOnclick();
+                    editsaveonclick();
+
+                    ///
                   });
                 },
-                child: Text(
+                child: const Text(
                   "𝐒𝐚𝐯𝐞",
-                  style:
-                      TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
                 ))
           ],
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme: const IconThemeData(color: Colors.white),
         ),
         floatingActionButton: SpeedDial(
-          animatedIconTheme: IconThemeData(color: Colors.white),
           animatedIcon: AnimatedIcons.menu_arrow,
+          animatedIconTheme: const IconThemeData(color: Colors.white),
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
           children: [
             SpeedDialChild(
-              child: const Icon(Icons.add_a_photo_outlined, color: Colors.white),
+              child:
+                  const Icon(Icons.add_a_photo_outlined, color: Colors.white),
               backgroundColor: const Color.fromARGB(207, 13, 20, 78),
+              onTap: () {
+                pickImages();
+              },
             ),
             SpeedDialChild(
-              child: const Icon(
-                Icons.picture_as_pdf,
-                color: Colors.white,
-              ),
-              backgroundColor: const Color.fromARGB(207, 13, 20, 78),
-            )
+                child: const Icon(
+                  Icons.picture_as_pdf,
+                  color: Colors.white,
+                ),
+                backgroundColor: const Color.fromARGB(207, 13, 20, 78),
+                onTap: () {
+                  // pickFiless();
+                })
           ],
         ),
+        // --------------------------------------------------------------------------------
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(15),
@@ -204,15 +217,50 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
                   ),
                 ),
                 Container(
-                  height: 400,
-                  width: 500,
                   decoration: BoxDecoration(
-                    border: Border.all(style: BorderStyle.solid),
-                    borderRadius: BorderRadius.circular(10),
+                      border: Border.all(style: BorderStyle.solid),
+                      borderRadius: BorderRadius.circular(10)),
+                  height: 400,
+                  width: 700,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: TextFormField(
+                      controller: _chaptercontrolle,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: 20,
+                      style: const TextStyle(
+                        fontSize: 20,
+                      ),
+                      decoration: const InputDecoration(
+                        hintText: "Start writing.........",
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                    ),
                   ),
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                const Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "𝐈𝐌𝐀𝐆𝐄𝐒",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )),
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(style: BorderStyle.solid),
+                      borderRadius: BorderRadius.circular(10)),
+                  height: 400,
+                  width: 700,
                   child: Padding(
                     padding: const EdgeInsets.all(15),
-                    child: Container(
+                    child: SizedBox(
                       height: 200,
                       width: 200,
                       child: ListView.builder(
@@ -239,38 +287,37 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
                     ),
                   ),
                 ),
-                // const Align(
-                //   alignment: Alignment.topLeft,
-                //   child: Text(
-                //     "𝐃𝐎𝐂𝐔𝐌𝐄𝐍𝐓𝐒",
-                //     style: TextStyle(
-                //       fontSize: 20,
-                //       fontWeight: FontWeight.bold,
-                //     ),
-                //   ),
-                // ),
-                // Container(
-                //   height: 400,
-                //   width: 500,
-                //   decoration: BoxDecoration(
-                //     border: Border.all(style: BorderStyle.solid),
-                //     borderRadius: BorderRadius.circular(10),
-                //   ),
-                //   child: ListView.builder(
-                //     itemCount: _documentlists.length,
-                //     itemBuilder: (context, index) {
-                //       final dmc = _documentlists[index];
-                //       return Padding(
-                //         padding: const EdgeInsets.all(10),
-                //         child: GestureDetector(
-                //           child: PDFView(
-                //             filePath: dmc.path,
-                //           ),
-                //         ),
-                //       );
-                //     },
-                //   ),
-                // ),)
+                const Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    "𝐃𝐎𝐂𝐔𝐌𝐄𝐍𝐓𝐒",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                Container(
+                  height: 400,
+                  width: 500,
+                  decoration: BoxDecoration(
+                    border: Border.all(style: BorderStyle.solid),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: ListView.builder(
+                    itemCount: _documentlists.length,
+                    itemBuilder: (context, index) {
+                      // final dmc = _documentlists[index];
+                      return Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: GestureDetector(),
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
           ),
@@ -279,7 +326,46 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
     );
   }
 
-  EditSaveOnclick() async {
+  Future<void> pickImages() async {
+    final picker = ImagePicker();
+    final pickedImages = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedImages != null) {
+      final imageFile = File(pickedImages.path); // Convert XFile to File
+      final imagePath = imageFile.path;
+
+      setState(() {
+        _imagelist.add(imagePath);
+      });
+    }
+  }
+
+  // void pickFiless() async {
+  //   FilePickerResult? result = await FilePicker.platform.pickFiles(
+  //     type: FileType.any,
+  //     allowMultiple: true,
+  //   );
+
+  //   if (result != null && result.files.isNotEmpty) {
+  //     setState(() {
+  //       _documentlists = result.files;
+  //     });
+  //   }
+  // }
+
+  Future<void> openFile(PlatformFile file) async {
+    final filePath = file.path;
+    final fileName = file.name;
+
+    try {
+      await OpenFile.open(filePath);
+      print(fileName);
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  editsaveonclick() async {
     final editedTitile = _notetitilecontroller.text.trim();
     final editedNote = _chaptercontrolle.text.trim();
     final editedCategoery = _categoryController.text.trim();
@@ -298,7 +384,10 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
       behavior: SnackBarBehavior.floating,
       content: Text("updated successfully"),
     ));
-    editnote(widget.index, updatedNonte);
+    setState(() {
+      editnote(widget.index, updatedNonte);
+    });
+
     Navigator.of(context).pop();
   }
 }

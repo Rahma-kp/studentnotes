@@ -3,17 +3,17 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:studentnot/bottombar.dart';
+import 'package:studentnot/widget/bottombar.dart';
 import 'package:studentnot/main.dart';
 
-class loginScreen extends StatefulWidget {
-  loginScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<loginScreen> createState() => _loginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _loginScreenState extends State<loginScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController classController = TextEditingController();
   final ImagePicker imagePicker = ImagePicker();
@@ -40,15 +40,16 @@ class _loginScreenState extends State<loginScreen> {
                     "assets/images/img1-removebg-preview.png",
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 GestureDetector(
                   onTap: () => getimage(ImageSource.camera),
                   child: CircleAvatar(
                     backgroundColor: const Color.fromARGB(255, 223, 176, 176),
+                    radius: 60,
                     child: picked == null
-                        ? Icon(Icons.add_a_photo)
+                        ? const Icon(Icons.add_a_photo)
                         : ClipOval(
                             child: Image.file(
                               picked!,
@@ -57,24 +58,23 @@ class _loginScreenState extends State<loginScreen> {
                               width: 120,
                             ),
                           ),
-                    radius: 60,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 70, right: 70, top: 30),
                   child: TextFormField(
                     controller: usernameController,
-                    decoration: InputDecoration(hintText: "Username...."),
+                    decoration: const InputDecoration(hintText: "Username...."),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 70, right: 70, top: 30),
                   child: TextFormField(
                     controller: classController,
-                    decoration: InputDecoration(hintText: "Class...."),
+                    decoration: const InputDecoration(hintText: "Class...."),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 GestureDetector(
@@ -87,10 +87,10 @@ class _loginScreenState extends State<loginScreen> {
                     height: 40,
                     width: 100,
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(207, 13, 20, 78),
+                      color: const Color.fromARGB(207, 13, 20, 78),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Center(
+                    child: const Center(
                       child: Text(
                         "Let's Go...",
                         style: TextStyle(color: Colors.white),
@@ -113,17 +113,17 @@ class _loginScreenState extends State<loginScreen> {
   }
 
    void checkLogin(BuildContext ctx) async {
-    final _username = usernameController.text;
-    final _password = classController.text;
+    final username = usernameController.text;
+    final password = classController.text;
 
-    if (_username == _password) {
-      print('Ready\nLoggedIn');
+    if (username == password) {
+      
 
-      final _sharedprefs = await SharedPreferences.getInstance();
-      await _sharedprefs.setBool(SAVE_KEY_NAME, true);
+      final sharedprefs = await SharedPreferences.getInstance();
+      await sharedprefs.setBool(SAVE_KEY_NAME, true);
 
       Navigator.of(ctx).pushReplacement(
-        MaterialPageRoute(builder: (ctx1) => BottomBar(username: '',)),
+        MaterialPageRoute(builder: (ctx1) => const BottomBar(username: '',)),
       );
     } else {
       print("Username or password not match");
@@ -131,17 +131,17 @@ class _loginScreenState extends State<loginScreen> {
         context: context,
         builder: (context1) {
           return AlertDialog(
-            title: Text(
+            title: const Text(
               'Ooops',
               style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
             ),
-            content: Text('Enter Valid Password!'),
+            content: const Text('Enter Valid Password!'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context1).pop();
                 },
-                child: Text('Close'),
+                child: const Text('Close'),
               ),
             ],
           );

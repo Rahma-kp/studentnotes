@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:studentnot/screens/notes_listview.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -56,15 +56,15 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color.fromARGB(221, 202, 194, 194),
-        appBar: AppBar(iconTheme: IconThemeData(color:Colors.white),
-          leading: Padding(
-            padding: const EdgeInsets.all(8.0),
+        backgroundColor: const Color.fromARGB(221, 202, 194, 194),
+        appBar: AppBar(iconTheme: const IconThemeData(color:Colors.white),
+          leading: const Padding(
+            padding: EdgeInsets.all(8.0),
             child: CircleAvatar(
               backgroundImage: AssetImage("assets/images/person.jpeg"),
             ),
           ),
-          title: Text(
+          title: const Text(
             "Adil",
             style: TextStyle(color: Colors.white),
           ),
@@ -126,18 +126,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   )),
             ),
-            //  grid view code----------------------------------------------------------------------------------------------
+ //  grid view code----------------------------------------------------------------------------------------------
             Builder(
               builder: (context) {
-                return Container(
+                return SizedBox(
                   height: 500,
                   child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3),
                     itemCount: filteredsubject.length,
                     itemBuilder: (context, index) {
                       if (filteredsubject.isEmpty) {
-                        return Center(child: Text("No subjects found",style: TextStyle(color: Colors.amber),));
+                        return const Center(child: Text("No subjects found",style: TextStyle(color: Colors.amber),));
                       } else {
                         int originalIndex =
                             subject.indexOf(filteredsubject[index]);
@@ -149,8 +149,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               String selectedsub = filteredsubject[index];
                               Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => NotelistViewScreen(
-                                  documentlists:[],
-                                  imagelists: [],
+                                  documentlists: [],
+                                  imagelists:  [],
                                   selectedsub: selectedsub,
                                 ),
                               ));
@@ -163,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     fit: BoxFit.fill,
                                     image: AssetImage(catogry[originalIndex])),
                                 borderRadius: BorderRadius.circular(10),
-                                color: Color.fromARGB(255, 147, 143, 143),
+                                color: const Color.fromARGB(255, 147, 143, 143),
                               ),
                             ),
                           ),

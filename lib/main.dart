@@ -13,8 +13,8 @@ const String SAVE_KEY_NAME = 'user_logged_in';
  Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
  await Hive.initFlutter();
- if(!Hive.isAdapterRegistered(subdataAdapter().typeId)){
-  Hive.registerAdapter(subdataAdapter());
+ if(!Hive.isAdapterRegistered(SubDataAdapter().typeId)){
+  Hive.registerAdapter(SubDataAdapter());
  }
  WidgetsFlutterBinding.ensureInitialized();
  await Hive.initFlutter();
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
     getAllNoteData();
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:splashScreen(),
+      home:SplashScreen(),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 
-class noteViewScreen extends StatefulWidget {
+class NoteViewScreen extends StatefulWidget {
   final String notetitle;
   final String note;
   final String catogery;
@@ -9,7 +9,7 @@ class noteViewScreen extends StatefulWidget {
   final List imagelists;
   int index;
 
-  noteViewScreen({
+  NoteViewScreen({
     Key? key,
     required this.notetitle,
     required this.note,
@@ -20,10 +20,10 @@ class noteViewScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<noteViewScreen> createState() => _noteViewScreenState();
+  State<NoteViewScreen> createState() => _NoteViewScreenState();
 }
 
-class _noteViewScreenState extends State<noteViewScreen> {
+class _NoteViewScreenState extends State<NoteViewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,21 +79,21 @@ class _noteViewScreenState extends State<noteViewScreen> {
                         'Images:',
                         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 1000,
-                        child: ListView.builder(
-                          itemCount: widget.imagelists.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.file(
-                                File(widget.imagelists[index]),
-                                width: 500,
-                                height: 300,
-                                fit: BoxFit.cover,
-                              ),
-                            );
-                          },
-                        ),
+                      ListView.builder(
+                        shrinkWrap: true, // Important to allow ListView in a Column
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: widget.imagelists.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.file(
+                              File(widget.imagelists[index]),
+                              width: 500,
+                              height: 300,
+                              fit: BoxFit.cover,
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),

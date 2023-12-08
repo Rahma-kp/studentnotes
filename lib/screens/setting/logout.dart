@@ -6,17 +6,17 @@ Future<dynamic> exitpopup(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text("Confirm Logout"),
-        content: Text("Are you sure you want to Logout app?"),
+        title: const Text("Confirm Logout"),
+        content: const Text("Are you sure you want to Logout app?"),
         actions: [
           TextButton(
-            child: Text("cancel"),
+            child: const Text("cancel"),
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
           TextButton(
-            child: Text("ok"),
+            child: const Text("ok"),
             onPressed: () {
               SystemNavigator.pop();
             },

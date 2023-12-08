@@ -8,7 +8,7 @@ import 'package:studentnot/screens/todoviewpage.dart';
 
 class TodoList extends StatelessWidget {
   final List<Color> gridcolor = [
-    Color.fromARGB(255, 220, 160, 160),
+    const Color.fromARGB(255, 220, 160, 160),
     const Color.fromARGB(255, 139, 193, 141),
     const Color.fromARGB(255, 135, 167, 194),
     const Color.fromARGB(255, 219, 164, 80),
@@ -20,30 +20,30 @@ class TodoList extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme: const IconThemeData(color: Colors.white),
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
-          title: Text('𝐓𝐨𝐝𝐚𝐲 𝐋𝐢𝐬𝐭', style: TextStyle(color: Colors.white)),
+          title: const Text('𝐓𝐨𝐝𝐚𝐲 𝐋𝐢𝐬𝐭', style: TextStyle(color: Colors.white)),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => addSubejectScreen(),
+              builder: (context) => AddSubject(),
             ));
           },
-          child: Icon(Icons.add, color: Colors.white),
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
+          child:  const Icon(Icons.add, color: Colors.white),
         ),
         body: SingleChildScrollView(
           child: Column(
             children: [
               Builder(builder: (context) {
-                return ValueListenableBuilder<List<subdata>>(
-                  valueListenable: SubListNotifier,
-                  builder: (BuildContext ctx, List<subdata> subList, Widget? child) {
-                    return Container(
+                return ValueListenableBuilder<List<SubData>>(
+                  valueListenable: subListNotifier,
+                  builder: (BuildContext ctx, List<SubData> subList, Widget? child) {
+                    return SizedBox(
                       height: 500,
                       child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
                         ),
                         itemCount: subList.length,
@@ -60,7 +60,7 @@ class TodoList extends StatelessWidget {
                                 ));
                               },
                               onLongPress: () {
-                                TodoDeleteConfirmationDialog(context, index);
+                                tododeleteconfirmationdialog(context, index);
                               },
                               child: Container(
                                 height: 70,
@@ -78,7 +78,7 @@ class TodoList extends StatelessWidget {
                                         color: Colors.black,
                                         child: Text(
                                           data.subtitle,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             overflow: TextOverflow.ellipsis,
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold,
@@ -109,26 +109,26 @@ class TodoList extends StatelessWidget {
     );
   }
 
-  void TodoDeleteConfirmationDialog(BuildContext context, int index) {
+  void tododeleteconfirmationdialog(BuildContext context, int index) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Delete Confirmation"),
-          content: Text("Are you sure you want to delete this chapter?"),
+          title: const Text("Delete Confirmation"),
+          content: const Text("Are you sure you want to delete this chapter?"),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text("Cancel"),
+              child: const Text("Cancel"),
             ),
             TextButton(
               onPressed: () async {
                 deleteTodo(index);
                 Navigator.of(context).pop();
               },
-              child: Text("Delete"),
+              child: const Text("Delete"),
             ),
           ],
         );

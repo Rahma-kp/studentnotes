@@ -9,7 +9,7 @@ class NotelistViewScreen extends StatefulWidget {
   final String selectedsub;
   final List documentlists;
   final List imagelists;
-  NotelistViewScreen({
+  const NotelistViewScreen({
     required this.selectedsub,
     required this.documentlists,
     required this.imagelists,
@@ -20,30 +20,32 @@ class NotelistViewScreen extends StatefulWidget {
 }
 
 class _NotelistViewScreenState extends State<NotelistViewScreen> {
-  bool isDataLoaded = false;
-
   @override
   void initState() {
     super.initState();
+    getAllNoteData(); 
   }
 
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.white),
-          title: Text(widget.selectedsub, style: TextStyle(color: Colors.white)),
+          leading: IconButton(onPressed: (){Navigator.of(context).pop();}, icon: Icon(Icons.arrow_back)),
+          iconTheme: const IconThemeData(color: Colors.white),
+          title:
+              Text(widget.selectedsub, style: const TextStyle(color: Colors.white)),
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
           elevation: 0,
         ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Color.fromARGB(207, 13, 20, 78),
+          backgroundColor: const Color.fromARGB(207, 13, 20, 78),
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => NoteAdding()),
             );
           },
-          child: Icon(
+          child: const Icon(
             Icons.add,
             color: Colors.white,
           ),
@@ -51,11 +53,6 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
         body: ValueListenableBuilder(
           valueListenable: noteListNotifier,
           builder: (BuildContext ctx, List<notesData> notelist, Widget? child) {
-            if (!isDataLoaded && notelist.isNotEmpty) {
-              isDataLoaded = true;
-              getAllNoteData();
-            }
-
             List<notesData> filteredNotes = notelist
                 .where((not) => not.category == widget.selectedsub)
                 .toList();
@@ -75,7 +72,7 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => noteViewScreen(
+                            builder: (context) => NoteViewScreen(
                               notetitle: datas.notetitle!,
                               note: datas.note!,
                               catogery: datas.category!,
@@ -88,11 +85,12 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
                       },
                       title: Text(
                         " 𝐜𝐡𝐚𝐩𝐭𝐞𝐫:${datas.notetitle}",
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text(
                         datas.note!,
-                        style: TextStyle(fontSize: 16),
+                        style: const TextStyle(fontSize: 16),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -114,13 +112,15 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
                                 ),
                               );
                             },
-                            icon: Icon(Icons.edit, color: const Color.fromARGB(255, 81, 142, 83)),
+                            icon: const Icon(Icons.edit,
+                                color: Color.fromARGB(255, 81, 142, 83)),
                           ),
                           IconButton(
                             onPressed: () {
                               showDeleteConfirmationDialog(context, index);
                             },
-                            icon: Icon(Icons.delete, color: const Color.fromARGB(255, 175, 62, 54)),
+                            icon: const Icon(Icons.delete,
+                                color: Color.fromARGB(255, 175, 62, 54)),
                           ),
                         ],
                       ),
@@ -140,21 +140,21 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Delete Confirmation"),
-          content: Text("Are you sure you want to delete this chapter?"),
+          title: const Text("Delete Confirmation"),
+          content: const Text("Are you sure you want to delete this chapter?"),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text("Cancel"),
+              child: const Text("Cancel"),
             ),
             TextButton(
               onPressed: () async {
                 await deleteNote(index);
                 Navigator.of(context).pop();
               },
-              child: Text("Delete"),
+              child: const Text("Delete"),
             ),
           ],
         );

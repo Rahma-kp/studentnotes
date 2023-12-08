@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:studentnot/bottombar.dart';
+import 'package:studentnot/widget/bottombar.dart';
 
 class ProfileEditingScreen extends StatefulWidget {
-  const ProfileEditingScreen({Key? key}) : super(key: key);
+  const ProfileEditingScreen({super.key});
 
   @override
   State<ProfileEditingScreen> createState() => _ProfileEditingScreenState();
@@ -20,13 +20,13 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
   Widget build(BuildContext context)  {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(207, 13, 20, 78),
-        title: Text("Profile", style: TextStyle(color: Colors.white)),
+        backgroundColor: const Color.fromARGB(207, 13, 20, 78),
+        title: const Text("Profile", style: TextStyle(color: Colors.white)),
       ),
       body: Center(
         child: Card(
           color: Colors.black26,
-          child: Container(
+          child: SizedBox(
             height: 350,
             width: 350,
             child: Column(
@@ -35,7 +35,7 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
                 CircleAvatar(
                   backgroundImage: _img != null
                       ? FileImage(_img!)
-                      : AssetImage("assets/images/person.jpeg")
+                      : const AssetImage("assets/images/person.jpeg")
                           as ImageProvider<Object>,
                   radius: 40,
                 ),
@@ -43,7 +43,7 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
                   padding: const EdgeInsets.only(right: 40, left: 40),
                   child: TextFormField(
                     controller: nameController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         prefixText: "Name : ",
                         prefixStyle: TextStyle(color: Colors.black)),
                   ),
@@ -52,28 +52,28 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
                   padding: const EdgeInsets.only(left: 40, right: 40),
                   child: TextFormField(
                     controller: classController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         prefixText: "Class : ",
                         prefixStyle: TextStyle(color: Colors.black)),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 GestureDetector(
                   onTap: () async {
                     Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => BottomBar(username: '',)),
+                      MaterialPageRoute(builder: (context) => const BottomBar(username: '',)),
                     );
                   },
                   child: Container(
                     height: 35,
                     width: 65,
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(207, 13, 20, 78),
+                      color: const Color.fromARGB(207, 13, 20, 78),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Align(
+                    child: const Align(
                       alignment: Alignment.center,
                       child: Text("Save",
                           style: TextStyle(color: Colors.white, fontSize: 20)),
@@ -88,7 +88,7 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: _pickImage,
         tooltip: 'Pick Image',
-        child: Icon(Icons.add_a_photo),
+        child: const Icon(Icons.add_a_photo),
       ),
     );
   }

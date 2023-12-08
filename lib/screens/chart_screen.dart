@@ -29,7 +29,7 @@ class PieChart extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('𝐂𝐡𝐚𝐫𝐭', style: TextStyle(color: Colors.white)),
+          title: const Text('𝐂𝐡𝐚𝐫𝐭', style:  TextStyle(color: Colors.white)),
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
         ),
         body: SfCircularChart(

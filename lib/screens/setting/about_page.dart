@@ -8,20 +8,20 @@ class About extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme: const IconThemeData(color: Colors.white),
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
-          title: Text(
+          title: const Text(
             "𝐀𝐛𝐨𝐮𝐭",
             style: TextStyle(color: Colors.white),
           ),
         ),
-        body: SingleChildScrollView(
+        body: const SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(''' 
+                Text(''' 
               Welcome to the MyNote! 
         
               Mynote make easy study!

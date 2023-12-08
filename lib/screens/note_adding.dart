@@ -2,15 +2,15 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:open_file/open_file.dart';
 import 'package:studentnot/db/db_functions/db_note_function.dart';
 import 'package:studentnot/db/db_model/note_db.dart';
 import 'package:studentnot/screens/notes_listview.dart';
+import 'package:studentnot/widget/bottombar.dart';
 
 class NoteAdding extends StatefulWidget {
-  NoteAdding({super.key});
+  const NoteAdding({super.key});
 
   @override
   State<NoteAdding> createState() => _NoteAddingState();
@@ -20,7 +20,7 @@ class _NoteAddingState extends State<NoteAdding> {
   final _notetitilecontroller = TextEditingController();
   final _chaptercontroller = TextEditingController();
   final _categoryController = TextEditingController();
-  final List<String>? _imagelist = [];
+  final List<String> _imagelist = [];
   late List<PlatformFile>? _documentlists = [];
   String selectedsub = 'SUBJECTS';
 
@@ -46,6 +46,13 @@ class _NoteAddingState extends State<NoteAdding> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const BottomBar(username: ''),
+                ));
+              },
+              icon: const Icon(Icons.arrow_back)),
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
           title: const Text(
             "𝐀𝐝𝐝 𝐂𝐡𝐚𝐩𝐭𝐞𝐫",
@@ -61,12 +68,12 @@ class _NoteAddingState extends State<NoteAdding> {
                   style: TextStyle(color: Colors.white, fontSize: 19),
                 ))
           ],
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme: const IconThemeData(color: Colors.white),
         ),
 // ------------------------------------------------------------------------------
         floatingActionButton: SpeedDial(
           animatedIcon: AnimatedIcons.menu_arrow,
-          animatedIconTheme: IconThemeData(color: Colors.white),
+          animatedIconTheme: const IconThemeData(color: Colors.white),
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
           children: [
             SpeedDialChild(
@@ -232,15 +239,15 @@ class _NoteAddingState extends State<NoteAdding> {
                       border: Border.all(style: BorderStyle.solid),
                       borderRadius: BorderRadius.circular(10)),
                   child: ListView.builder(
-                    itemCount: _imagelist!.length,
+                    itemCount: _imagelist.length,
                     itemBuilder: (context, index) {
-                      final img = _imagelist![index];
+                      final img = _imagelist[index];
                       return Padding(
                         padding: const EdgeInsets.all(10),
                         child: GestureDetector(
                           onLongPress: () {
                             setState(() {
-                              _imagelist!.removeAt(index);
+                              _imagelist.removeAt(index);
                             });
                           },
                           child: Container(
@@ -289,8 +296,9 @@ class _NoteAddingState extends State<NoteAdding> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)),
                             child: ListTile(
-                              tileColor: Color.fromARGB(221, 130, 136, 147),
-                              title: Text('${_documentlists![index].name}'),
+                              tileColor:
+                                  const Color.fromARGB(221, 130, 136, 147),
+                              title: Text(_documentlists![index].name),
                               subtitle: Text('${_documentlists![index].path}'),
                               trailing: IconButton(
                                   onPressed: () {
@@ -298,7 +306,7 @@ class _NoteAddingState extends State<NoteAdding> {
                                       _documentlists!.removeAt(index);
                                     });
                                   },
-                                  icon: Icon(Icons.close)),
+                                  icon: const Icon(Icons.close)),
                             ),
                           ),
                         ),
@@ -324,7 +332,7 @@ class _NoteAddingState extends State<NoteAdding> {
       final imagePath = imageFile.path;
 
       setState(() {
-        _imagelist!.add(imagePath);
+        _imagelist.add(imagePath);
       });
     }
   }
@@ -342,8 +350,6 @@ class _NoteAddingState extends State<NoteAdding> {
     }
   }
 
-
-
   Future<void> openFile(PlatformFile file) async {
     final filePath = file.path;
     final fileName = file.name;
@@ -355,33 +361,34 @@ class _NoteAddingState extends State<NoteAdding> {
       print(error);
     }
   }
+
   // ------save button function--------------------------------------
   Future<void> onAddNoteOnClick(BuildContext context) async {
-    final _notetile = _notetitilecontroller.text.trim();
-    final _chapt = _chaptercontroller.text.trim();
-    final _category = _categoryController.text.trim();
-    final _doc = _documentlists!.toList();
-    final _imges = _imagelist!.toList();
-    if (_notetile.isEmpty || _chapt.isEmpty || _category.isEmpty) {
+    final notetile = _notetitilecontroller.text.trim();
+    final chapt = _chaptercontroller.text.trim();
+    final category = _categoryController.text.trim();
+    final doc = _documentlists!.toList();
+    final imges = _imagelist.toList();
+    if (notetile.isEmpty || chapt.isEmpty || category.isEmpty) {
       return;
     } else {
       final note1 = notesData(
-          notetitle: _notetile,
-          note: _chapt,
-          documentlist: _doc,
-          imagelists: _imges,
-          category: _category);
+          notetitle: notetile,
+          note: chapt,
+          documentlist: doc,
+          imagelists: imges,
+          category: category);
       addnote(note1);
       _notetitilecontroller.clear();
       _chaptercontroller.clear();
       _categoryController.clear();
-      _imagelist!.clear();
-      _documentlists!.clear();
-      Navigator.of(context).push(MaterialPageRoute(
+      imges.clear();
+      doc.clear();
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => NotelistViewScreen(
                 selectedsub: selectedsub,
-                documentlists: _doc,
-                imagelists: _imges,
+                documentlists: doc,
+                imagelists: imges,
               )));
     }
   }

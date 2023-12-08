@@ -45,7 +45,7 @@ class settingScreen extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => terms(),
+                  builder: (context) => TermsScreen(),
                 ));
               },
             ),
@@ -58,7 +58,7 @@ class settingScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 30),
               ),
               onTap: () {
-              reset().resetApp(context);
+              reSet().resetApp(context);
               },
             ),
             const Divider(),
