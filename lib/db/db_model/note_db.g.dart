@@ -6,17 +6,17 @@ part of 'note_db.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class notesDataAdapter extends TypeAdapter<notesData> {
+class NotesDataAdapter extends TypeAdapter<NotesData> {
   @override
   final int typeId = 2;
 
   @override
-  notesData read(BinaryReader reader) {
+  NotesData read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return notesData(
+    return NotesData(
       notetitle: fields[0] as String?,
       note: fields[1] as String?,
       imagelists: (fields[2] as List?)?.cast<dynamic>(),
@@ -26,7 +26,7 @@ class notesDataAdapter extends TypeAdapter<notesData> {
   }
 
   @override
-  void write(BinaryWriter writer, notesData obj) {
+  void write(BinaryWriter writer, NotesData obj) {
     writer
       ..writeByte(5)
       ..writeByte(0)
@@ -47,7 +47,7 @@ class notesDataAdapter extends TypeAdapter<notesData> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is notesDataAdapter &&
+      other is NotesDataAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

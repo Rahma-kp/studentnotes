@@ -27,7 +27,7 @@ class reSet extends ChangeNotifier {
                   TextButton(
                 onPressed: (() async {
                   Navigator.of(context).pop();
-                  final notDB= await Hive.openBox<notesData>("note_db");
+                  final notDB= await Hive.openBox<NotesData>("note_db");
                   notDB.clear();
                   final subDB= await Hive.openBox<SubData>("subdata_db");
                   subDB.clear();

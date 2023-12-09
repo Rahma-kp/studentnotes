@@ -18,8 +18,8 @@ const String SAVE_KEY_NAME = 'user_logged_in';
  }
  WidgetsFlutterBinding.ensureInitialized();
  await Hive.initFlutter();
- if(!Hive.isAdapterRegistered(notesDataAdapter().typeId)){
-  Hive.registerAdapter(notesDataAdapter());
+ if(!Hive.isAdapterRegistered(NotesDataAdapter().typeId)){
+  Hive.registerAdapter(NotesDataAdapter());
  }
  
 

@@ -14,7 +14,7 @@ class NotEditingScreen extends StatefulWidget {
   final String catogery;
   final List documentlist;
   final List imagelists;
-  int index;
+  final int index;
   NotEditingScreen(
       {super.key,
       required this.notetitle,
@@ -372,7 +372,7 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
     if (editedTitile.isEmpty || editedNote.isEmpty || editedCategoery.isEmpty) {
       return;
     }
-    final updatedNonte = notesData(
+    final updatedNonte = NotesData(
         notetitle: editedTitile,
         note: editedNote,
         category: editedCategoery,

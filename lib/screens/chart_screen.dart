@@ -9,7 +9,7 @@ class PieChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, int> calculateCategoryCounts(List<notesData> notes) {
+    Map<String, int> calculateCategoryCounts(List<NotesData> notes) {
       Map<String, int> categoryCounts = {};
       for (var note in notes) {
         String category = note.category ?? "Other";
@@ -18,7 +18,7 @@ class PieChart extends StatelessWidget {
       return categoryCounts;
     }
 
-    List<notesData> noteList = noteListNotifier.value;
+    List<NotesData> noteList = noteListNotifier.value;
     Map<String, int> categoryCounts = calculateCategoryCounts(noteList);
 
    List<_PieData> pieData = categoryCounts.entries

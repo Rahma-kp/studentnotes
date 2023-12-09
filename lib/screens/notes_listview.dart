@@ -52,8 +52,8 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
         ),
         body: ValueListenableBuilder(
           valueListenable: noteListNotifier,
-          builder: (BuildContext ctx, List<notesData> notelist, Widget? child) {
-            List<notesData> filteredNotes = notelist
+          builder: (BuildContext ctx, List<NotesData> notelist, Widget? child) {
+            List<NotesData> filteredNotes = notelist
                 .where((not) => not.category == widget.selectedsub)
                 .toList();
 
@@ -72,13 +72,14 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => NoteViewScreen(
+                            builder: (context) =>noteViewScreen(
                               notetitle: datas.notetitle!,
                               note: datas.note!,
                               catogery: datas.category!,
                               documentlist: datas.documentlist!,
                               imagelists: datas.imagelists!,
                               index: index,
+                              
                             ),
                           ),
                         );
