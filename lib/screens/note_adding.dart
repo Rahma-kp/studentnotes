@@ -367,29 +367,27 @@ class _NoteAddingState extends State<NoteAdding> {
     final notetile = _notetitilecontroller.text.trim();
     final chapt = _chaptercontroller.text.trim();
     final category = _categoryController.text.trim();
-    final doc = _documentlists!.toList();
-    final imges = _imagelist.toList();
+    final _doc = _documentlists!.toList();
+    final imge = _imagelist.toList();
     if (notetile.isEmpty || chapt.isEmpty || category.isEmpty) {
       return;
     } else {
       final note1 = NotesData(
           notetitle: notetile,
           note: chapt,
-          documentlist: doc,
-          imagelists: imges,
+          documentlist: _doc,
+          imagelists: imge,
           category: category);
-          _notetitilecontroller.clear();
+      print(imge.length);
+      _notetitilecontroller.clear();
       _chaptercontroller.clear();
       _categoryController.clear();
-      imges.clear();
-      doc.clear();
       addnote(note1);
-      
+
       Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => NotelistViewScreen(
                 selectedsub: selectedsub,
-                documentlists: List.from(doc),
-                imagelists:List.from(imges),
+                imagelistss: imge,
               )));
     }
   }

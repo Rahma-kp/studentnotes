@@ -12,7 +12,7 @@ class NotEditingScreen extends StatefulWidget {
   final String notetitle;
   final String note;
   final String catogery;
-  final List documentlist;
+ late final  List documentlist;
   final List imagelists;
   final int index;
   NotEditingScreen(
@@ -33,7 +33,7 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
   TextEditingController _chaptercontrolle = TextEditingController();
   TextEditingController _categoryController = TextEditingController();
   final List<String> _imagelist = [];
-  final List<dynamic> _documentlists = [];
+  List<dynamic> _documentlists = [];
   final List<String> _sujectList = [
     'SUBJECTS',
     'Language',
@@ -307,13 +307,33 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
                     border: Border.all(style: BorderStyle.solid),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: ListView.builder(
+                  child:  ListView.builder(
                     itemCount: _documentlists.length,
                     itemBuilder: (context, index) {
-                      // final dmc = _documentlists[index];
                       return Padding(
                         padding: const EdgeInsets.all(10),
-                        child: GestureDetector(),
+                        child: GestureDetector(
+                          onTap: () {
+                            openFile(_documentlists[index]);
+                          },
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                            child: ListTile(
+                              tileColor:
+                                  const Color.fromARGB(221, 130, 136, 147),
+                              title: Text(_documentlists[index].name),
+                              subtitle: Text('${_documentlists[index].path}'),
+                              trailing: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      _documentlists.removeAt(index);
+                                    });
+                                  },
+                                  icon: const Icon(Icons.close)),
+                            ),
+                          ),
+                        ),
                       );
                     },
                   ),
@@ -340,18 +360,18 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
     }
   }
 
-  // void pickFiless() async {
-  //   FilePickerResult? result = await FilePicker.platform.pickFiles(
-  //     type: FileType.any,
-  //     allowMultiple: true,
-  //   );
+  void pickFiless() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.any,
+      allowMultiple: true,
+    );
 
-  //   if (result != null && result.files.isNotEmpty) {
-  //     setState(() {
-  //       _documentlists = result.files;
-  //     });
-  //   }
-  // }
+    if (result != null && result.files.isNotEmpty) {
+      setState(() {
+        _documentlists = result.files;
+      });
+    }
+  }
 
   Future<void> openFile(PlatformFile file) async {
     final filePath = file.path;

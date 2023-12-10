@@ -4,15 +4,14 @@ import 'package:studentnot/db/db_model/note_db.dart';
 import 'package:studentnot/screens/editing_screen.dart';
 import 'package:studentnot/screens/note_adding.dart';
 import 'package:studentnot/screens/note_screen.dart';
+import 'package:studentnot/widget/bottombar.dart';
 
 class NotelistViewScreen extends StatefulWidget {
   final String selectedsub;
-  final List documentlists;
-  final List imagelists;
+  final List imagelistss;
   const NotelistViewScreen({
     required this.selectedsub,
-    required this.documentlists,
-    required this.imagelists,
+     required this.imagelistss,
   });
 
   @override
@@ -23,7 +22,7 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
   @override
   void initState() {
     super.initState();
-    getAllNoteData(); 
+    getAllNoteData();
   }
 
   @override
@@ -31,10 +30,16 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          leading: IconButton(onPressed: (){Navigator.of(context).pop();}, icon: Icon(Icons.arrow_back)),
+          leading: IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => BottomBar(username: ''),
+                ));
+              },
+              icon: Icon(Icons.arrow_back)),
           iconTheme: const IconThemeData(color: Colors.white),
-          title:
-              Text(widget.selectedsub, style: const TextStyle(color: Colors.white)),
+          title: Text(widget.selectedsub,
+              style: const TextStyle(color: Colors.white)),
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
           elevation: 0,
         ),
@@ -72,14 +77,13 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) =>noteViewScreen(
+                            builder: (context) => NoteViewScreen(
                               notetitle: datas.notetitle!,
                               note: datas.note!,
                               catogery: datas.category!,
                               documentlist: datas.documentlist!,
-                              imagelists: datas.imagelists!,
+                              imagelists:['assets/catogory/ch.jpg','assets/catogory/ch.jpg'],
                               index: index,
-                              
                             ),
                           ),
                         );

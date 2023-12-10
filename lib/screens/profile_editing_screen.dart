@@ -4,22 +4,36 @@ import 'package:image_picker/image_picker.dart';
 import 'package:studentnot/widget/bottombar.dart';
 
 class ProfileEditingScreen extends StatefulWidget {
-  const ProfileEditingScreen({super.key});
+  const ProfileEditingScreen({Key? key}) : super(key: key);
 
   @override
   State<ProfileEditingScreen> createState() => _ProfileEditingScreenState();
 }
 
 class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
-  late TextEditingController nameController;
-  late TextEditingController classController;
+  late final TextEditingController nameController;
+  late final TextEditingController classController;
   File? _img;
 
+  @override
+  void initState() {
+    super.initState();
+    nameController = TextEditingController();
+    classController = TextEditingController();
+  }
 
   @override
-  Widget build(BuildContext context)  {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => BottomBar(username: ''),
+              ));
+            },
+            icon: Icon(Icons.arrow_back)),
         backgroundColor: const Color.fromARGB(207, 13, 20, 78),
         title: const Text("Profile", style: TextStyle(color: Colors.white)),
       ),
@@ -63,7 +77,10 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
                 GestureDetector(
                   onTap: () async {
                     Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => const BottomBar(username: '',)),
+                      MaterialPageRoute(
+                          builder: (context) => const BottomBar(
+                                username: '',
+                              )),
                     );
                   },
                   child: Container(

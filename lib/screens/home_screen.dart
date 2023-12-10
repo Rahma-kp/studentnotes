@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studentnot/screens/notes_listview.dart';
+import 'package:studentnot/screens/profile_editing_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -58,10 +59,14 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         backgroundColor: const Color.fromARGB(221, 202, 194, 194),
         appBar: AppBar(iconTheme: const IconThemeData(color:Colors.white),
-          leading: const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: CircleAvatar(
-              backgroundImage: AssetImage("assets/images/person.jpeg"),
+          leading:  Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GestureDetector( onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfileEditingScreen(),));
+            },
+              child: const CircleAvatar(
+                backgroundImage: AssetImage("assets/images/person.jpeg"),
+              ),
             ),
           ),
           title: const Text(
@@ -71,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
           elevation: 0,
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
         ),
-        endDrawer: const Drawer(),
+        // endDrawer: const Drawer(),
         body: SingleChildScrollView(
           child: Column(children: [
             // container for the half part--------------------------------------------------------------------------------------
@@ -149,8 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               String selectedsub = filteredsubject[index];
                               Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => NotelistViewScreen(
-                                  documentlists: [],
-                                  imagelists:  [],
+                                  imagelistss:[],
                                   selectedsub: selectedsub,
                                 ),
                               ));
