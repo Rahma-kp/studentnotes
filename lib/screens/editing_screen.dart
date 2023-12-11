@@ -351,7 +351,7 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
     final pickedImages = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedImages != null) {
-      final imageFile = File(pickedImages.path); // Convert XFile to File
+      final imageFile = File(pickedImages.path); 
       final imagePath = imageFile.path;
 
       setState(() {

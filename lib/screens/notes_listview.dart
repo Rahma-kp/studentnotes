@@ -82,7 +82,7 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
                               note: datas.note!,
                               catogery: datas.category!,
                               documentlist: datas.documentlist!,
-                              imagelists:['assets/catogory/ch.jpg','assets/catogory/ch.jpg'],
+                              imagelists:datas.imagelists!,
                               index: index,
                             ),
                           ),

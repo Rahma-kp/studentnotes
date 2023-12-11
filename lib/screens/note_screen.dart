@@ -31,9 +31,14 @@ class _NoteViewScreenState extends State<NoteViewScreen> {
       child: Scaffold(
         appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.white),
-          leading: IconButton(onPressed: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => BottomBar(username: ''),));
-          }, icon:Icon(Icons.arrow_back)),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => BottomBar(username: ''),
+              ));
+            },
+            icon: Icon(Icons.arrow_back),
+          ),
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
           title: Text(widget.notetitle, style: TextStyle(color: Colors.white)),
         ),
@@ -45,8 +50,12 @@ class _NoteViewScreenState extends State<NoteViewScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.note,
+                    widget.notetitle,
                     style: TextStyle(fontSize: 25),
+                  ),
+                  Text(
+                    widget.note,
+                    style: TextStyle(fontSize: 20),
                   ),
                   if (widget.imagelists.isNotEmpty)
                     Container(
@@ -60,24 +69,22 @@ class _NoteViewScreenState extends State<NoteViewScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Expanded(
-                            child: ListView.builder(
-                              shrinkWrap: false,
-                              // physics: NeverScrollableScrollPhysics(),
-                              itemCount: widget.imagelists.length,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.file(
-                                    File(widget.imagelists[index]),
-                                    width: 500,
-                                    height: 300,
-                                    fit: BoxFit.cover,
-                                  ),
-                                );
-                              },
-                            ),
-                          )
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: widget.imagelists.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image.file(
+                                  File(widget.imagelists[index]),
+                                  width: 500,
+                                  height: 300,
+                                  fit: BoxFit.cover,
+                                ),
+                              );
+                            },
+                          ),
                         ],
                       ),
                     ),
