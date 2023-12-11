@@ -24,7 +24,7 @@ Future<void> deleteNote(int index)async{
   getAllNoteData();
 }
 
-Future<void>editnote(index,NotesData value) async {
+Future<void>editnote(index, NotesData value) async {
   final notDB = await Hive.openBox<NotesData>('note_db');
   noteListNotifier.value.clear();
   noteListNotifier.value.addAll(notDB.values);

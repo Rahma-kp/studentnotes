@@ -91,7 +91,7 @@ class _NoteAddingState extends State<NoteAdding> {
                 ),
                 backgroundColor: const Color.fromARGB(207, 13, 20, 78),
                 onTap: () {
-                  pickFiless();
+                  _pickFiless();
                 })
           ],
         ),
@@ -337,26 +337,23 @@ class _NoteAddingState extends State<NoteAdding> {
     }
   }
 
-  void pickFiless() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.any,
-      allowMultiple: true,
-    );
-
-    if (result != null && result.files.isNotEmpty) {
-      setState(() {
-        _documentlists = result.files;
-      });
-    }
+ void _pickFiless() async {
+  FilePickerResult? result = await FilePicker.platform.pickFiles(
+    type: FileType.custom,
+    allowedExtensions: ['pdf', 'doc', 'docx', 'txt'], 
+    allowMultiple: true,
+  );
+  if (result != null && result.files.isNotEmpty) {
+    setState(() {
+      _documentlists = result.files;
+    });
   }
+}
 
   Future<void> openFile(PlatformFile file) async {
     final filePath = file.path;
-    final fileName = file.name;
-
     try {
       await OpenFile.open(filePath);
-      print(fileName);
     } catch (error) {
       print(error);
     }
@@ -388,6 +385,8 @@ class _NoteAddingState extends State<NoteAdding> {
           builder: (context) => NotelistViewScreen(
                 selectedsub: selectedsub,
                 imagelistss: imge,
+                documentlistss: _doc,
+
               )));
     }
   }

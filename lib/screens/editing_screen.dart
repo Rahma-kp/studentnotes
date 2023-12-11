@@ -7,22 +7,22 @@ import 'package:open_file/open_file.dart';
 import 'package:studentnot/db/db_functions/db_note_function.dart';
 import 'package:studentnot/db/db_model/note_db.dart';
 
-// ignore: must_be_immutable
 class NotEditingScreen extends StatefulWidget {
   final String notetitle;
   final String note;
   final String catogery;
- late final  List documentlist;
+  late final List documentlist;
   final List imagelists;
   final int index;
   NotEditingScreen(
-      {super.key,
+      {Key? key,
       required this.notetitle,
       required this.note,
       required this.catogery,
       required this.documentlist,
       required this.imagelists,
-      required this.index});
+      required this.index})
+      : super(key: key);
 
   @override
   State<NotEditingScreen> createState() => _NotEditingScreenState();
@@ -32,7 +32,7 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
   TextEditingController _notetitilecontroller = TextEditingController();
   TextEditingController _chaptercontrolle = TextEditingController();
   TextEditingController _categoryController = TextEditingController();
-  final List<String> _imagelist = [];
+  List<String> _imagelist = [];
   List<dynamic> _documentlists = [];
   final List<String> _sujectList = [
     'SUBJECTS',
@@ -57,7 +57,7 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
     _notetitilecontroller = TextEditingController(text: widget.notetitle);
     _chaptercontrolle = TextEditingController(text: widget.note);
     _categoryController = TextEditingController(text: widget.catogery);
-    _imagelist != List.from(widget.imagelists);
+    _imagelist = List.from(widget.imagelists);
     super.initState();
   }
 
@@ -76,8 +76,6 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
                 onPressed: () {
                   setState(() {
                     editsaveonclick();
-
-                    ///
                   });
                 },
                 child: const Text(
@@ -108,11 +106,10 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
                 ),
                 backgroundColor: const Color.fromARGB(207, 13, 20, 78),
                 onTap: () {
-                  // pickFiless();
+                 pickFiless();
                 })
           ],
         ),
-        // --------------------------------------------------------------------------------
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(15),
@@ -256,27 +253,27 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
                   decoration: BoxDecoration(
                       border: Border.all(style: BorderStyle.solid),
                       borderRadius: BorderRadius.circular(10)),
-                  height: 400,
+                  height: 600,
                   width: 700,
                   child: Padding(
                     padding: const EdgeInsets.all(15),
                     child: SizedBox(
-                      height: 200,
+                      height: 00,
                       width: 200,
                       child: ListView.builder(
                         scrollDirection: Axis.vertical,
-                        itemCount: widget.imagelists.length,
+                        itemCount: _imagelist.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onLongPress: () {
                               setState(() {
-                                widget.imagelists.removeAt(index);
+                                _imagelist.removeAt(index);
                               });
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Image.file(
-                                File(widget.imagelists[index]),
+                                File(_imagelist[index]),
                                 width: 200,
                                 fit: BoxFit.cover,
                               ),
@@ -286,6 +283,9 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
                       ),
                     ),
                   ),
+                ),
+                const SizedBox(
+                  height: 40,
                 ),
                 const Align(
                   alignment: Alignment.topLeft,
@@ -297,9 +297,6 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 40,
-                ),
                 Container(
                   height: 400,
                   width: 500,
@@ -307,7 +304,7 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
                     border: Border.all(style: BorderStyle.solid),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child:  ListView.builder(
+                  child: ListView.builder(
                     itemCount: _documentlists.length,
                     itemBuilder: (context, index) {
                       return Padding(
@@ -351,7 +348,7 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
     final pickedImages = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedImages != null) {
-      final imageFile = File(pickedImages.path); 
+      final imageFile = File(pickedImages.path);
       final imagePath = imageFile.path;
 
       setState(() {
@@ -385,27 +382,34 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
     }
   }
 
-  editsaveonclick() async {
+  Future<void> editsaveonclick() async {
     final editedTitile = _notetitilecontroller.text.trim();
     final editedNote = _chaptercontrolle.text.trim();
     final editedCategoery = _categoryController.text.trim();
     if (editedTitile.isEmpty || editedNote.isEmpty || editedCategoery.isEmpty) {
       return;
     }
-    final updatedNonte = NotesData(
-        notetitle: editedTitile,
-        note: editedNote,
-        category: editedCategoery,
-        documentlist: [],
-        imagelists: _imagelist);
+
+    
+    final combinedImageList = [...widget.imagelists, ..._imagelist].toSet().toList();
+
+    final updatedNote = NotesData(
+      notetitle: editedTitile,
+      note: editedNote,
+      category: editedCategoery,
+      documentlist: [],
+      imagelists: combinedImageList,
+    );
+
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       margin: EdgeInsets.all(10),
       backgroundColor: Color.fromARGB(255, 199, 89, 89),
       behavior: SnackBarBehavior.floating,
-      content: Text("updated successfully"),
+      content: Text("Updated successfully"),
     ));
+
     setState(() {
-      editnote(widget.index, updatedNonte);
+      editnote(widget.index, updatedNote);
     });
 
     Navigator.of(context).pop();

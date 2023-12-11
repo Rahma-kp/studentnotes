@@ -9,9 +9,11 @@ import 'package:studentnot/widget/bottombar.dart';
 class NotelistViewScreen extends StatefulWidget {
   final String selectedsub;
   final List imagelistss;
+  final List documentlistss;
   const NotelistViewScreen({
     required this.selectedsub,
      required this.imagelistss,
+     required this.documentlistss,
   });
 
   @override

@@ -50,10 +50,6 @@ class _NoteViewScreenState extends State<NoteViewScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.notetitle,
-                    style: TextStyle(fontSize: 25),
-                  ),
-                  Text(
                     widget.note,
                     style: TextStyle(fontSize: 20),
                   ),

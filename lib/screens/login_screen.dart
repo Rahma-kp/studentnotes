@@ -1,16 +1,15 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:studentnot/widget/bottombar.dart';
 import 'package:studentnot/main.dart';
+import 'package:studentnot/widget/bottombar.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -19,6 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final ImagePicker imagePicker = ImagePicker();
   File? picked;
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 20,
                 ),
                 GestureDetector(
-                  onTap: () => getimage(ImageSource.camera),
+                  onTap: () => getimage(ImageSource.gallery),
                   child: CircleAvatar(
                     backgroundColor: const Color.fromARGB(255, 223, 176, 176),
                     radius: 60,
@@ -65,6 +65,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: TextFormField(
                     controller: usernameController,
                     decoration: const InputDecoration(hintText: "Username...."),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a username';
+                      }
+                      return null;
+                    },
                   ),
                 ),
                 Padding(
@@ -72,17 +78,23 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: TextFormField(
                     controller: classController,
                     decoration: const InputDecoration(hintText: "Class...."),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a class';
+                      }
+                      return null;
+                    },
                   ),
                 ),
                 const SizedBox(
                   height: 40,
                 ),
                 GestureDetector(
-                 onTap: () {
-                if(_formKey.currentState?.validate()??false){
-                  checkLogin(context);
-                }
-              },
+                  onTap: () {
+                    if (_formKey.currentState?.validate() ?? false) {
+                      checkLogin(context);
+                    }
+                  },
                   child: Container(
                     height: 40,
                     width: 100,
@@ -105,28 +117,30 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-  getimage(ImageSource source) async {
+
+  void getimage(ImageSource source) async {
     var img = await imagePicker.pickImage(source: source);
     setState(() {
       picked = File(img!.path);
     });
   }
 
-   void checkLogin(BuildContext ctx) async {
+  void checkLogin(BuildContext ctx) async {
     final username = usernameController.text;
     final password = classController.text;
 
-    if (username == password) {
-      
-
+    if (username.isNotEmpty && password.isNotEmpty || picked != null) {
       final sharedprefs = await SharedPreferences.getInstance();
       await sharedprefs.setBool(SAVE_KEY_NAME, true);
-
+      await sharedprefs.setString('username', username);
+      await sharedprefs.setString('class', password);
+      await sharedprefs.setString('imagePath', picked!.path);
       Navigator.of(ctx).pushReplacement(
-        MaterialPageRoute(builder: (ctx1) => const BottomBar(username: '',)),
+        MaterialPageRoute(
+          builder: (ctx1) => const BottomBar(username: ''),
+        ),
       );
     } else {
-      print("Username or password not match");
       showDialog(
         context: context,
         builder: (context1) {
@@ -135,7 +149,8 @@ class _LoginScreenState extends State<LoginScreen> {
               'Ooops',
               style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
             ),
-            content: const Text('Enter Valid Password!'),
+            content: const Text(
+                'Enter Valid Username, Password, and Capture an Image!'),
             actions: [
               TextButton(
                 onPressed: () {
