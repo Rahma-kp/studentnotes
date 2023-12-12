@@ -16,8 +16,8 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   int myindex = 0;
-  late String name;
-  late String imagePath;
+   late String name;
+   late String imagePath;
 
   @override
   void initState() {

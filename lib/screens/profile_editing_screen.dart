@@ -21,13 +21,14 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
     super.initState();
     nameController = TextEditingController();
     classController = TextEditingController();
-    _loadProfileData(); 
+    _loadProfileData();
   }
 
   Future<void> _loadProfileData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? savedName = prefs.getString("name");
     String? savedClass = prefs.getString("class");
+    String? savedImagePath = prefs.getString("imagePath");
 
     if (savedName != null) {
       nameController.text = savedName;
@@ -35,6 +36,12 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
 
     if (savedClass != null) {
       classController.text = savedClass;
+    }
+
+    if (savedImagePath != null) {
+      setState(() {
+        _img = File(savedImagePath);
+      });
     }
   }
 
@@ -48,7 +55,7 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
             onPressed: () {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (context) => const BottomBar(username: ''),
+                  builder: (context) => const BottomBar(username:''),
                 ),
               );
             },
@@ -66,12 +73,16 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CircleAvatar(
-                    backgroundImage: _img != null
-                        ? FileImage(_img!)
-                        : const AssetImage("assets/images/person.jpeg")
-                            as ImageProvider<Object>,
-                    radius: 40,
+                  GestureDetector( onTap: () {
+                    _pickImage();
+                  },
+                    child: CircleAvatar(
+                      backgroundImage: _img != null
+                          ? FileImage(_img!)
+                          : const AssetImage("assets/images/person1.png")
+                              as ImageProvider<Object>,
+                      radius: 40,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(right: 40, left: 40),
@@ -96,15 +107,18 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
                   const SizedBox(height: 20),
                   GestureDetector(
                     onTap: () async {
-                      // Save data to shared preferences
                       SharedPreferences prefs =
                           await SharedPreferences.getInstance();
-                      prefs.setString("name", nameController.text);
+                      prefs.setString("username", nameController.text);
                       prefs.setString("class", classController.text);
+                      if (_img != null) {
+                        prefs.setString("imagePath", _img!.path);
+                      }
+                      String updatedUsername = prefs.getString("name") ?? '';
 
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
-                          builder: (context) => const BottomBar(username: ''),
+                          builder: (context) => BottomBar(username: updatedUsername),
                         ),
                       );
                     },
@@ -129,11 +143,6 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _pickImage,
-          tooltip: 'Pick Image',
-          child: const Icon(Icons.add_a_photo),
-        ),
       ),
     );
   }
@@ -145,6 +154,9 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
     setState(() {
       if (pickedFile != null) {
         _img = File(pickedFile.path);
+        SharedPreferences.getInstance().then((prefs) {
+          prefs.setString("imagePath", _img!.path);
+        });
       }
     });
   }
