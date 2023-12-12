@@ -6,7 +6,7 @@ import 'package:studentnot/db/db_model/note_db.dart';
 import 'package:studentnot/screens/login_screen.dart';
 
 
-class reSet extends ChangeNotifier {
+class ReSet extends ChangeNotifier {
   resetApp(BuildContext context) {
     showDialog(
         context: context,

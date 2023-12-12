@@ -364,7 +364,7 @@ class _NoteAddingState extends State<NoteAdding> {
     final notetile = _notetitilecontroller.text.trim();
     final chapt = _chaptercontroller.text.trim();
     final category = _categoryController.text.trim();
-    final _doc = _documentlists!.toList();
+    final doc = _documentlists!.toList();
     final imge = _imagelist.toList();
     if (notetile.isEmpty || chapt.isEmpty || category.isEmpty) {
       return;
@@ -372,10 +372,9 @@ class _NoteAddingState extends State<NoteAdding> {
       final note1 = NotesData(
           notetitle: notetile,
           note: chapt,
-          documentlist: _doc,
+          documentlist: doc,
           imagelists: imge,
           category: category);
-      print(imge.length);
       _notetitilecontroller.clear();
       _chaptercontroller.clear();
       _categoryController.clear();
@@ -385,7 +384,7 @@ class _NoteAddingState extends State<NoteAdding> {
           builder: (context) => NotelistViewScreen(
                 selectedsub: selectedsub,
                 imagelistss: imge,
-                documentlistss: _doc,
+                documentlistss: doc,
 
               )));
     }

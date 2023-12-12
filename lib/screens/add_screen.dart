@@ -90,12 +90,12 @@ class AddSubject extends StatelessWidget {
 
   // save button click functions-------------------------------------------------------
   Future<void> onAddTodoButtonClick(BuildContext context) async {
-    final _sub = _subcontroller.text.trim();
+    final sub = _subcontroller.text.trim();
     final about = _aboutcontroller.text.trim();
-    if (_sub.isEmpty || about.isEmpty) {
+    if (sub.isEmpty || about.isEmpty) {
       return;
     } else {
-      final sub1 = SubData(subtitle: _sub, subabout: about);
+      final sub1 = SubData(subtitle: sub, subabout: about);
       addSub(sub1); 
       _subcontroller.clear();
       _aboutcontroller.clear();

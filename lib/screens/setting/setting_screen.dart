@@ -4,8 +4,8 @@ import 'package:studentnot/screens/setting/logout.dart';
 import 'package:studentnot/screens/setting/restart.dart';
 import 'package:studentnot/screens/setting/terms_screen.dart';
 
-class settingScreen extends StatelessWidget {
-  const settingScreen({super.key});
+class SettingScreen extends StatelessWidget {
+  const SettingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class settingScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 30),
               ),
               onTap: () {
-              reSet().resetApp(context);
+              ReSet().resetApp(context);
               },
             ),
             const Divider(),

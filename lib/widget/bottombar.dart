@@ -8,7 +8,7 @@ import 'package:studentnot/screens/setting/setting_screen.dart';
 import 'package:studentnot/screens/todaylist.dart';
 
 class BottomBar extends StatefulWidget {
-  const BottomBar({Key? key, required String username}) : super(key: key);
+  const BottomBar({super.key, required String username});
 
   @override
   State<BottomBar> createState() => _BottomBarState();
@@ -35,16 +35,16 @@ class _BottomBarState extends State<BottomBar> {
 
   @override
   Widget build(BuildContext context) {
-    final Pages = [
+    final pages = [
       HomeScreen(imagePath: imagePath, username: name),
       TodoList(),
       const NoteAdding(),
       const PieChart(),
-      const settingScreen(),
+      const SettingScreen(),
     ];
 
     return Scaffold(
-      body: Pages[myindex],
+      body: pages[myindex],
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: const Color.fromARGB(207, 13, 20, 78),
         animationDuration: const Duration(microseconds: 300),
