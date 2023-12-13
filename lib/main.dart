@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:studentnot/db/db_functions/db_functions.dart';
-import 'package:studentnot/db/db_functions/db_note_function.dart';
-import 'package:studentnot/db/db_model/data_model.dart';
-import 'package:studentnot/db/db_model/note_db.dart';
+import 'package:studentnot/functions/note_function.dart';
+import 'package:studentnot/functions/todo_function.dart';
+import 'package:studentnot/model/note_model.dart';
+import 'package:studentnot/model/todo_model.dart';
 import 'package:studentnot/screens/splsh_screen.dart';
 
 

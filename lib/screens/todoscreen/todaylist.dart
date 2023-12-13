@@ -1,10 +1,10 @@
 // TodoList.dart
 
 import 'package:flutter/material.dart';
-import 'package:studentnot/db/db_functions/db_functions.dart';
-import 'package:studentnot/db/db_model/data_model.dart';
-import 'package:studentnot/screens/add_screen.dart';
-import 'package:studentnot/screens/todoviewpage.dart';
+import 'package:studentnot/functions/todo_function.dart';
+import 'package:studentnot/model/todo_model.dart';
+import 'package:studentnot/screens/todoscreen/add_screen.dart';
+import 'package:studentnot/screens/todoscreen/todoviewpage.dart';
 
 class TodoList extends StatelessWidget {
   final List<Color> gridcolor = [
@@ -14,6 +14,8 @@ class TodoList extends StatelessWidget {
     const Color.fromARGB(255, 219, 164, 80),
     const Color.fromARGB(255, 203, 107, 100)
   ];
+
+   TodoList({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,14 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:studentnot/screens/notes_listview.dart';
+import 'package:studentnot/screens/notesscreens/notes_listview.dart';
 import 'package:studentnot/screens/profile_editing_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final String username;
   final String imagePath;
 
-  const HomeScreen({Key? key, required this.username, required this.imagePath})
-      : super(key: key);
+  const HomeScreen({super.key, required this.username, required this.imagePath});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -29,8 +28,9 @@ class _HomeScreenState extends State<HomeScreen> {
     'Environmental',
     'Geography',
     'Health Sciences',
+    'Entrepreneurship',
+    'Arts',
   ];
-
   List<String> catogry = [
     'assets/catogory/lang.jpg',
     'assets/catogory/eng.jpg',
@@ -44,7 +44,9 @@ class _HomeScreenState extends State<HomeScreen> {
     'assets/catogory/cmp.jpg',
     'assets/catogory/env.jpg',
     'assets/catogory/geyo.jpg',
-    'assets/catogory/health.jpg'
+    'assets/catogory/health.jpg',
+    'assets/catogory/entreprenceur.jpeg',
+    'assetscatogory/art.jpeg',
   ];
 
   List<String> filteredsubject = [];
@@ -76,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: CircleAvatar(
                     backgroundImage: widget.imagePath.isNotEmpty
                         ? FileImage(File(widget.imagePath))
-                        : AssetImage('assets/images/person1.png')
+                        : const AssetImage('assets/images/person1.png')
                             as ImageProvider<Object>?)),
           ),
           title: Text(
@@ -171,7 +173,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         } else {
                           int originalIndex =
                               subject.indexOf(filteredsubject[index]);
-
                           return Padding(
                             padding: const EdgeInsets.all(10),
                             child: GestureDetector(
@@ -216,7 +217,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
   void filterSubjects(String query) {
     setState(() {
       filteredsubject = subject

@@ -1,7 +1,7 @@
 // pie_chart.dart
 import 'package:flutter/material.dart';
-import 'package:studentnot/db/db_functions/db_note_function.dart';
-import 'package:studentnot/db/db_model/note_db.dart';
+import 'package:studentnot/functions/note_function.dart';
+import 'package:studentnot/model/note_model.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class PieChart extends StatelessWidget {

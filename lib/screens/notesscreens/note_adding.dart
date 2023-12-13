@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:open_file/open_file.dart';
-import 'package:studentnot/db/db_functions/db_note_function.dart';
-import 'package:studentnot/db/db_model/note_db.dart';
-import 'package:studentnot/screens/notes_listview.dart';
+import 'package:studentnot/functions/note_function.dart';
+import 'package:studentnot/model/note_model.dart';
+import 'package:studentnot/screens/notesscreens/notes_listview.dart';
 import 'package:studentnot/widget/bottombar.dart';
 
 class NoteAdding extends StatefulWidget {
@@ -21,9 +21,8 @@ class _NoteAddingState extends State<NoteAdding> {
   final _chaptercontroller = TextEditingController();
   final _categoryController = TextEditingController();
   final List<String> _imagelist = [];
-  late List<PlatformFile>? _documentlists = [];
+  late List<PlatformFile> _documentlists = [];
   String selectedsub = 'SUBJECTS';
-
   final List<String> _sujectList = [
     'SUBJECTS',
     'Language',
@@ -39,8 +38,9 @@ class _NoteAddingState extends State<NoteAdding> {
     'Environmental',
     'Geography',
     'Health Sciences',
+    'Entrepreneurship',
+    'Arts',
   ];
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -70,7 +70,7 @@ class _NoteAddingState extends State<NoteAdding> {
           ],
           iconTheme: const IconThemeData(color: Colors.white),
         ),
-// ------------------------------------------------------------------------------
+// ---------------------------floating button---------------------------------------------------
         floatingActionButton: SpeedDial(
           animatedIcon: AnimatedIcons.menu_arrow,
           animatedIconTheme: const IconThemeData(color: Colors.white),
@@ -219,7 +219,7 @@ class _NoteAddingState extends State<NoteAdding> {
                     ),
                   ),
                 ),
-                // ---------------------------------------------imagelist------------------------------------------------------------------------
+// ---------------------------------------------imagelist------------------------------------------------------------------------
                 const SizedBox(
                   height: 40,
                 ),
@@ -284,13 +284,13 @@ class _NoteAddingState extends State<NoteAdding> {
                       border: Border.all(style: BorderStyle.solid),
                       borderRadius: BorderRadius.circular(10)),
                   child: ListView.builder(
-                    itemCount: _documentlists!.length,
+                    itemCount: _documentlists.length,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.all(10),
                         child: GestureDetector(
                           onTap: () {
-                            openFile(_documentlists![index]);
+                            openFile(_documentlists[index]);
                           },
                           child: Card(
                             shape: RoundedRectangleBorder(
@@ -298,12 +298,12 @@ class _NoteAddingState extends State<NoteAdding> {
                             child: ListTile(
                               tileColor:
                                   const Color.fromARGB(221, 130, 136, 147),
-                              title: Text(_documentlists![index].name),
-                              subtitle: Text('${_documentlists![index].path}'),
+                              title: Text(_documentlists[index].name),
+                              subtitle: Text('${_documentlists[index].path}'),
                               trailing: IconButton(
                                   onPressed: () {
                                     setState(() {
-                                      _documentlists!.removeAt(index);
+                                      _documentlists.removeAt(index);
                                     });
                                   },
                                   icon: const Icon(Icons.close)),
@@ -321,35 +321,30 @@ class _NoteAddingState extends State<NoteAdding> {
       ),
     );
   }
-
-  // image picking function--------------------------------------------------
+// ----------------------image picking function--------------------------------------------------
   Future<void> pickImages() async {
     final picker = ImagePicker();
     final pickedImages = await picker.pickImage(source: ImageSource.gallery);
-
     if (pickedImages != null) {
-      final imageFile = File(pickedImages.path); // Convert XFile to File
+      final imageFile = File(pickedImages.path); 
       final imagePath = imageFile.path;
-
       setState(() {
         _imagelist.add(imagePath);
       });
     }
   }
-
- void _pickFiless() async {
-  FilePickerResult? result = await FilePicker.platform.pickFiles(
-    type: FileType.custom,
-    allowedExtensions: ['pdf', 'doc', 'docx', 'txt'], 
-    allowMultiple: true,
-  );
-  if (result != null && result.files.isNotEmpty) {
-    setState(() {
-      _documentlists = result.files;
-    });
+  void _pickFiless() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf', 'doc', 'docx', 'txt'],
+      allowMultiple: true,
+    );
+    if (result != null && result.files.isNotEmpty) {
+      setState(() {
+        _documentlists = result.files;
+      });
+    }
   }
-}
-
   Future<void> openFile(PlatformFile file) async {
     final filePath = file.path;
     try {
@@ -358,13 +353,12 @@ class _NoteAddingState extends State<NoteAdding> {
       print(error);
     }
   }
-
-  // ------save button function--------------------------------------
+ // -----------------save-button-function--------------------------------------
   Future<void> onAddNoteOnClick(BuildContext context) async {
     final notetile = _notetitilecontroller.text.trim();
     final chapt = _chaptercontroller.text.trim();
     final category = _categoryController.text.trim();
-    final doc = _documentlists!.toList();
+    final _doc = _documentlists.toList();
     final imge = _imagelist.toList();
     if (notetile.isEmpty || chapt.isEmpty || category.isEmpty) {
       return;
@@ -372,20 +366,18 @@ class _NoteAddingState extends State<NoteAdding> {
       final note1 = NotesData(
           notetitle: notetile,
           note: chapt,
-          documentlist: doc,
+          documentlist: _doc,
           imagelists: imge,
           category: category);
       _notetitilecontroller.clear();
       _chaptercontroller.clear();
       _categoryController.clear();
       addnote(note1);
-
       Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => NotelistViewScreen(
                 selectedsub: selectedsub,
                 imagelistss: imge,
-                documentlistss: doc,
-
+                documentlistss: _doc,
               )));
     }
   }

@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:open_file/open_file.dart';
-import 'package:studentnot/db/db_functions/db_note_function.dart';
-import 'package:studentnot/db/db_model/note_db.dart';
+import 'package:studentnot/functions/note_function.dart';
+import 'package:studentnot/model/note_model.dart';
+
 
 class NotEditingScreen extends StatefulWidget {
   final String notetitle;
@@ -49,6 +50,8 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
     'Environmental ',
     'Geography',
     'Health Sciences',
+    'Entrepreneurship',
+    'Arts',
   ];
   String selectedsub = 'SUBJECTS';
 
@@ -106,7 +109,7 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
                 ),
                 backgroundColor: const Color.fromARGB(207, 13, 20, 78),
                 onTap: () {
-                 pickFiless();
+                  pickFiless();
                 })
           ],
         ),
@@ -390,8 +393,8 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
       return;
     }
 
-    
-    final combinedImageList = [...widget.imagelists, ..._imagelist].toSet().toList();
+    final combinedImageList =
+        [...widget.imagelists, ..._imagelist].toSet().toList();
 
     final updatedNote = NotesData(
       notetitle: editedTitile,

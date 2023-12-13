@@ -30,17 +30,17 @@ class _NoteViewScreenState extends State<NoteViewScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme: const IconThemeData(color: Colors.white),
           leading: IconButton(
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => BottomBar(username: ''),
+                builder: (context) => const BottomBar(username: ''),
               ));
             },
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
           ),
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
-          title: Text(widget.notetitle, style: TextStyle(color: Colors.white)),
+          title: Text(widget.notetitle, style: const TextStyle(color: Colors.white)),
         ),
         body: SingleChildScrollView(
           child: Center(
@@ -51,14 +51,14 @@ class _NoteViewScreenState extends State<NoteViewScreen> {
                 children: [
                   Text(
                     widget.note,
-                    style: TextStyle(fontSize: 20),
+                    style: const TextStyle(fontSize: 20),
                   ),
                   if (widget.imagelists.isNotEmpty)
                     Container(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             'Images:',
                             style: TextStyle(
                               fontSize: 18,
@@ -67,7 +67,7 @@ class _NoteViewScreenState extends State<NoteViewScreen> {
                           ),
                           ListView.builder(
                             shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             itemCount: widget.imagelists.length,
                             itemBuilder: (context, index) {
                               return Padding(

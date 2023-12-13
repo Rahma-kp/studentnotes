@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:studentnot/db/db_model/data_model.dart';
+import 'package:studentnot/model/todo_model.dart';
 
 ValueNotifier<List<SubData>>subListNotifier= ValueNotifier([]);
 

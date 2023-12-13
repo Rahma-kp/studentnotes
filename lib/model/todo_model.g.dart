@@ -1,44 +1,38 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'note_db.dart';
+part of 'todo_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class NotesDataAdapter extends TypeAdapter<NotesData> {
+class SubDataAdapter extends TypeAdapter<SubData> {
   @override
-  final int typeId = 2;
+  final int typeId = 1;
 
   @override
-  NotesData read(BinaryReader reader) {
+  SubData read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return NotesData(
-      notetitle: fields[0] as String?,
-      note: fields[1] as String?,
-      imagelists: (fields[2] as List?)?.cast<dynamic>(),
-      documentlist: (fields[3] as List?)?.cast<PlatformFile>(),
-      category: fields[4] as String?,
+    return SubData(
+      subtitle: fields[1] as String,
+      subabout: fields[2] as String,
+      id: fields[0] as int?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, NotesData obj) {
+  void write(BinaryWriter writer, SubData obj) {
     writer
-      ..writeByte(5)
-      ..writeByte(0)
-      ..write(obj.notetitle)
-      ..writeByte(1)
-      ..write(obj.note)
-      ..writeByte(2)
-      ..write(obj.imagelists)
       ..writeByte(3)
-      ..write(obj.documentlist)
-      ..writeByte(4)
-      ..write(obj.category);
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.subtitle)
+      ..writeByte(2)
+      ..write(obj.subabout);
   }
 
   @override
@@ -47,7 +41,7 @@ class NotesDataAdapter extends TypeAdapter<NotesData> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is NotesDataAdapter &&
+      other is SubDataAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

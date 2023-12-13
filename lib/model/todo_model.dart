@@ -1,6 +1,6 @@
 
 import 'package:hive/hive.dart';
-part 'data_model.g.dart';
+part 'todo_model.g.dart';
 
 
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:studentnot/db/db_model/data_model.dart';
-import 'package:studentnot/db/db_model/note_db.dart';
+import 'package:studentnot/model/note_model.dart';
+import 'package:studentnot/model/todo_model.dart';
 import 'package:studentnot/screens/login_screen.dart';
 
 
@@ -35,7 +35,7 @@ class ReSet extends ChangeNotifier {
 
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context) => LoginScreen(),
+                      builder: (context) => const LoginScreen(),
                     ),
                   );
 

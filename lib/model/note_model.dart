@@ -1,6 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:hive/hive.dart';
-part 'note_db.g.dart';
+part 'note_model.g.dart';
 
 @HiveType(typeId: 2)
 class NotesData{

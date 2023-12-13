@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studentnot/widget/bottombar.dart';
 
 class ProfileEditingScreen extends StatefulWidget {
-  const ProfileEditingScreen({Key? key}) : super(key: key);
+  const ProfileEditingScreen({super.key});
 
   @override
   State<ProfileEditingScreen> createState() => _ProfileEditingScreenState();
@@ -23,13 +23,11 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
     classController = TextEditingController();
     _loadProfileData();
   }
-
   Future<void> _loadProfileData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? savedName = prefs.getString("name");
     String? savedClass = prefs.getString("class");
     String? savedImagePath = prefs.getString("imagePath");
-
     if (savedName != null) {
       nameController.text = savedName;
     }
@@ -44,7 +42,6 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
       });
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -115,7 +112,6 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
                         prefs.setString("imagePath", _img!.path);
                       }
                       String updatedUsername = prefs.getString("name") ?? '';
-
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) => BottomBar(username: updatedUsername),
@@ -146,7 +142,6 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
       ),
     );
   }
-
   Future<void> _pickImage() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);

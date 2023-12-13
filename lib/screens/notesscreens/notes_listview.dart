@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:studentnot/db/db_functions/db_note_function.dart';
-import 'package:studentnot/db/db_model/note_db.dart';
-import 'package:studentnot/screens/editing_screen.dart';
-import 'package:studentnot/screens/note_adding.dart';
-import 'package:studentnot/screens/note_screen.dart';
+import 'package:studentnot/functions/note_function.dart';
+import 'package:studentnot/model/note_model.dart';
+import 'package:studentnot/screens/notesscreens/note_editing.dart';
+import 'package:studentnot/screens/notesscreens/note_adding.dart';
+import 'package:studentnot/screens/notesscreens/note_screen.dart';
 import 'package:studentnot/widget/bottombar.dart';
 
 class NotelistViewScreen extends StatefulWidget {
   final String selectedsub;
   final List imagelistss;
   final List documentlistss;
-  const NotelistViewScreen({
+  const NotelistViewScreen({super.key, 
     required this.selectedsub,
      required this.imagelistss,
      required this.documentlistss,
@@ -35,10 +35,10 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
           leading: IconButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => BottomBar(username: ''),
+                  builder: (context) => const BottomBar(username: ''),
                 ));
               },
-              icon: Icon(Icons.arrow_back)),
+              icon: const Icon(Icons.arrow_back)),
           iconTheme: const IconThemeData(color: Colors.white),
           title: Text(widget.selectedsub,
               style: const TextStyle(color: Colors.white)),
@@ -49,7 +49,7 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
           onPressed: () {
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => NoteAdding()),
+              MaterialPageRoute(builder: (context) => const NoteAdding()),
             );
           },
           child: const Icon(
@@ -63,7 +63,6 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
             List<NotesData> filteredNotes = notelist
                 .where((not) => not.category == widget.selectedsub)
                 .toList();
-
             return ListView.builder(
               itemCount: filteredNotes.length,
               itemBuilder: (ctx, index) {
@@ -141,7 +140,6 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
       ),
     );
   }
-
   void showDeleteConfirmationDialog(BuildContext context, int index) {
     showDialog(
       context: context,
