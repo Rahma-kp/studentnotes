@@ -1,9 +1,6 @@
 import 'dart:io';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:open_file/open_file.dart';
 import 'package:studentnot/functions/note_function.dart';
 import 'package:studentnot/model/note_model.dart';
 import 'package:studentnot/screens/notesscreens/notes_listview.dart';
@@ -21,7 +18,6 @@ class _NoteAddingState extends State<NoteAdding> {
   final _chaptercontroller = TextEditingController();
   final _categoryController = TextEditingController();
   final List<String> _imagelist = [];
-  late List<PlatformFile> _documentlists = [];
   String selectedsub = 'SUBJECTS';
   final List<String> _sujectList = [
     'SUBJECTS',
@@ -71,30 +67,8 @@ class _NoteAddingState extends State<NoteAdding> {
           iconTheme: const IconThemeData(color: Colors.white),
         ),
 // ---------------------------floating button---------------------------------------------------
-        floatingActionButton: SpeedDial(
-          animatedIcon: AnimatedIcons.menu_arrow,
-          animatedIconTheme: const IconThemeData(color: Colors.white),
-          backgroundColor: const Color.fromARGB(207, 13, 20, 78),
-          children: [
-            SpeedDialChild(
-              child:
-                  const Icon(Icons.add_a_photo_outlined, color: Colors.white),
-              backgroundColor: const Color.fromARGB(207, 13, 20, 78),
-              onTap: () {
-                pickImages();
-              },
-            ),
-            SpeedDialChild(
-                child: const Icon(
-                  Icons.picture_as_pdf,
-                  color: Colors.white,
-                ),
-                backgroundColor: const Color.fromARGB(207, 13, 20, 78),
-                onTap: () {
-                  _pickFiless();
-                })
-          ],
-        ),
+        floatingActionButton: FloatingActionButton(backgroundColor: const Color.fromARGB(207, 13, 20, 78),
+          onPressed: (){pickImages();},child:Icon(Icons.add_a_photo,color: Colors.white),),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(15),
@@ -199,7 +173,7 @@ class _NoteAddingState extends State<NoteAdding> {
                   decoration: BoxDecoration(
                       border: Border.all(style: BorderStyle.solid),
                       borderRadius: BorderRadius.circular(10)),
-                  height: 400,
+                  height: 600,
                   width: 700,
                   child: Padding(
                     padding: const EdgeInsets.all(10),
@@ -233,7 +207,7 @@ class _NoteAddingState extends State<NoteAdding> {
                       ),
                     )),
                 Container(
-                  height: 400,
+                  height: 600,
                   width: 900,
                   decoration: BoxDecoration(
                       border: Border.all(style: BorderStyle.solid),
@@ -264,56 +238,6 @@ class _NoteAddingState extends State<NoteAdding> {
                     },
                   ),
                 ),
-// -------------------------------------------file-list--------------------------------------------------------------------------------------------
-                const SizedBox(
-                  height: 40,
-                ),
-                const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      "𝐃𝐎𝐂𝐔𝐌𝐄𝐍𝐓𝐒",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )),
-                Container(
-                  height: 400,
-                  width: 900,
-                  decoration: BoxDecoration(
-                      border: Border.all(style: BorderStyle.solid),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: ListView.builder(
-                    itemCount: _documentlists.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: GestureDetector(
-                          onTap: () {
-                            openFile(_documentlists[index]);
-                          },
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            child: ListTile(
-                              tileColor:
-                                  const Color.fromARGB(221, 130, 136, 147),
-                              title: Text(_documentlists[index].name),
-                              subtitle: Text('${_documentlists[index].path}'),
-                              trailing: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      _documentlists.removeAt(index);
-                                    });
-                                  },
-                                  icon: const Icon(Icons.close)),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                )
               ],
             ),
           ),
@@ -321,44 +245,25 @@ class _NoteAddingState extends State<NoteAdding> {
       ),
     );
   }
+
 // ----------------------image picking function--------------------------------------------------
   Future<void> pickImages() async {
     final picker = ImagePicker();
     final pickedImages = await picker.pickImage(source: ImageSource.gallery);
     if (pickedImages != null) {
-      final imageFile = File(pickedImages.path); 
+      final imageFile = File(pickedImages.path);
       final imagePath = imageFile.path;
       setState(() {
         _imagelist.add(imagePath);
       });
     }
   }
-  void _pickFiless() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['pdf', 'doc', 'docx', 'txt'],
-      allowMultiple: true,
-    );
-    if (result != null && result.files.isNotEmpty) {
-      setState(() {
-        _documentlists = result.files;
-      });
-    }
-  }
-  Future<void> openFile(PlatformFile file) async {
-    final filePath = file.path;
-    try {
-      await OpenFile.open(filePath);
-    } catch (error) {
-      print(error);
-    }
-  }
- // -----------------save-button-function--------------------------------------
+
+  // -----------------save-button-function--------------------------------------
   Future<void> onAddNoteOnClick(BuildContext context) async {
     final notetile = _notetitilecontroller.text.trim();
     final chapt = _chaptercontroller.text.trim();
     final category = _categoryController.text.trim();
-    final _doc = _documentlists.toList();
     final imge = _imagelist.toList();
     if (notetile.isEmpty || chapt.isEmpty || category.isEmpty) {
       return;
@@ -366,7 +271,6 @@ class _NoteAddingState extends State<NoteAdding> {
       final note1 = NotesData(
           notetitle: notetile,
           note: chapt,
-          documentlist: _doc,
           imagelists: imge,
           category: category);
       _notetitilecontroller.clear();
@@ -377,7 +281,6 @@ class _NoteAddingState extends State<NoteAdding> {
           builder: (context) => NotelistViewScreen(
                 selectedsub: selectedsub,
                 imagelistss: imge,
-                documentlistss: _doc,
               )));
     }
   }

@@ -22,29 +22,24 @@ class About extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(''' 
-              Welcome to the MyNote! 
-        
-              Mynote make easy study!
-        
-          A MyNote app  designed to help store , monitor and manage their notes.
-          These including doument and images also we can store daily bases notes.
-          The primary goal of an mynote is to provide users with a comprehensive overview of their spending 
-          patterns,enabling them to make informed decisions about their study.
-        .
-        
+       Welcome to the Mynote! 
+
              
-        
-              Is Mynote a safe app:-
-        
-        Easy Tracker does not handle any cash transactions,nor does it link to personal banking details,making it safer than other Apps. 
-        
-        
-        
-        
-        
-        
-        
-        
+
+  A Mynote app  designed to versatile and user-friendly tool designed to simplify the process of capturing and organizing thoughts and notes
+  Users can seamlessly create, edit, and categorize notes, making it an ideal solution for a variety of purposes.
+  The app accommodates both text and image content, allowing users to express themselves creatively and comprehensively. Whether users are jotting down daily reflections, recording lecture notes, or saving important information, your note app provides a flexible platform to suit diverse needs.
+
+             
+
+Mnyote app stands as a versatile and user-centric solution for efficient information management
+
+
+
+
+
+
+
                                Explore the features ! ''')
               ],
             ),

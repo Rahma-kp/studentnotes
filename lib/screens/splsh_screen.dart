@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studentnot/widget/bottombar.dart';
 import 'package:studentnot/screens/login_screen.dart';
-const String SAVE_KEY_NAME = 'user_logged_in';
+const String save_Key_Name = 'user_logged_in';
 
 
 class SplashScreen extends StatefulWidget {
@@ -34,12 +34,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> checkuserloggedin() async {
     final sharedprefs = await SharedPreferences.getInstance();
-    final userLoggedIn = sharedprefs.getBool(SAVE_KEY_NAME);
+    final userLoggedIn = sharedprefs.getBool(save_Key_Name);
 
     if (userLoggedIn == null || userLoggedIn == false) {
       gotologinpage();
     } else {
-      Navigator.of(context).pushReplacement(
+      Navigator.of(context).push(
         MaterialPageRoute(builder: (ctx1) => const BottomBar(username: '',)),
       );
     }

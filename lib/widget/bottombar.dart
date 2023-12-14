@@ -1,7 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:studentnot/screens/chart_screen.dart';
+import 'package:studentnot/screens/chartscreens/chart_screen.dart';
 import 'package:studentnot/screens/home_screen.dart';
 import 'package:studentnot/screens/notesscreens/note_adding.dart';
 import 'package:studentnot/screens/setting/setting_screen.dart';
@@ -36,7 +36,7 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     final pages = [
-      HomeScreen(imagePath: imagePath, username: name),
+      HomeScreen(imagePath:imagePath, username: name),
       TodoList(),
       const NoteAdding(),
       const PieChart(),

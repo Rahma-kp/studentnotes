@@ -8,7 +8,7 @@ import 'package:studentnot/model/todo_model.dart';
 import 'package:studentnot/screens/splsh_screen.dart';
 
 
-const String SAVE_KEY_NAME = 'user_logged_in';
+const String save_Key_Name = 'user_logged_in';
 
  Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();

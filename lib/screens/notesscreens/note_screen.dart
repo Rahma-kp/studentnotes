@@ -6,19 +6,17 @@ class NoteViewScreen extends StatefulWidget {
   final String notetitle;
   final String note;
   final String catogery;
-  final List documentlist;
   final List imagelists;
   int index;
 
   NoteViewScreen({
-    Key? key,
+    super.key,
     required this.notetitle,
     required this.note,
     required this.catogery,
-    required this.documentlist,
     required this.imagelists,
     required this.index,
-  }) : super(key: key);
+  });
 
   @override
   State<NoteViewScreen> createState() => _NoteViewScreenState();

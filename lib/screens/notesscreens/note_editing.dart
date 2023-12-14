@@ -1,9 +1,7 @@
 import 'dart:io';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:open_file/open_file.dart';
 import 'package:studentnot/functions/note_function.dart';
 import 'package:studentnot/model/note_model.dart';
 
@@ -12,18 +10,15 @@ class NotEditingScreen extends StatefulWidget {
   final String notetitle;
   final String note;
   final String catogery;
-  late final List documentlist;
   final List imagelists;
   final int index;
-  NotEditingScreen(
-      {Key? key,
+  const NotEditingScreen(
+      {super.key,
       required this.notetitle,
       required this.note,
       required this.catogery,
-      required this.documentlist,
       required this.imagelists,
-      required this.index})
-      : super(key: key);
+      required this.index});
 
   @override
   State<NotEditingScreen> createState() => _NotEditingScreenState();
@@ -34,7 +29,6 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
   TextEditingController _chaptercontrolle = TextEditingController();
   TextEditingController _categoryController = TextEditingController();
   List<String> _imagelist = [];
-  List<dynamic> _documentlists = [];
   final List<String> _sujectList = [
     'SUBJECTS',
     'Language',
@@ -89,30 +83,8 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
           ],
           iconTheme: const IconThemeData(color: Colors.white),
         ),
-        floatingActionButton: SpeedDial(
-          animatedIcon: AnimatedIcons.menu_arrow,
-          animatedIconTheme: const IconThemeData(color: Colors.white),
-          backgroundColor: const Color.fromARGB(207, 13, 20, 78),
-          children: [
-            SpeedDialChild(
-              child:
-                  const Icon(Icons.add_a_photo_outlined, color: Colors.white),
-              backgroundColor: const Color.fromARGB(207, 13, 20, 78),
-              onTap: () {
-                pickImages();
-              },
-            ),
-            SpeedDialChild(
-                child: const Icon(
-                  Icons.picture_as_pdf,
-                  color: Colors.white,
-                ),
-                backgroundColor: const Color.fromARGB(207, 13, 20, 78),
-                onTap: () {
-                  pickFiless();
-                })
-          ],
-        ),
+        floatingActionButton: FloatingActionButton(backgroundColor: const Color.fromARGB(207, 13, 20, 78),
+          onPressed: (){pickImages();},child: Icon(Icons.add_a_photo,color: Colors.white,),),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(15),
@@ -220,7 +192,7 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
                   decoration: BoxDecoration(
                       border: Border.all(style: BorderStyle.solid),
                       borderRadius: BorderRadius.circular(10)),
-                  height: 400,
+                  height: 700,
                   width: 700,
                   child: Padding(
                     padding: const EdgeInsets.all(10),
@@ -256,12 +228,12 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
                   decoration: BoxDecoration(
                       border: Border.all(style: BorderStyle.solid),
                       borderRadius: BorderRadius.circular(10)),
-                  height: 600,
+                  height: 700,
                   width: 700,
                   child: Padding(
                     padding: const EdgeInsets.all(15),
                     child: SizedBox(
-                      height: 00,
+                      height: 200,
                       width: 200,
                       child: ListView.builder(
                         scrollDirection: Axis.vertical,
@@ -287,57 +259,6 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 40,
-                ),
-                const Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    "𝐃𝐎𝐂𝐔𝐌𝐄𝐍𝐓𝐒",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 400,
-                  width: 500,
-                  decoration: BoxDecoration(
-                    border: Border.all(style: BorderStyle.solid),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: ListView.builder(
-                    itemCount: _documentlists.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: GestureDetector(
-                          onTap: () {
-                            openFile(_documentlists[index]);
-                          },
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            child: ListTile(
-                              tileColor:
-                                  const Color.fromARGB(221, 130, 136, 147),
-                              title: Text(_documentlists[index].name),
-                              subtitle: Text('${_documentlists[index].path}'),
-                              trailing: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      _documentlists.removeAt(index);
-                                    });
-                                  },
-                                  icon: const Icon(Icons.close)),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
               ],
             ),
           ),
@@ -345,7 +266,7 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
       ),
     );
   }
-
+//----------------------image picking--------------------------------------------------
   Future<void> pickImages() async {
     final picker = ImagePicker();
     final pickedImages = await picker.pickImage(source: ImageSource.gallery);
@@ -360,30 +281,7 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
     }
   }
 
-  void pickFiless() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.any,
-      allowMultiple: true,
-    );
 
-    if (result != null && result.files.isNotEmpty) {
-      setState(() {
-        _documentlists = result.files;
-      });
-    }
-  }
-
-  Future<void> openFile(PlatformFile file) async {
-    final filePath = file.path;
-    final fileName = file.name;
-
-    try {
-      await OpenFile.open(filePath);
-      print(fileName);
-    } catch (error) {
-      print(error);
-    }
-  }
 
   Future<void> editsaveonclick() async {
     final editedTitile = _notetitilecontroller.text.trim();
@@ -400,7 +298,6 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
       notetitle: editedTitile,
       note: editedNote,
       category: editedCategoery,
-      documentlist: [],
       imagelists: combinedImageList,
     );
 

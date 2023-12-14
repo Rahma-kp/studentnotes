@@ -9,11 +9,9 @@ import 'package:studentnot/widget/bottombar.dart';
 class NotelistViewScreen extends StatefulWidget {
   final String selectedsub;
   final List imagelistss;
-  final List documentlistss;
   const NotelistViewScreen({super.key, 
     required this.selectedsub,
      required this.imagelistss,
-     required this.documentlistss,
   });
 
   @override
@@ -82,7 +80,6 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
                               notetitle: datas.notetitle!,
                               note: datas.note!,
                               catogery: datas.category!,
-                              documentlist: datas.documentlist!,
                               imagelists:datas.imagelists!,
                               index: index,
                             ),
@@ -109,7 +106,6 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
                                 MaterialPageRoute(
                                   builder: (context) => NotEditingScreen(
                                     catogery: datas.category!,
-                                    documentlist: datas.documentlist!,
                                     imagelists: datas.imagelists!,
                                     notetitle: datas.notetitle!,
                                     note: datas.note!,

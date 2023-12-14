@@ -25,10 +25,9 @@ class PieChart extends StatelessWidget {
     .map((MapEntry<String, int> entry) =>
         _PieData(entry.key, entry.value.toDouble(), '${entry.value}%'))
     .toList();
-
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
+        appBar: AppBar(iconTheme: IconThemeData(color: Colors.white),
           title: const Text('𝐂𝐡𝐚𝐫𝐭', style:  TextStyle(color: Colors.white)),
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
         ),

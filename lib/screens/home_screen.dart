@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
     'assets/catogory/geyo.jpg',
     'assets/catogory/health.jpg',
     'assets/catogory/entreprenceur.jpeg',
-    'assetscatogory/art.jpeg',
+    'assets/catogory/art.jpeg',
   ];
 
   List<String> filteredsubject = [];
@@ -182,7 +182,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                   MaterialPageRoute(
                                     builder: (context) => NotelistViewScreen(
                                       imagelistss: [],
-                                      documentlistss: [],
                                       selectedsub: selectedsub,
                                     ),
                                   ),

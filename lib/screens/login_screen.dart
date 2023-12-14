@@ -15,7 +15,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController classController = TextEditingController();
-  final ImagePicker imagePicker = ImagePicker();
+  late ImagePicker imagePicker = ImagePicker();
   File? picked;
   final _formKey = GlobalKey<FormState>();
 
@@ -131,15 +131,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (username.isNotEmpty && password.isNotEmpty || picked != null) {
       final sharedprefs = await SharedPreferences.getInstance();
-      await sharedprefs.setBool(SAVE_KEY_NAME, true);
+      await sharedprefs.setBool(save_Key_Name, true);
       await sharedprefs.setString('username', username);
       await sharedprefs.setString('class', password);
       await sharedprefs.setString('imagePath', picked!.path);
-      Navigator.of(ctx).pushReplacement(
-        MaterialPageRoute(
-          builder: (ctx1) => const BottomBar(username: ''),
-        ),
-      );
+      Navigator.of(context).push(MaterialPageRoute(builder:(context) => const BottomBar(username: ''),));
+      
     } else {
       showDialog(
         context: context,

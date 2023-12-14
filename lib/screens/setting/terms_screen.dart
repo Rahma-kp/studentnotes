@@ -33,7 +33,7 @@ class TermsScreen extends StatelessWidget {
 
   6:- App Availability: We aim to provide the app 24/7, but we can't guarantee it. We're not responsible for any inconvenience caused by app unavailability.
 
-  7:- Get in Touch: If you have questions, reach out to us at kprahma7384@gemail.com
+  7:- Get in Touch: If you have questions, reach out to us at rahmakundupuzakkal7384.com
 
             By using the note App, you agree to these terms. Enjoy your studying adventures! ''')
             ],
