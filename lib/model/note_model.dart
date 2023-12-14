@@ -1,4 +1,4 @@
-import 'package:file_picker/file_picker.dart';
+
 import 'package:hive/hive.dart';
 part 'note_model.g.dart';
 
@@ -11,7 +11,7 @@ late final String? note;
 @HiveField(2)
 late final List? imagelists;
 @HiveField(3)
-late final List<PlatformFile>? documentlist;
+late final List? documentlist;
 @HiveField(4)
 late final String? category;
 

@@ -22,10 +22,8 @@ const String save_Key_Name = 'user_logged_in';
   Hive.registerAdapter(NotesDataAdapter());
  }
  
-
   runApp(const MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
