@@ -22,7 +22,13 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Image.asset("assets/images/img4-removebg-preview.png",)),
+      body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset("assets/images/img4-removebg-preview.png",),
+          Container(height:30,width:200,
+            color:Color.fromARGB(207, 13, 20, 78), child: Center(child: Text('𝐒𝐭𝐮𝐝𝐲 𝐨𝐧 𝐦𝐲 𝐰𝐚𝐲',style: TextStyle(fontSize: 20,color: Colors.white),)))
+        ],
+      )),
     );
   }
     Future<void> gotologinpage() async {
