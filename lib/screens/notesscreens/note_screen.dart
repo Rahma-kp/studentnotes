@@ -32,7 +32,7 @@ class _NoteViewScreenState extends State<NoteViewScreen> {
           leading: IconButton(
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const BottomBar(username: ''),
+                builder: (context) => const BottomBar(username: '',imagePaths: ''),
               ));
             },
             icon: const Icon(Icons.arrow_back),

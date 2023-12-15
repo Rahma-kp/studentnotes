@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studentnot/widget/bottombar.dart';
 
 class ProfileEditingScreen extends StatefulWidget {
-  const ProfileEditingScreen({super.key});
+  const ProfileEditingScreen({Key? key});
 
   @override
   State<ProfileEditingScreen> createState() => _ProfileEditingScreenState();
@@ -15,6 +15,7 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
   late final TextEditingController nameController;
   late final TextEditingController classController;
   File? _img;
+  File? _newImage; // Store the newly picked image temporarily.
 
   @override
   void initState() {
@@ -23,11 +24,13 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
     classController = TextEditingController();
     _loadProfileData();
   }
+
   Future<void> _loadProfileData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedName = prefs.getString("name");
+    String? savedName = prefs.getString("username");
     String? savedClass = prefs.getString("class");
     String? savedImagePath = prefs.getString("imagePath");
+
     if (savedName != null) {
       nameController.text = savedName;
     }
@@ -42,6 +45,7 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
       });
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -52,7 +56,7 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
             onPressed: () {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (context) => const BottomBar(username:''),
+                  builder: (context) => const BottomBar(username: '',imagePaths: ''),
                 ),
               );
             },
@@ -70,14 +74,17 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  GestureDetector( onTap: () {
-                    _pickImage();
-                  },
+                  GestureDetector(
+                    onTap: () {
+                      _pickImage();
+                    },
                     child: CircleAvatar(
-                      backgroundImage: _img != null
-                          ? FileImage(_img!)
-                          : const AssetImage("assets/images/person1.png")
-                              as ImageProvider<Object>,
+                      backgroundImage: _newImage != null
+                          ? FileImage(_newImage!)
+                          : (_img != null
+                              ? FileImage(_img!)
+                              : const AssetImage("assets/images/person1.png")
+                                  as ImageProvider<Object>),
                       radius: 40,
                     ),
                   ),
@@ -108,13 +115,19 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
                           await SharedPreferences.getInstance();
                       prefs.setString("username", nameController.text);
                       prefs.setString("class", classController.text);
-                      if (_img != null) {
-                        prefs.setString("imagePath", _img!.path);
+                      if (_newImage != null) {
+                        prefs.setString("imagePath", _newImage!.path);
+                        setState(() {
+                          _img = _newImage;
+                          _newImage = null; 
+                        });
                       }
-                      String updatedUsername = prefs.getString("name") ?? '';
+                      String updatedUsername =
+                          prefs.getString("username") ?? '';
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
-                          builder: (context) => BottomBar(username: updatedUsername),
+                          builder: (context) =>
+                              BottomBar(username: updatedUsername,imagePaths:''),
                         ),
                       );
                     },
@@ -142,16 +155,14 @@ class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
       ),
     );
   }
+
   Future<void> _pickImage() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     setState(() {
       if (pickedFile != null) {
-        _img = File(pickedFile.path);
-        SharedPreferences.getInstance().then((prefs) {
-          prefs.setString("imagePath", _img!.path);
-        });
+        _newImage = File(pickedFile.path);
       }
     });
   }

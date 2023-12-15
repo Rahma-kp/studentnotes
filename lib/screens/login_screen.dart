@@ -2,11 +2,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:studentnot/main.dart';
 import 'package:studentnot/widget/bottombar.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -18,6 +17,81 @@ class _LoginScreenState extends State<LoginScreen> {
   late ImagePicker imagePicker = ImagePicker();
   File? picked;
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    checkIfAlreadyLoggedIn();
+  }
+
+  void checkIfAlreadyLoggedIn() async {
+    final sharedPrefs = await SharedPreferences.getInstance();
+    final isLoggedIn = sharedPrefs.getBool('save_Key_Name') ?? false;
+
+    if (isLoggedIn) {
+      // User is already logged in, navigate to home screen
+      final username = sharedPrefs.getString('username') ?? '';
+      final imagePath = sharedPrefs.getString('imagePath') ?? '';
+
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => BottomBar(username: username, imagePaths: imagePath),
+        ),
+      );
+    }
+  }
+
+  void getimage(ImageSource source) async {
+    var img = await imagePicker.pickImage(source: source);
+    setState(() {
+      picked = File(img!.path);
+    });
+  }
+
+  void checkLogin(BuildContext ctx) async {
+    final username = usernameController.text;
+    final password = classController.text;
+
+    if (username.isNotEmpty && password.isNotEmpty || picked != null) {
+      final sharedprefs = await SharedPreferences.getInstance();
+      await sharedprefs.setBool('save_Key_Name', true);
+      await sharedprefs.setString('username', username);
+      await sharedprefs.setString('class', password);
+      await sharedprefs.setString('imagePath', picked?.path ?? '');
+
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => BottomBar(
+            username: username,
+            imagePaths: picked?.path ?? '',
+          ),
+        ),
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (context1) {
+          return AlertDialog(
+            title: const Text(
+              'Ooops',
+              style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+            ),
+            content: const Text(
+              'Enter Valid Username, Password, and Capture an Image!',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context1).pop();
+                },
+                child: const Text('Close'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: double.infinity,
                   decoration: const BoxDecoration(
                     color: Color.fromARGB(207, 13, 20, 78),
-                    borderRadius:
-                        BorderRadius.only(bottomRight: Radius.circular(60)),
+                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(60)),
                   ),
                   child: Image.asset(
                     "assets/images/img1-removebg-preview.png",
@@ -116,49 +189,5 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-  }
-
-  void getimage(ImageSource source) async {
-    var img = await imagePicker.pickImage(source: source);
-    setState(() {
-      picked = File(img!.path);
-    });
-  }
-
-  void checkLogin(BuildContext ctx) async {
-    final username = usernameController.text;
-    final password = classController.text;
-
-    if (username.isNotEmpty && password.isNotEmpty || picked != null) {
-      final sharedprefs = await SharedPreferences.getInstance();
-      await sharedprefs.setBool(save_Key_Name, true);
-      await sharedprefs.setString('username', username);
-      await sharedprefs.setString('class', password);
-      await sharedprefs.setString('imagePath', picked!.path);
-      Navigator.of(context).push(MaterialPageRoute(builder:(context) => const BottomBar(username: ''),));
-      
-    } else {
-      showDialog(
-        context: context,
-        builder: (context1) {
-          return AlertDialog(
-            title: const Text(
-              'Ooops',
-              style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
-            ),
-            content: const Text(
-                'Enter Valid Username, Password, and Capture an Image!'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context1).pop();
-                },
-                child: const Text('Close'),
-              ),
-            ],
-          );
-        },
-      );
-    }
   }
 }

@@ -5,9 +5,9 @@ import 'package:studentnot/screens/profile_editing_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final String username;
-  final String imagePath;
+  final String imagePaths;
 
-  const HomeScreen({super.key, required this.username, required this.imagePath});
+  const HomeScreen({super.key, required this.username, required this.imagePaths});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -63,9 +63,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color.fromARGB(221, 202, 194, 194),
-        appBar: AppBar(
+        appBar: AppBar(automaticallyImplyLeading: false,
           iconTheme: const IconThemeData(color: Colors.white),
-          leading: Padding(
+          actions:[ Padding(
             padding: const EdgeInsets.all(8.0),
             child: GestureDetector(
                 onTap: () {
@@ -76,11 +76,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
                 child: CircleAvatar(
-                    backgroundImage: widget.imagePath.isNotEmpty
-                        ? FileImage(File(widget.imagePath))
+                    backgroundImage: widget.imagePaths.isNotEmpty
+                        ? FileImage(File(widget.imagePaths))
                         : const AssetImage('assets/images/person1.png')
                             as ImageProvider<Object>?)),
-          ),
+          ),],
           title: Text(
             widget.username,
             style: const TextStyle(color: Colors.white),

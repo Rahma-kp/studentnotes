@@ -27,7 +27,7 @@ class PieChart extends StatelessWidget {
     .toList();
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(iconTheme: IconThemeData(color: Colors.white),
+        appBar: AppBar(automaticallyImplyLeading: false,
           title: const Text('𝐂𝐡𝐚𝐫𝐭', style:  TextStyle(color: Colors.white)),
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
         ),

@@ -37,18 +37,20 @@ class _NoteAddingState extends State<NoteAdding> {
     'Entrepreneurship',
     'Arts',
   ];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const BottomBar(username: ''),
-                ));
-              },
-              icon: const Icon(Icons.arrow_back)),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const BottomBar(username: '',imagePaths: ''),
+              ));
+            },
+            icon: const Icon(Icons.arrow_back),
+          ),
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
           title: const Text(
             "𝐀𝐝𝐝 𝐂𝐡𝐚𝐩𝐭𝐞𝐫",
@@ -56,19 +58,25 @@ class _NoteAddingState extends State<NoteAdding> {
           ),
           actions: [
             TextButton(
-                onPressed: () {
-                  onAddNoteOnClick(context);
-                },
-                child: const Text(
-                  "𝐒𝐚𝐯𝐞",
-                  style: TextStyle(color: Colors.white, fontSize: 19),
-                ))
+              onPressed: () {
+                onAddNoteOnClick(context);
+              },
+              child: const Text(
+                "𝐒𝐚𝐯𝐞",
+                style: TextStyle(color: Colors.white, fontSize: 19),
+              ),
+            )
           ],
           iconTheme: const IconThemeData(color: Colors.white),
         ),
-// ---------------------------floating button---------------------------------------------------
-        floatingActionButton: FloatingActionButton(backgroundColor: const Color.fromARGB(207, 13, 20, 78),
-          onPressed: (){pickImages();},child:Icon(Icons.add_a_photo,color: Colors.white),),
+        // ---------------------------floating button---------------------------------------------------
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: const Color.fromARGB(207, 13, 20, 78),
+          onPressed: () {
+            pickImages();
+          },
+          child: const Icon(Icons.add_a_photo, color: Colors.white),
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(15),
@@ -193,7 +201,7 @@ class _NoteAddingState extends State<NoteAdding> {
                     ),
                   ),
                 ),
-// ---------------------------------------------imagelist------------------------------------------------------------------------
+                // ---------------------------------------------imagelist------------------------------------------------------------------------
                 const SizedBox(
                   height: 40,
                 ),
@@ -246,7 +254,7 @@ class _NoteAddingState extends State<NoteAdding> {
     );
   }
 
-// ----------------------image picking function--------------------------------------------------
+  // ----------------------image picking function--------------------------------------------------
   Future<void> pickImages() async {
     final picker = ImagePicker();
     final pickedImages = await picker.pickImage(source: ImageSource.gallery);
@@ -277,6 +285,9 @@ class _NoteAddingState extends State<NoteAdding> {
       _chaptercontroller.clear();
       _categoryController.clear();
       addnote(note1);
+      setState(() {
+        _imagelist.clear(); // Clear the image list after adding a note.
+      });
       Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => NotelistViewScreen(
                 selectedsub: selectedsub,

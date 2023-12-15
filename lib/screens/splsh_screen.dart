@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
       gotologinpage();
     } else {
       Navigator.of(context).push(
-        MaterialPageRoute(builder: (ctx1) => const BottomBar(username: '',)),
+        MaterialPageRoute(builder: (ctx1) => const BottomBar(username: '',imagePaths: '',)),
       );
     }
   }

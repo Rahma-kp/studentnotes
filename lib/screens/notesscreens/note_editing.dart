@@ -83,7 +83,7 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
           iconTheme: const IconThemeData(color: Colors.white),
         ),
         floatingActionButton: FloatingActionButton(backgroundColor: const Color.fromARGB(207, 13, 20, 78),
-          onPressed: (){pickImages();},child: Icon(Icons.add_a_photo,color: Colors.white,),),
+          onPressed: (){pickImages();},child: const Icon(Icons.add_a_photo,color: Colors.white,),),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(15),

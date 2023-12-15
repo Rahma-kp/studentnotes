@@ -21,7 +21,7 @@ class TodoList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
+        appBar: AppBar(automaticallyImplyLeading: false,
           iconTheme: const IconThemeData(color: Colors.white),
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
           title: const Text('𝐓𝐨𝐝𝐚𝐲 𝐋𝐢𝐬𝐭', style: TextStyle(color: Colors.white)),

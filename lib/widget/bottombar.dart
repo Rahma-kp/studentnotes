@@ -6,37 +6,44 @@ import 'package:studentnot/screens/home_screen.dart';
 import 'package:studentnot/screens/notesscreens/note_adding.dart';
 import 'package:studentnot/screens/setting/setting_screen.dart';
 import 'package:studentnot/screens/todoscreen/todaylist.dart';
-
 class BottomBar extends StatefulWidget {
-  const BottomBar({super.key, required String username});
+  final String username;
+
+  const BottomBar({Key? key, required this.username, required String imagePaths}) : super(key: key);
 
   @override
   State<BottomBar> createState() => _BottomBarState();
-}
-
-class _BottomBarState extends State<BottomBar> {
+}class _BottomBarState extends State<BottomBar> {
   int myindex = 0;
-   late String name;
-   late String imagePath;
+  late String name;
+  late String imagePathmm='';
 
   @override
   void initState() {
     super.initState();
-    loadUserData();
+    initializeUserData();
+  }
+
+  Future<void> initializeUserData() async {
+    await loadUserData();
   }
 
   Future<void> loadUserData() async {
     final sharedPrefs = await SharedPreferences.getInstance();
     setState(() {
-      name = sharedPrefs.getString('username')!;
-      imagePath = sharedPrefs.getString('imagePath')!;
+      name = sharedPrefs.getString('username') ?? '';
+      imagePathmm = sharedPrefs.getString('imagePath') ?? '';
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    if (imagePathmm.isEmpty) {
+      return  Image.asset('assets/images/person1.png');
+    }
+
     final pages = [
-      HomeScreen(imagePath:imagePath, username: name),
+      HomeScreen(imagePaths: imagePathmm, username: name),
       TodoList(),
       const NoteAdding(),
       const PieChart(),

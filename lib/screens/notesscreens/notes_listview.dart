@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:studentnot/functions/note_function.dart';
 import 'package:studentnot/model/note_model.dart';
 import 'package:studentnot/screens/notesscreens/note_editing.dart';
-import 'package:studentnot/screens/notesscreens/note_adding.dart';
 import 'package:studentnot/screens/notesscreens/note_screen.dart';
 import 'package:studentnot/widget/bottombar.dart';
 
@@ -33,7 +32,7 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
           leading: IconButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const BottomBar(username: ''),
+                  builder: (context) => const BottomBar(username: '',imagePaths: ''),
                 ));
               },
               icon: const Icon(Icons.arrow_back)),
@@ -42,18 +41,6 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
               style: const TextStyle(color: Colors.white)),
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
           elevation: 0,
-        ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: const Color.fromARGB(207, 13, 20, 78),
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const NoteAdding()),
-            );
-          },
-          child: const Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
         ),
         body: ValueListenableBuilder(
           valueListenable: noteListNotifier,
