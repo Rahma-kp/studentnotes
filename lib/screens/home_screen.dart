@@ -7,7 +7,8 @@ class HomeScreen extends StatefulWidget {
   final String username;
   final String imagePaths;
 
-  const HomeScreen({super.key, required this.username, required this.imagePaths});
+  const HomeScreen(
+      {super.key, required this.username, required this.imagePaths});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -63,11 +64,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color.fromARGB(221, 202, 194, 194),
-        appBar: AppBar(automaticallyImplyLeading: false,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
           iconTheme: const IconThemeData(color: Colors.white),
-          actions:[ Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GestureDetector(
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
@@ -76,11 +79,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
                 child: CircleAvatar(
-                    backgroundImage: widget.imagePaths.isNotEmpty
-                        ? FileImage(File(widget.imagePaths))
-                        : const AssetImage('assets/images/person1.png')
-                            as ImageProvider<Object>?)),
-          ),],
+                  backgroundColor: widget.imagePaths.isNotEmpty
+                      ? Colors.transparent
+                      : const Color.fromARGB(255, 223, 176, 176),
+                  radius: 60,
+                  backgroundImage: widget.imagePaths.isNotEmpty
+                      ? FileImage(File(widget.imagePaths))
+                      : null, // Set to null to remove the default image
+                  child: widget.imagePaths.isEmpty
+                      ? const Icon(Icons.add_a_photo)
+                      : null, // Set to null to remove the default icon
+                ),
+              ),
+            )
+          ],
           title: Text(
             widget.username,
             style: const TextStyle(color: Colors.white),
@@ -216,6 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
   void filterSubjects(String query) {
     setState(() {
       filteredsubject = subject

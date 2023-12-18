@@ -267,7 +267,7 @@ class _NoteAddingState extends State<NoteAdding> {
     }
   }
 
-  // -----------------save-button-function--------------------------------------
+// -----------------save-button-function--------------------------------------
   Future<void> onAddNoteOnClick(BuildContext context) async {
     final notetile = _notetitilecontroller.text.trim();
     final chapt = _chaptercontroller.text.trim();

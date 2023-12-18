@@ -31,8 +31,6 @@ class ReSet extends ChangeNotifier {
                   notDB.clear();
                   final subDB= await Hive.openBox<SubData>("subdata_db");
                   subDB.clear();
-                
-
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
                       builder: (context) => const LoginScreen(),

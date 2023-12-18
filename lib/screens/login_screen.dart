@@ -29,7 +29,6 @@ class _LoginScreenState extends State<LoginScreen> {
     final isLoggedIn = sharedPrefs.getBool('save_Key_Name') ?? false;
 
     if (isLoggedIn) {
-      // User is already logged in, navigate to home screen
       final username = sharedPrefs.getString('username') ?? '';
       final imagePath = sharedPrefs.getString('imagePath') ?? '';
 
