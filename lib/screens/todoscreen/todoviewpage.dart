@@ -16,7 +16,7 @@ class TodoviewPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
+          iconTheme: const IconThemeData(color: Colors.white),
           backgroundColor: selectedColor, 
           title: const Text('𝐓𝐨 𝐃𝐨', style: TextStyle(color: Colors.white)),
         ),

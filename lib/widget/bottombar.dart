@@ -9,7 +9,7 @@ import 'package:studentnot/screens/todoscreen/todaylist.dart';
 class BottomBar extends StatefulWidget {
   final String username;
 
-  const BottomBar({Key? key, required this.username, required String imagePaths}) : super(key: key);
+  const BottomBar({super.key, required this.username, required String imagePaths});
 
   @override
   State<BottomBar> createState() => _BottomBarState();

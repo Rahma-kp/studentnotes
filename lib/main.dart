@@ -1,6 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:provider/provider.dart';
+import 'package:studentnot/contoller/add_note_controller.dart';
+import 'package:studentnot/contoller/note_editing_controller.dart';
+import 'package:studentnot/contoller/notedb_provider.dart';
 import 'package:studentnot/functions/note_function.dart';
 import 'package:studentnot/functions/todo_function.dart';
 import 'package:studentnot/model/note_model.dart';
@@ -32,9 +36,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     getAlldata();
     getAllNoteData();
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home:SplashScreen(),
+    return MultiProvider(providers: [
+      ChangeNotifierProvider<notedbprovider>(create: (_)=>notedbprovider()),
+      ChangeNotifierProvider<AddNoteProvider>(create: (_)=>AddNoteProvider()),
+      ChangeNotifierProvider(create: (_)=>NotEditingProvider(notetitle: '', note: '', category:'', imagelists:[]))
+    ],
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home:SplashScreen(),
+      ),
     );
   }
 }

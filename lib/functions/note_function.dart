@@ -5,7 +5,6 @@ import 'package:studentnot/model/note_model.dart';
 ValueNotifier<List<NotesData>>noteListNotifier= ValueNotifier([]);
 
 Future<void> addnote(NotesData value) async{
-
   final notDB= await Hive.openBox<NotesData>("note_db");
   await notDB.add(value);
   noteListNotifier.value.add(value); 

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:studentnot/contoller/notedb_provider.dart';
 import 'package:studentnot/functions/note_function.dart';
 import 'package:studentnot/model/note_model.dart';
 import 'package:studentnot/screens/notesscreens/note_editing.dart';
@@ -21,7 +23,7 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
   @override
   void initState() {
     super.initState();
-    getAllNoteData();
+   Provider.of<notedbprovider>(context,listen: false).getAllNoteData();
   }
 
   @override
@@ -48,75 +50,77 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
             List<NotesData> filteredNotes = notelist
                 .where((not) => not.category == widget.selectedsub)
                 .toList();
-            return ListView.builder(
-              itemCount: filteredNotes.length,
-              itemBuilder: (ctx, index) {
-                final datas = filteredNotes[index];
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    child: ListTile(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => NoteViewScreen(
-                              notetitle: datas.notetitle!,
-                              note: datas.note!,
-                              catogery: datas.category!,
-                              imagelists:datas.imagelists!,
-                              index: index,
+            return Consumer<notedbprovider>(builder: (context, value, child) => 
+               ListView.builder(
+                itemCount: filteredNotes.length,
+                itemBuilder: (ctx, index) {
+                  final datas = filteredNotes[index];
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      child: ListTile(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => NoteViewScreen(
+                                notetitle: datas.notetitle!,
+                                note: datas.note!,
+                                catogery: datas.category!,
+                                imagelists:datas.imagelists!,
+                                index: index,
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                      title: Text(
-                        " 𝐜𝐡𝐚𝐩𝐭𝐞𝐫:${datas.notetitle}",
-                        style: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text(
-                        datas.note!,
-                        style: const TextStyle(fontSize: 16),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => NotEditingScreen(
-                                    catogery: datas.category!,
-                                    imagelists: datas.imagelists!,
-                                    notetitle: datas.notetitle!,
-                                    note: datas.note!,
-                                    index: index,
+                          );
+                        },
+                        title: Text(
+                          " 𝐜𝐡𝐚𝐩𝐭𝐞𝐫:${datas.notetitle}",
+                          style: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text(
+                          datas.note!,
+                          style: const TextStyle(fontSize: 16),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => NotEditingScreen(
+                                      catogery: datas.category!,
+                                      imagelists: datas.imagelists!,
+                                      notetitle: datas.notetitle!,
+                                      note: datas.note!,
+                                      index: index,
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
-                            icon: const Icon(Icons.edit,
-                                color: Color.fromARGB(255, 81, 142, 83)),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              showDeleteConfirmationDialog(context, index);
-                            },
-                            icon: const Icon(Icons.delete,
-                                color: Color.fromARGB(255, 175, 62, 54)),
-                          ),
-                        ],
+                                );
+                              },
+                              icon: const Icon(Icons.edit,
+                                  color: Color.fromARGB(255, 81, 142, 83)),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                showDeleteConfirmationDialog(context, index);
+                              },
+                              icon: const Icon(Icons.delete,
+                                  color: Color.fromARGB(255, 175, 62, 54)),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             );
           },
         ),

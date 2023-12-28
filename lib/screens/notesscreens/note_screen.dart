@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:studentnot/widget/bottombar.dart';
 
 class NoteViewScreen extends StatefulWidget {
   final String notetitle;
@@ -31,9 +30,10 @@ class _NoteViewScreenState extends State<NoteViewScreen> {
           iconTheme: const IconThemeData(color: Colors.white),
           leading: IconButton(
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const BottomBar(username: '',imagePaths: ''),
-              ));
+              // Navigator.of(context).push(MaterialPageRoute(
+              //   builder: (context) => const BottomBar(username: '',imagePaths: ''),
+              // ));
+              Navigator.of(context).pop();
             },
             icon: const Icon(Icons.arrow_back),
           ),
@@ -47,6 +47,13 @@ class _NoteViewScreenState extends State<NoteViewScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const Text(
+                            'Notes:',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                   Text(
                     widget.note,
                     style: const TextStyle(fontSize: 20),

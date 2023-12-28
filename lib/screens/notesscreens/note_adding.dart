@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:studentnot/contoller/add_note_controller.dart';
 import 'package:studentnot/functions/note_function.dart';
 import 'package:studentnot/model/note_model.dart';
 import 'package:studentnot/screens/notesscreens/notes_listview.dart';
@@ -14,29 +16,29 @@ class NoteAdding extends StatefulWidget {
 }
 
 class _NoteAddingState extends State<NoteAdding> {
-  final _notetitilecontroller = TextEditingController();
-  final _chaptercontroller = TextEditingController();
-  final _categoryController = TextEditingController();
-  final List<String> _imagelist = [];
-  String selectedsub = 'SUBJECTS';
-  final List<String> _sujectList = [
-    'SUBJECTS',
-    'Language',
-    'English',
-    'Physics',
-    'Mathematics',
-    'Chemistry',
-    'Social Science',
-    'Biology',
-    'Zoology',
-    'Botany',
-    'Computer',
-    'Environmental',
-    'Geography',
-    'Health Sciences',
-    'Entrepreneurship',
-    'Arts',
-  ];
+  // final _notetitilecontroller = TextEditingController();
+  // final _chaptercontroller = TextEditingController();
+  // final _categoryController = TextEditingController();
+  // final List<String> _imagelist = [];
+  // String selectedsub = 'SUBJECTS';
+  // final List<String> _sujectList = [
+  //   'SUBJECTS',
+  //   'Language',
+  //   'English',
+  //   'Physics',
+  //   'Mathematics',
+  //   'Chemistry',
+  //   'Social Science',
+  //   'Biology',
+  //   'Zoology',
+  //   'Botany',
+  //   'Computer',
+  //   'Environmental',
+  //   'Geography',
+  //   'Health Sciences',
+  //   'Entrepreneurship',
+  //   'Arts',
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,8 @@ class _NoteAddingState extends State<NoteAdding> {
           leading: IconButton(
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const BottomBar(username: '',imagePaths: ''),
+                builder: (context) =>
+                    const BottomBar(username: '', imagePaths: ''),
               ));
             },
             icon: const Icon(Icons.arrow_back),
@@ -80,173 +83,180 @@ class _NoteAddingState extends State<NoteAdding> {
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(15),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextFormField(
-                  controller: _notetitilecontroller,
-                  style: const TextStyle(
-                      fontSize: 35, fontWeight: FontWeight.bold),
-                  decoration: const InputDecoration(
-                    hintText: "𝐓𝐢𝐭𝐥𝐞",
-                    border: UnderlineInputBorder(
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      '𝐒𝐞𝐥𝐞𝐜𝐭 𝐒𝐮𝐛𝐣𝐞𝐜𝐭',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold,
+            child: Consumer<AddNoteProvider>(
+              builder: (context, values, child) => Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextFormField(
+                    controller: values.notetitilecontroller,
+                    style: const TextStyle(
+                        fontSize: 35, fontWeight: FontWeight.bold),
+                    decoration: const InputDecoration(
+                      hintText: "𝐓𝐢𝐭𝐥𝐞",
+                      border: UnderlineInputBorder(
+                        borderSide: BorderSide.none,
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            controller: _categoryController,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        '𝐒𝐞𝐥𝐞𝐜𝐭 𝐒𝐮𝐛𝐣𝐞𝐜𝐭',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              controller: values.categoryController,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: const BorderSide(),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        const SizedBox(width: 10),
-                        DropdownButton<String>(
-                          value: selectedsub,
-                          items: _sujectList.map((e) {
-                            return DropdownMenuItem<String>(
-                              value: e,
-                              child: Row(
-                                children: [
-                                  const SizedBox(width: 10),
-                                  Text(e, style: const TextStyle(fontSize: 18)),
-                                ],
-                              ),
-                            );
-                          }).toList(),
-                          selectedItemBuilder: (BuildContext context) {
-                            return _sujectList.map((e) {
-                              return Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  const SizedBox(width: 10),
-                                  Text(e, style: const TextStyle(fontSize: 18)),
-                                ],
+                          const SizedBox(width: 10),
+                          DropdownButton<String>(
+                            value: values.selectedsub,
+                            items: values.sujectList.map((e) {
+                              return DropdownMenuItem<String>(
+                                value: e,
+                                child: Row(
+                                  children: [
+                                    const SizedBox(width: 10),
+                                    Text(e,
+                                        style: const TextStyle(fontSize: 18)),
+                                  ],
+                                ),
                               );
-                            }).toList();
-                          },
-                          hint: const Text(
-                            'Select',
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.red),
+                            }).toList(),
+                            selectedItemBuilder: (BuildContext context) {
+                              return values.sujectList.map((e) {
+                                return Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    const SizedBox(width: 10),
+                                    Text(e,
+                                        style: const TextStyle(fontSize: 18)),
+                                  ],
+                                );
+                              }).toList();
+                            },
+                            hint: const Text(
+                              'Select',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red),
+                            ),
+                            dropdownColor: Colors.white,
+                            borderRadius: BorderRadius.circular(30),
+                            underline: Container(),
+                            onChanged: (value) {
+                              // setState(() {
+                              //   selectedsub = value!;
+                              //   _categoryController.text = value;
+                              // });
+                              values.selectedsub = value!;
+                              values.categoryController.text = value;
+                            },
                           ),
-                          dropdownColor: Colors.white,
-                          borderRadius: BorderRadius.circular(30),
-                          underline: Container(),
-                          onChanged: (value) {
-                            setState(() {
-                              selectedsub = value!;
-                              _categoryController.text = value;
-                            });
-                          },
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  const Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        "𝐍𝐎𝐓𝐄𝐒",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
                         ),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      "𝐍𝐎𝐓𝐄𝐒",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )),
-                Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(style: BorderStyle.solid),
-                      borderRadius: BorderRadius.circular(10)),
-                  height: 600,
-                  width: 700,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: TextFormField(
-                      controller: _chaptercontroller,
-                      keyboardType: TextInputType.multiline,
-                      maxLines: 20,
-                      style: const TextStyle(
-                        fontSize: 20,
-                      ),
-                      decoration: const InputDecoration(
-                        hintText: "Start writing.........",
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide.none,
+                      )),
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(style: BorderStyle.solid),
+                        borderRadius: BorderRadius.circular(10)),
+                    height: 600,
+                    width: 700,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: TextFormField(
+                        controller: values.chaptercontroller,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: 20,
+                        style: const TextStyle(
+                          fontSize: 20,
+                        ),
+                        decoration: const InputDecoration(
+                          hintText: "Start writing.........",
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide.none,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                // ---------------------------------------------imagelist------------------------------------------------------------------------
-                const SizedBox(
-                  height: 40,
-                ),
-                const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      "𝐈𝐌𝐀𝐆𝐄𝐒",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )),
-                Container(
-                  height: 600,
-                  width: 900,
-                  decoration: BoxDecoration(
-                      border: Border.all(style: BorderStyle.solid),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: ListView.builder(
-                    itemCount: _imagelist.length,
-                    itemBuilder: (context, index) {
-                      final img = _imagelist[index];
-                      return Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: GestureDetector(
-                          onLongPress: () {
-                            setState(() {
-                              _imagelist.removeAt(index);
-                            });
-                          },
-                          child: Container(
-                            height: 300,
-                            width: 200,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                image: DecorationImage(
-                                    image: FileImage(File(img)),
-                                    fit: BoxFit.fill)),
-                          ),
-                        ),
-                      );
-                    },
+                  // ---------------------------------------------imagelist------------------------------------------------------------------------
+                  const SizedBox(
+                    height: 40,
                   ),
-                ),
-              ],
+                  const Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        "𝐈𝐌𝐀𝐆𝐄𝐒",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )),
+                  Container(
+                    height: 600,
+                    width: 900,
+                    decoration: BoxDecoration(
+                        border: Border.all(style: BorderStyle.solid),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: ListView.builder(
+                      itemCount: values.imagelist.length,
+                      itemBuilder: (context, index) {
+                        final img = values.imagelist[index];
+                        return Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: GestureDetector(
+                            onLongPress: () {
+                              // setState(() {
+                              //   value.imagelist.removeAt(index);
+                              // });
+                              values.removeimage(index);
+                            },
+                            child: Container(
+                              height: 300,
+                              width: 200,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  image: DecorationImage(
+                                      image: FileImage(File(img)),
+                                      fit: BoxFit.fill)),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -256,23 +266,26 @@ class _NoteAddingState extends State<NoteAdding> {
 
   // ----------------------image picking function--------------------------------------------------
   Future<void> pickImages() async {
+    final imagesss = Provider.of<AddNoteProvider>(context, listen: false);
     final picker = ImagePicker();
     final pickedImages = await picker.pickImage(source: ImageSource.gallery);
     if (pickedImages != null) {
       final imageFile = File(pickedImages.path);
       final imagePath = imageFile.path;
-      setState(() {
-        _imagelist.add(imagePath);
-      });
+      // setState(() {
+      //   _imagelist.add(imagePath);
+      // });
+      imagesss.addimage(imagePath);
     }
   }
 
 // -----------------save-button-function--------------------------------------
   Future<void> onAddNoteOnClick(BuildContext context) async {
-    final notetile = _notetitilecontroller.text.trim();
-    final chapt = _chaptercontroller.text.trim();
-    final category = _categoryController.text.trim();
-    final imge = _imagelist.toList();
+    final notesAdding = Provider.of<AddNoteProvider>(context,listen: false);
+    final notetile = notesAdding.notetitilecontroller.text.trim();
+    final chapt = notesAdding.chaptercontroller.text.trim();
+    final category = notesAdding.categoryController.text.trim();
+    final imge = notesAdding.imagelist.toList();
     if (notetile.isEmpty || chapt.isEmpty || category.isEmpty) {
       return;
     } else {
@@ -281,16 +294,14 @@ class _NoteAddingState extends State<NoteAdding> {
           note: chapt,
           imagelists: imge,
           category: category);
-      _notetitilecontroller.clear();
-      _chaptercontroller.clear();
-      _categoryController.clear();
+      notesAdding.notetitilecontroller.clear();
+      notesAdding.chaptercontroller.clear();
+      notesAdding.categoryController.clear();
+      notesAdding.imagelist.clear();
       addnote(note1);
-      setState(() {
-        _imagelist.clear(); // Clear the image list after adding a note.
-      });
       Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => NotelistViewScreen(
-                selectedsub: selectedsub,
+                selectedsub: notesAdding.selectedsub,
                 imagelistss: imge,
               )));
     }
