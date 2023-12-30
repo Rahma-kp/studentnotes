@@ -6,7 +6,6 @@ class AddNoteProvider extends ChangeNotifier{
   final categoryController = TextEditingController();
   final List<String> imagelist = []; 
   String selectedsub = 'SUBJECTS';
-  // String  get selectedsub=>categoryController ;
   final List<String> sujectList = [
     'SUBJECTS',
     'Language',

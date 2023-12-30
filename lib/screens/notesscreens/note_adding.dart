@@ -16,30 +16,6 @@ class NoteAdding extends StatefulWidget {
 }
 
 class _NoteAddingState extends State<NoteAdding> {
-  // final _notetitilecontroller = TextEditingController();
-  // final _chaptercontroller = TextEditingController();
-  // final _categoryController = TextEditingController();
-  // final List<String> _imagelist = [];
-  // String selectedsub = 'SUBJECTS';
-  // final List<String> _sujectList = [
-  //   'SUBJECTS',
-  //   'Language',
-  //   'English',
-  //   'Physics',
-  //   'Mathematics',
-  //   'Chemistry',
-  //   'Social Science',
-  //   'Biology',
-  //   'Zoology',
-  //   'Botany',
-  //   'Computer',
-  //   'Environmental',
-  //   'Geography',
-  //   'Health Sciences',
-  //   'Entrepreneurship',
-  //   'Arts',
-  // ];
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -161,10 +137,7 @@ class _NoteAddingState extends State<NoteAdding> {
                             borderRadius: BorderRadius.circular(30),
                             underline: Container(),
                             onChanged: (value) {
-                              // setState(() {
-                              //   selectedsub = value!;
-                              //   _categoryController.text = value;
-                              // });
+                             
                               values.selectedsub = value!;
                               values.categoryController.text = value;
                             },

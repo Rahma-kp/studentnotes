@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:studentnot/contoller/home_screen.dart';
 import 'package:studentnot/screens/notesscreens/notes_listview.dart';
 import 'package:studentnot/screens/profile_editing_screen.dart';
 
@@ -86,9 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   backgroundImage: widget.imagePaths.isNotEmpty
                       ? FileImage(File(widget.imagePaths))
                       : null, // Set to null to remove the default image
-                  child: widget.imagePaths.isEmpty
-                      ? const Icon(Icons.add_a_photo)
-                      : null, // Set to null to remove the default icon
+                  // Set to null to remove the default icon
                 ),
               ),
             )
@@ -122,22 +122,24 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: 400,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 30, right: 30),
-                        child: TextFormField(
-                          controller: searchController,
-                          onChanged: (value) {
-                            filterSubjects(value);
-                          },
-                          decoration: InputDecoration(
-                            fillColor: Colors.white60,
-                            filled: true,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
+                        child: Consumer<HomeScreenProvider>(builder: (context, provider, child) => 
+                           TextFormField(
+                            controller: searchController,
+                            onChanged: (value) {
+                              provider.filterSubjects(value);
+                            },
+                            decoration: InputDecoration(
+                              fillColor: Colors.white60,
+                              filled: true,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              prefixIcon: const Icon(
+                                Icons.search,
+                                color: Colors.black54,
+                              ),
+                              hintText: "Search....",
                             ),
-                            prefixIcon: const Icon(
-                              Icons.search,
-                              color: Colors.black54,
-                            ),
-                            hintText: "Search....",
                           ),
                         ),
                       ),
@@ -229,13 +231,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void filterSubjects(String query) {
-    setState(() {
-      filteredsubject = subject
-          .where(
-            (subject) => subject.toLowerCase().contains(query.toLowerCase()),
-          )
-          .toList();
-    });
-  }
+  // void filterSubjects(String query) {
+  //   setState(() {
+  //     filteredsubject = subject
+  //         .where(
+  //           (subject) => subject.toLowerCase().contains(query.toLowerCase()),
+  //         )
+  //         .toList();
+  //   });
+  // }
 }

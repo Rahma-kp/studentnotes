@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:studentnot/contoller/note_editing_controller.dart';
-import 'package:studentnot/functions/note_function.dart';
+import 'package:studentnot/contoller/notedb_provider.dart';
 import 'package:studentnot/model/note_model.dart';
 
 class NotEditingScreen extends StatefulWidget {
@@ -25,29 +25,6 @@ class NotEditingScreen extends StatefulWidget {
 }
 
 class _NotEditingScreenState extends State<NotEditingScreen> {
-//   TextEditingController _notetitilecontroller = TextEditingController();
-//   TextEditingController _chaptercontrolle = TextEditingController();
-//   TextEditingController _categoryController = TextEditingController();
-//   List<String> _imagelist = [];
-//   final List<String> _sujectList = [
-//     'SUBJECTS',
-//     'Language',
-//     'English',
-//     'Physics',
-//     'Mathematics',
-//     'Chemistry',
-//     'Social Science',
-//     'Biology',
-//     'Zoology',
-//     'Botany',
-//     'Computer',
-//     'Environmental ',
-//     'Geography',
-//     'Health Sciences',
-//     'Entrepreneurship',
-//     'Arts',
-//   ];
-//   String selectedsub = 'SUBJECTS';
   late NotEditingProvider provider;
   @override
   void initState() {
@@ -66,17 +43,21 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
           title: const Text("Edit", style: TextStyle(color: Colors.white)),
           actions: [
-            TextButton(
-                onPressed: () {
-                  setState(() {
-                    editsaveonclick();
-                  });
-                },
-                child: const Text(
-                  "𝐒𝐚𝐯𝐞",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ))
+            Consumer<notedbprovider>(builder: (context, value, child) => 
+               TextButton(
+                  onPressed: () {
+                    // setState(() {
+                    //   editsaveonclick();
+                    // });
+                    // value.editnote(widget.index, NotesData(notetitle: '', note: '', category: ''));
+                  
+                  },
+                  child: const Text(
+                    "𝐒𝐚𝐯𝐞",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  )),
+            )
           ],
           iconTheme: const IconThemeData(color: Colors.white),
         ),
@@ -173,10 +154,6 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
                             borderRadius: BorderRadius.circular(30),
                             underline: Container(),
                             onChanged: (value) {
-                              // setState(() {
-                              //   selectedsub = value!;
-                              //   _categoryController.text = value;
-                              // });
                               provider.selectedsub = value!;
                               provider.categoryController.text = value;
                             },
@@ -257,7 +234,6 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Image.file(
                                   File(provider.imagelist[index]),
-                                  key: Key(provider.imagelist[index]),
                                   width: 200,
                                   fit: BoxFit.cover,
                                 ),
@@ -284,17 +260,16 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
     if (pickedImages != null) {
       final imageFile = File(pickedImages.path);
       final imagePath = imageFile.path;
-      // setState(() {
-      //   _imagelist.add(imagePath);
-      // });
       provider.pickImage(imagePath);
     }
   }
 
   Future<void> editsaveonclick() async {
-    final editedTitile = provider.notetitilecontroller.text.trim();
-    final editedNote = provider.chaptercontroller.text.trim();
-    final editedCategoery = provider.categoryController.text.trim();
+    final edit=Provider.of<NotEditingProvider>(context,listen: false);
+    final db=Provider.of<notedbprovider>(context,listen: false);
+    final editedTitile = edit.notetitilecontroller.text.trim();
+    final editedNote = edit.chaptercontroller.text.trim();
+    final editedCategoery = edit.categoryController.text.trim();
     if (editedTitile.isEmpty || editedNote.isEmpty || editedCategoery.isEmpty) {
       return;
     }
@@ -316,10 +291,10 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
       content: Text("Updated successfully"),
     ));
 
-    setState(() {
-      editnote(widget.index, updatedNote);
-    });
-
+    // setState(() {
+    //   editnote(widget.index, updatedNote);
+    // });
+    db.editnote(widget.index, updatedNote);
     Navigator.of(context).pop();
   }
 }

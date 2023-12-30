@@ -5,6 +5,7 @@ class NotEditingProvider extends ChangeNotifier {
   TextEditingController chaptercontroller = TextEditingController();
   TextEditingController categoryController = TextEditingController();
   List<String> imagelist = [];
+  String selectedsub = 'SUBJECTS';
   List<String> sujectList = [
     'SUBJECTS',
     'Language',
@@ -23,8 +24,6 @@ class NotEditingProvider extends ChangeNotifier {
     'Entrepreneurship',
     'Arts',
   ];
-  String selectedsub = 'SUBJECTS';
-
   NotEditingProvider({
     required String notetitle,
     required String note,

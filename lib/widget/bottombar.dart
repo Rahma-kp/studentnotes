@@ -1,49 +1,26 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
+import 'package:studentnot/contoller/bottombar_provider.dart';
 import 'package:studentnot/screens/chartscreens/chart_screen.dart';
 import 'package:studentnot/screens/home_screen.dart';
 import 'package:studentnot/screens/notesscreens/note_adding.dart';
 import 'package:studentnot/screens/setting/setting_screen.dart';
-import 'package:studentnot/screens/todoscreen/todaylist.dart';
-class BottomBar extends StatefulWidget {
+import 'package:studentnot/screens/todoscreen/todolist.dart';
+
+class BottomBar extends StatelessWidget {
   final String username;
+  final String imagePaths;
 
-  const BottomBar({super.key, required this.username, required String imagePaths});
-
-  @override
-  State<BottomBar> createState() => _BottomBarState();
-}class _BottomBarState extends State<BottomBar> {
-  int myindex = 0;
-  late String name;
-  late String imagePathmm='';
-
-  @override
-  void initState() {
-    super.initState();
-    initializeUserData();
-  }
-
-  Future<void> initializeUserData() async {
-    await loadUserData();
-  }
-
-  Future<void> loadUserData() async {
-    final sharedPrefs = await SharedPreferences.getInstance();
-    setState(() {
-      name = sharedPrefs.getString('username') ?? '';
-      imagePathmm = sharedPrefs.getString('imagePath') ?? '';
-    });
-  }
+  const BottomBar({Key? key, required this.username, required this.imagePaths}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (imagePathmm.isEmpty) {
-      return  Image.asset('assets/images/person1.png');
-    }
+    final bottomBarProvider = Provider.of<BottomBarProvider>(context);
+    int myindex = bottomBarProvider.currentIndex;
 
     final pages = [
-      HomeScreen(imagePaths: imagePathmm, username: name),
+      HomeScreen(username: username, imagePaths: '',),
       TodoList(),
       const NoteAdding(),
       const PieChart(),
@@ -56,9 +33,7 @@ class BottomBar extends StatefulWidget {
         backgroundColor: const Color.fromARGB(207, 13, 20, 78),
         animationDuration: const Duration(microseconds: 300),
         onTap: (index) {
-          setState(() {
-            myindex = index;
-          });
+          bottomBarProvider.updateIndex(index);
         },
         items: const [
           Icon(Icons.home),

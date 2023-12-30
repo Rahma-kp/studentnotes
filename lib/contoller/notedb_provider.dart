@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studentnot/model/note_model.dart';
-import 'package:studentnot/widget/notesc.dart';
+import 'package:studentnot/widget/note_services.dart';
 
 class notedbprovider extends ChangeNotifier {
   List<String> filteredsubject = [];
