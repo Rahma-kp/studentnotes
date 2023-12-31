@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studentnot/contoller/tododb_provider.dart';
-import 'package:studentnot/screens/todoscreen/add_screen.dart';
-import 'package:studentnot/screens/todoscreen/todoviewpage.dart';
+import 'package:studentnot/screens/TodoScreens/add_screen.dart';
+import 'package:studentnot/screens/TodoScreens/todoviewpage.dart';
 
 class TodoList extends StatefulWidget {
    const TodoList({super.key});
@@ -72,7 +72,7 @@ class _TodoListState extends State<TodoList> {
                               ));
                             },
                             onLongPress: () {
-                              tododeleteconfirmationdialog(context, index);
+                              
                             },
                             child: Container(
                               height: 70,
@@ -117,34 +117,6 @@ class _TodoListState extends State<TodoList> {
           ),
         ),
       ),
-    );
-  }
-
-  // ----------delete showdialog-------------------------------------
-  void tododeleteconfirmationdialog(BuildContext context, int index) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("Delete Confirmation"),
-          content: const Text("Are you sure you want to delete this chapter?"),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text("Cancel"),
-            ),
-            TextButton(
-              onPressed: () async {
-                Provider.of<TodoProvider>(context, listen: false).deleteTodo(index);
-                Navigator.of(context).pop();
-              },
-              child: const Text("Delete"),
-            ),
-          ],
-        );
-      },
     );
   }
 }

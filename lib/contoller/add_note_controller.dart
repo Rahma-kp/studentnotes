@@ -24,6 +24,7 @@ class AddNoteProvider extends ChangeNotifier{
     'Entrepreneurship',
     'Arts',
   ];
+  
 List<String> get imagelists=>imagelist;
   void addimage(String imagepath){
     imagelist.add(imagepath);
@@ -34,7 +35,6 @@ List<String> get imagelists=>imagelist;
     imagelist.removeAt(index);
     notifyListeners();
   }
-
 
  void updateSelectedSubject(String value) {
     selectedsub=value;

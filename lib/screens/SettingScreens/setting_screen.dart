@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:studentnot/screens/setting/about_page.dart';
-import 'package:studentnot/screens/setting/logout.dart';
-import 'package:studentnot/screens/setting/restart.dart';
-import 'package:studentnot/screens/setting/terms_screen.dart';
+import 'package:studentnot/screens/SettingScreens/about_page.dart';
+import 'package:studentnot/screens/SettingScreens/logout.dart';
+import 'package:studentnot/screens/SettingScreens/restart.dart';
+import 'package:studentnot/screens/SettingScreens/terms_screen.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});

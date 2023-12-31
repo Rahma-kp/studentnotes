@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:studentnot/contoller/bottombar_provider.dart';
 import 'package:studentnot/screens/chartscreens/chart_screen.dart';
 import 'package:studentnot/screens/home_screen.dart';
-import 'package:studentnot/screens/notesscreens/note_adding.dart';
-import 'package:studentnot/screens/setting/setting_screen.dart';
-import 'package:studentnot/screens/todoscreen/todolist.dart';
+import 'package:studentnot/screens/NoteScreens/note_adding.dart';
+import 'package:studentnot/screens/SettingScreens/setting_screen.dart';
+import 'package:studentnot/screens/TodoScreens/todolist.dart';
 
 class BottomBar extends StatelessWidget {
   final String username;

@@ -11,6 +11,7 @@ class TodoProvider extends ChangeNotifier {
   Future<void> addSub(SubData value) async {
     await todoServices.AddTodo(value);
     notifyListeners();
+    await getAllData();
   }
 
   Future<void> getAllData() async {
@@ -21,5 +22,6 @@ class TodoProvider extends ChangeNotifier {
   Future<void> deleteTodo(int index) async {
     await todoServices.deleteTodo(index);
     await getAllData();
+    notifyListeners();
   }
 }

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studentnot/contoller/notedb_provider.dart';
 import 'package:studentnot/model/note_model.dart';
-import 'package:studentnot/screens/notesscreens/note_editing.dart';
-import 'package:studentnot/screens/notesscreens/note_screen.dart';
+import 'package:studentnot/screens/NoteScreens/delet_alert.dart';
+import 'package:studentnot/screens/NoteScreens/note_editing.dart';
+import 'package:studentnot/screens/NoteScreens/note_screen.dart';
 import 'package:studentnot/widget/bottombar.dart';
 
 class NotelistViewScreen extends StatefulWidget {
@@ -107,7 +108,7 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
                           ),
                           IconButton(
                             onPressed: () {
-                              showDeleteConfirmationDialog(context, index);
+                              alertdeleteNote(context, index);
                             },
                             icon: const Icon(Icons.delete,
                                 color: Color.fromARGB(255, 175, 62, 54)),
@@ -122,32 +123,4 @@ class _NotelistViewScreenState extends State<NotelistViewScreen> {
           })),
     );
   }
-}
-
-void showDeleteConfirmationDialog(BuildContext context, int index) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text("Delete Confirmation"),
-        content: const Text("Are you sure you want to delete this chapter?"),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text("Cancel"),
-          ),
-          TextButton(
-            onPressed: () async {
-              var notdbprovider=Provider.of<notedbprovider>(context,listen: false);
-              await notdbprovider.deleteNote(index);
-              Navigator.of(context).pop();
-            },
-            child: const Text("Delete"),
-          ),
-        ],
-      );
-    },
-  );
 }

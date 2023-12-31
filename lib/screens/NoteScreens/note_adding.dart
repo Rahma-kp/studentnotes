@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:studentnot/contoller/add_note_controller.dart';
-import 'package:studentnot/functions/note_function.dart';
-import 'package:studentnot/model/note_model.dart';
-import 'package:studentnot/screens/notesscreens/notes_listview.dart';
-import 'package:studentnot/widget/bottombar.dart';
+import 'package:studentnot/screens/NoteScreens/add_functions.dart';
 
 class NoteAdding extends StatefulWidget {
   const NoteAdding({super.key});
@@ -20,7 +17,7 @@ class _NoteAddingState extends State<NoteAdding> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
+        appBar: AppBar(automaticallyImplyLeading: false,
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
           title: const Text(
             "𝐀𝐝𝐝 𝐂𝐡𝐚𝐩𝐭𝐞𝐫",
@@ -39,7 +36,7 @@ class _NoteAddingState extends State<NoteAdding> {
           ],
           iconTheme: const IconThemeData(color: Colors.white),
         ),
-        // ---------------------------floating button---------------------------------------------------
+// ---------------------------floating button---------------------------------------------------
         floatingActionButton: FloatingActionButton(
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
           onPressed: () {
@@ -128,7 +125,6 @@ class _NoteAddingState extends State<NoteAdding> {
                             borderRadius: BorderRadius.circular(30),
                             underline: Container(),
                             onChanged: (value) {
-                             
                               values.selectedsub = value!;
                               values.categoryController.text = value;
                             },
@@ -173,7 +169,7 @@ class _NoteAddingState extends State<NoteAdding> {
                       ),
                     ),
                   ),
-                  // ---------------------------------------------imagelist------------------------------------------------------------------------
+ // ---------------------------------------------imagelist------------------------------------------------------------------------
                   const SizedBox(
                     height: 40,
                   ),
@@ -200,9 +196,6 @@ class _NoteAddingState extends State<NoteAdding> {
                           padding: const EdgeInsets.all(10),
                           child: GestureDetector(
                             onLongPress: () {
-                              // setState(() {
-                              //   value.imagelist.removeAt(index);
-                              // });
                               values.removeimage(index);
                             },
                             child: Container(
@@ -227,7 +220,6 @@ class _NoteAddingState extends State<NoteAdding> {
       ),
     );
   }
-
   // ----------------------image picking function--------------------------------------------------
   Future<void> pickImages() async {
     final imagesss = Provider.of<AddNoteProvider>(context, listen: false);
@@ -236,38 +228,7 @@ class _NoteAddingState extends State<NoteAdding> {
     if (pickedImages != null) {
       final imageFile = File(pickedImages.path);
       final imagePath = imageFile.path;
-      // setState(() {
-      //   _imagelist.add(imagePath);
-      // });
       imagesss.addimage(imagePath);
-    }
-  }
-
-// -----------------save-button-function--------------------------------------
-  Future<void> onAddNoteOnClick(BuildContext context) async {
-    final notesAdding = Provider.of<AddNoteProvider>(context,listen: false);
-    final notetile = notesAdding.notetitilecontroller.text.trim();
-    final chapt = notesAdding.chaptercontroller.text.trim();
-    final category = notesAdding.categoryController.text.trim();
-    final imge = notesAdding.imagelist.toList();
-    if (notetile.isEmpty || chapt.isEmpty || category.isEmpty) {
-      return;
-    } else {
-      final note1 = NotesData(
-          notetitle: notetile,
-          note: chapt,
-          imagelists: imge,
-          category: category);
-      notesAdding.notetitilecontroller.clear();
-      notesAdding.chaptercontroller.clear();
-      notesAdding.categoryController.clear();
-      notesAdding.imagelist.clear();
-      addnote(note1);
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => NotelistViewScreen(
-                selectedsub: notesAdding.selectedsub,
-                imagelistss: imge,
-              )));
     }
   }
 }

@@ -30,9 +30,6 @@ class _NoteViewScreenState extends State<NoteViewScreen> {
           iconTheme: const IconThemeData(color: Colors.white),
           leading: IconButton(
             onPressed: () {
-              // Navigator.of(context).push(MaterialPageRoute(
-              //   builder: (context) => const BottomBar(username: '',imagePaths: ''),
-              // ));
               Navigator.of(context).pop();
             },
             icon: const Icon(Icons.arrow_back),

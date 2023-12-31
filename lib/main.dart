@@ -2,9 +2,9 @@
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'package:studentnot/contoller/add_note_controller.dart';
-import 'package:studentnot/contoller/add_todo.dart';
 import 'package:studentnot/contoller/bottombar_provider.dart';
 import 'package:studentnot/contoller/home_screen.dart';
+import 'package:studentnot/contoller/login_page_conroller.dart';
 import 'package:studentnot/contoller/note_editing_controller.dart';
 import 'package:studentnot/contoller/notedb_provider.dart';
 import 'package:studentnot/contoller/profile_provider.dart';
@@ -40,15 +40,14 @@ class MyApp extends StatelessWidget {
     getAlldata();
     getAllNoteData();
     return MultiProvider(providers: [
+      ChangeNotifierProvider<LoginProvider>(create: (_)=>LoginProvider()),
       ChangeNotifierProvider<ProfileProvider>(create: (_)=>ProfileProvider()),
       ChangeNotifierProvider<BottomBarProvider>(create: (_)=>BottomBarProvider()),
       ChangeNotifierProvider<TodoProvider>(create: (_)=>TodoProvider()),
-      ChangeNotifierProvider<HomeScreenProvider>(create: (_)=>HomeScreenProvider(username: '', imagePaths:'', subject:[], category:[])),
-      // ChangeNotifierProvider<homeprovider>(create: (_)=>homeprovider(username: '', imagePaths: '')), 
+      ChangeNotifierProvider<HomeScreenProvider>(create: (_)=>HomeScreenProvider()),
       ChangeNotifierProvider<notedbprovider>(create: (_)=>notedbprovider()),
       ChangeNotifierProvider<AddNoteProvider>(create: (_)=>AddNoteProvider()),
       ChangeNotifierProvider<NotEditingProvider>(create: (_)=>NotEditingProvider(notetitle: '', note: '', category:'', imagelists:[])),
-      ChangeNotifierProvider<TodoViewProvider>(create: (_)=>TodoViewProvider()),
     ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

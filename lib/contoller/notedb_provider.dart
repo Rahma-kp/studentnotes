@@ -18,13 +18,13 @@ class notedbprovider extends ChangeNotifier {
     notifyListeners();
     await getAllNoteData();
   }
-
   Future<void> deleteNote(int index) async {
-    await noteservices.deleteNote(index);
-    notifyListeners();
-    await getAllNoteData();
-    
-  }
+  print('Deleting note at index: $index');
+  await noteservices.deleteNote(index);
+  notifyListeners();
+  await getAllNoteData();
+}
+
 
   Future<void> editnote(index, NotesData value) async {
     await noteservices.editnote(index, value);

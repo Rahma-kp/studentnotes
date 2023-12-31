@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studentnot/contoller/home_screen.dart';
-import 'package:studentnot/screens/notesscreens/notes_listview.dart';
+import 'package:studentnot/screens/NoteScreens/notes_listview.dart';
 import 'package:studentnot/screens/profile_editing_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,47 +17,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<String> subject = [
-    'Language',
-    'English',
-    'Physics',
-    'Mathematics',
-    'Chemistry',
-    'Social Science',
-    'Biology',
-    'Zoology',
-    'Botany',
-    'Computer',
-    'Environmental',
-    'Geography',
-    'Health Sciences',
-    'Entrepreneurship',
-    'Arts',
-  ];
-  List<String> catogry = [
-    'assets/catogory/lang.jpg',
-    'assets/catogory/eng.jpg',
-    'assets/catogory/phy.jpg',
-    'assets/catogory/math.jpg',
-    'assets/catogory/ch.jpg',
-    'assets/catogory/so.jpg',
-    'assets/catogory/bio.jpg',
-    'assets/catogory/zoo.jpg',
-    'assets/catogory/botany.jpg',
-    'assets/catogory/cmp.jpg',
-    'assets/catogory/env.jpg',
-    'assets/catogory/geyo.jpg',
-    'assets/catogory/health.jpg',
-    'assets/catogory/entreprenceur.jpeg',
-    'assets/catogory/art.jpeg',
-  ];
-
-  List<String> filteredsubject = [];
-  TextEditingController searchController = TextEditingController();
-
   @override
   void initState() {
-    filteredsubject = subject;
+    var provide = Provider.of<HomeScreenProvider>(context, listen: false);
+    provide.filteredsubject = provide.subject;
     super.initState();
   }
 
@@ -73,24 +36,19 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const ProfileEditingScreen(),
-                    ),
-                  );
-                },
-                child: CircleAvatar(
-                  backgroundColor: widget.imagePaths.isNotEmpty
-                      ? Colors.transparent
-                      : const Color.fromARGB(255, 223, 176, 176),
-                  radius: 60,
-                  backgroundImage: widget.imagePaths.isNotEmpty
-                      ? FileImage(File(widget.imagePaths))
-                      : null, 
-                ),
-              ),
-            )
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const ProfileEditingScreen(),
+                      ),
+                    );
+                  },
+                  child: CircleAvatar(
+                      backgroundImage: widget.imagePaths.isNotEmpty
+                          ? FileImage(File(widget.imagePaths))
+                          : const AssetImage('assets/images/person1.png')
+                              as ImageProvider<Object>?)),
+            ),
           ],
           title: Text(
             widget.username,
@@ -121,18 +79,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: 400,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 30, right: 30),
-                        child: Consumer<HomeScreenProvider>(builder: (context, provider, child) => 
-                           TextFormField(
-                            controller: searchController,
+                        child: Consumer<HomeScreenProvider>(
+                          builder: (context, values, child) => TextFormField(
+                            controller: values.searchController,
                             onChanged: (value) {
-                              provider.filterSubjects(value);
+                              values.filterSubjects(value);
                             },
                             decoration: InputDecoration(
                               fillColor: Colors.white60,
                               filled: true,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(20),
-                              ), 
+                              ),
                               prefixIcon: const Icon(
                                 Icons.search,
                                 color: Colors.black54,
@@ -165,63 +123,66 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-              Builder(
-                builder: (context) {
-                  return SizedBox(
-                    height: 500,
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                      ),
-                      itemCount: filteredsubject.length,
-                      itemBuilder: (context, index) {
-                        if (filteredsubject.isEmpty) {
-                          return const Center(
-                            child: Text(
-                              "No subjects found",
-                              style: TextStyle(color: Colors.amber),
-                            ),
-                          );
-                        } else {
-                          int originalIndex =
-                              subject.indexOf(filteredsubject[index]);
-                          return Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: GestureDetector(
-                              onTap: () {
-                                String selectedsub = filteredsubject[index];
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => NotelistViewScreen(
-                                      imagelistss: [],
-                                      selectedsub: selectedsub,
+              Consumer<HomeScreenProvider>(
+                builder: (context, val, child) => Builder(
+                  builder: (context) {
+                    return SizedBox(
+                      height: 500,
+                      child: GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                        ),
+                        itemCount: val.filteredsubject.length,
+                        itemBuilder: (context, index) {
+                          if (val.filteredsubject.isEmpty) {
+                            return const Center(
+                              child: Text(
+                                "No subjects found",
+                                style: TextStyle(color: Colors.amber),
+                              ),
+                            );
+                          } else {
+                            int originalIndex =
+                                val.subject.indexOf(val.filteredsubject[index]);
+                            return Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: GestureDetector(
+                                onTap: () {
+                                  String selectedsub =
+                                      val.filteredsubject[index];
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => NotelistViewScreen(
+                                        imagelistss: [],
+                                        selectedsub: selectedsub,
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                height: 70,
-                                width: 70,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: AssetImage(
-                                      catogry[originalIndex],
+                                  );
+                                },
+                                child: Container(
+                                  height: 70,
+                                  width: 70,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: AssetImage(
+                                        val.catogry[originalIndex],
+                                      ),
                                     ),
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: const Color.fromARGB(
+                                        255, 147, 143, 143),
                                   ),
-                                  borderRadius: BorderRadius.circular(10),
-                                  color:
-                                      const Color.fromARGB(255, 147, 143, 143),
                                 ),
                               ),
-                            ),
-                          );
-                        }
-                      },
-                    ),
-                  );
-                },
+                            );
+                          }
+                        },
+                      ),
+                    );
+                  },
+                ),
               ),
             ],
           ),
@@ -229,6 +190,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-
 }

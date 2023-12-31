@@ -28,7 +28,11 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
   late NotEditingProvider provider;
   @override
   void initState() {
-    provider=NotEditingProvider(notetitle: widget.notetitle, note:widget.note, category:widget.catogery, imagelists:List.from(widget.imagelists));
+    provider = NotEditingProvider(
+        notetitle: widget.notetitle,
+        note: widget.note,
+        category: widget.catogery,
+        imagelists: List.from(widget.imagelists));
     super.initState();
   }
 
@@ -43,14 +47,11 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
           title: const Text("Edit", style: TextStyle(color: Colors.white)),
           actions: [
-            Consumer<notedbprovider>(builder: (context, value, child) => 
-               TextButton(
+            Consumer<notedbprovider>(
+              builder: (context, value, child) => TextButton(
                   onPressed: () {
-                    // setState(() {
-                    //   editsaveonclick();
-                    // });
-                    // value.editnote(widget.index, NotesData(notetitle: '', note: '', category: ''));
-                  
+                    value.editnote(widget.index,
+                        NotesData(notetitle: '', note: '', category: ''));
                   },
                   child: const Text(
                     "𝐒𝐚𝐯𝐞",
@@ -74,8 +75,9 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(15),
-            child: ChangeNotifierProvider(create: (context) => provider,
-             child: Column(
+            child: ChangeNotifierProvider(
+              create: (context) => provider,
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextFormField(
@@ -265,8 +267,8 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
   }
 
   Future<void> editsaveonclick() async {
-    final edit=Provider.of<NotEditingProvider>(context,listen: false);
-    final db=Provider.of<notedbprovider>(context,listen: false);
+    final edit = Provider.of<NotEditingProvider>(context, listen: false);
+    final db = Provider.of<notedbprovider>(context, listen: false);
     final editedTitile = edit.notetitilecontroller.text.trim();
     final editedNote = edit.chaptercontroller.text.trim();
     final editedCategoery = edit.categoryController.text.trim();
@@ -290,10 +292,6 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
       behavior: SnackBarBehavior.floating,
       content: Text("Updated successfully"),
     ));
-
-    // setState(() {
-    //   editnote(widget.index, updatedNote);
-    // });
     db.editnote(widget.index, updatedNote);
     Navigator.of(context).pop();
   }

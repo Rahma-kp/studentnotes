@@ -1,7 +1,10 @@
+
 import 'package:flutter/material.dart';
 
-class HomeScreenProvider extends ChangeNotifier {
-     List<String> subjects = [
+class HomeScreenProvider extends ChangeNotifier{
+   final searchController=TextEditingController();
+   late List<String> filteredsubject=[];
+   List<String> subject = [
     'Language',
     'English',
     'Physics',
@@ -36,35 +39,10 @@ class HomeScreenProvider extends ChangeNotifier {
     'assets/catogory/entreprenceur.jpeg',
     'assets/catogory/art.jpeg',
   ];
-  late String _username;
-  late String _imagePaths;
-  late List<String> _subject;
-  late List<String> _category;
-  late List<String> _filteredSubject;
-  TextEditingController _searchController = TextEditingController();
 
-  HomeScreenProvider({
-    required String username,
-    required String imagePaths,
-    required List<String> subject,
-    required List<String> category,
-  }) {
-    _username = username;
-    _imagePaths = imagePaths;
-    _subject = subject;
-    _category = category;
-    _filteredSubject = subject;
-  }
 
-  String get username => _username;
-  String get imagePaths => _imagePaths;
-  List<String> get subject => _subject;
-  List<String> get category => _category;
-  List<String> get filteredSubject => _filteredSubject;
-  TextEditingController get searchController => _searchController;
-
-  void filterSubjects(String query) {
-    _filteredSubject = _subject
+     void filterSubjects(String query) {
+    filteredsubject = subject
         .where(
           (subject) => subject.toLowerCase().contains(query.toLowerCase()),
         )
