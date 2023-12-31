@@ -9,17 +9,17 @@ class HomeScreen extends StatefulWidget {
   final String username;
   final String imagePaths;
 
-  const HomeScreen(
-      {super.key, required this.username, required this.imagePaths});
+  const HomeScreen({super.key, required this.username, required this.imagePaths});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   @override
   void initState() {
-    var provide = Provider.of<HomeScreenProvider>(context, listen: false);
+    var provide=Provider.of<HomeScreenProvider>(context,listen: false);
     provide.filteredsubject = provide.subject;
     super.initState();
   }
@@ -29,27 +29,24 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color.fromARGB(221, 202, 194, 194),
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
+        appBar: AppBar(automaticallyImplyLeading: false,
           iconTheme: const IconThemeData(color: Colors.white),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const ProfileEditingScreen(),
-                      ),
-                    );
-                  },
-                  child: CircleAvatar(
-                      backgroundImage: widget.imagePaths.isNotEmpty
-                          ? FileImage(File(widget.imagePaths))
-                          : const AssetImage('assets/images/person1.png')
-                              as ImageProvider<Object>?)),
-            ),
-          ],
+          actions:[ Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const ProfileEditingScreen(),
+                    ),
+                  );
+                },
+                child: CircleAvatar(
+                    backgroundImage: widget.imagePaths.isNotEmpty
+                        ? FileImage(File(widget.imagePaths))
+                        : const AssetImage('assets/images/person1.png')
+                            as ImageProvider<Object>?)),
+          ),],
           title: Text(
             widget.username,
             style: const TextStyle(color: Colors.white),
@@ -79,8 +76,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: 400,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 30, right: 30),
-                        child: Consumer<HomeScreenProvider>(
-                          builder: (context, values, child) => TextFormField(
+                        child: Consumer<HomeScreenProvider>(builder: (context, values, child) => 
+                           TextFormField(
                             controller: values.searchController,
                             onChanged: (value) {
                               values.filterSubjects(value);
@@ -123,8 +120,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-              Consumer<HomeScreenProvider>(
-                builder: (context, val, child) => Builder(
+              Consumer<HomeScreenProvider>(builder: (context, val, child) => 
+                 Builder(
                   builder: (context) {
                     return SizedBox(
                       height: 500,
@@ -149,8 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               padding: const EdgeInsets.all(10),
                               child: GestureDetector(
                                 onTap: () {
-                                  String selectedsub =
-                                      val.filteredsubject[index];
+                                  String selectedsub = val.filteredsubject[index];
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (context) => NotelistViewScreen(
@@ -171,8 +167,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                     borderRadius: BorderRadius.circular(10),
-                                    color: const Color.fromARGB(
-                                        255, 147, 143, 143),
+                                    color:
+                                        const Color.fromARGB(255, 147, 143, 143),
                                   ),
                                 ),
                               ),

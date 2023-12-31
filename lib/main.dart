@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
     getAllNoteData();
     return MultiProvider(providers: [
       ChangeNotifierProvider<LoginProvider>(create: (_)=>LoginProvider()),
-      ChangeNotifierProvider<ProfileProvider>(create: (_)=>ProfileProvider()),
+      ChangeNotifierProvider<ProfileEditingProvider>(create: (_)=>ProfileEditingProvider()),
       ChangeNotifierProvider<BottomBarProvider>(create: (_)=>BottomBarProvider()),
       ChangeNotifierProvider<TodoProvider>(create: (_)=>TodoProvider()),
       ChangeNotifierProvider<HomeScreenProvider>(create: (_)=>HomeScreenProvider()),

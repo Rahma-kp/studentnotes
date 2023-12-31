@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class HomeScreenProvider extends ChangeNotifier{
@@ -39,7 +41,8 @@ class HomeScreenProvider extends ChangeNotifier{
     'assets/catogory/entreprenceur.jpeg',
     'assets/catogory/art.jpeg',
   ];
-
+ File? img; 
+  File? newImage;
 
      void filterSubjects(String query) {
     filteredsubject = subject
