@@ -21,15 +21,6 @@ class _NoteAddingState extends State<NoteAdding> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) =>
-                    const BottomBar(username: '', imagePaths: ''),
-              ));
-            },
-            icon: const Icon(Icons.arrow_back),
-          ),
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
           title: const Text(
             "𝐀𝐝𝐝 𝐂𝐡𝐚𝐩𝐭𝐞𝐫",

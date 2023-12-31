@@ -1,32 +1,21 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:studentnot/contoller/profile_provider.dart';
 import 'package:studentnot/widget/bottombar.dart';
 
-class ProfileEditingScreen extends StatelessWidget {
-  const ProfileEditingScreen({Key? key}) : super(key: key);
+class ProfileEditingScreen extends StatefulWidget {
+  const ProfileEditingScreen({Key? key});
 
   @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ProfileProvider(),
-      child: _ProfileEditingScreen(),
-    );
-  }
+  State<ProfileEditingScreen> createState() => _ProfileEditingScreenState();
 }
 
-class _ProfileEditingScreen extends StatefulWidget {
-  @override
-  State<_ProfileEditingScreen> createState() => _ProfileEditingScreenState();
-}
-
-class _ProfileEditingScreenState extends State<_ProfileEditingScreen> {
+class _ProfileEditingScreenState extends State<ProfileEditingScreen> {
   late final TextEditingController nameController;
   late final TextEditingController classController;
+  File? _img;
+  File? _newImage; // Store the newly picked image temporarily.
 
   @override
   void initState() {
@@ -37,7 +26,6 @@ class _ProfileEditingScreenState extends State<_ProfileEditingScreen> {
   }
 
   Future<void> _loadProfileData() async {
-    final profileProvider = Provider.of<ProfileProvider>(context, listen: false);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? savedName = prefs.getString("username");
     String? savedClass = prefs.getString("class");
@@ -52,7 +40,9 @@ class _ProfileEditingScreenState extends State<_ProfileEditingScreen> {
     }
 
     if (savedImagePath != null) {
-      profileProvider.setProfileImage(File(savedImagePath));
+      setState(() {
+        _img = File(savedImagePath);
+      });
     }
   }
 
@@ -61,7 +51,19 @@ class _ProfileEditingScreenState extends State<_ProfileEditingScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          // ... (Your existing code)
+          iconTheme: const IconThemeData(color: Colors.white),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const BottomBar(username: '',imagePaths: ''),
+                ),
+              );
+            },
+            icon: const Icon(Icons.arrow_back),
+          ),
+          backgroundColor: const Color.fromARGB(207, 13, 20, 78),
+          title: const Text("Profile", style: TextStyle(color: Colors.white)),
         ),
         body: Center(
           child: Card(
@@ -74,14 +76,15 @@ class _ProfileEditingScreenState extends State<_ProfileEditingScreen> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      _pickImage(context);
+                      _pickImage();
                     },
                     child: CircleAvatar(
-                      backgroundImage: Provider.of<ProfileProvider>(context).newImage != null
-                          ? FileImage(Provider.of<ProfileProvider>(context).newImage!)
-                          : Provider.of<ProfileProvider>(context).profileImage != null
-                              ? FileImage(Provider.of<ProfileProvider>(context).profileImage!)
-                              : const AssetImage("assets/images/person1.png") as ImageProvider<Object>,
+                      backgroundImage: _newImage != null
+                          ? FileImage(_newImage!)
+                          : (_img != null
+                              ? FileImage(_img!)
+                              : const AssetImage("assets/images/person1.png")
+                                  as ImageProvider<Object>),
                       radius: 40,
                     ),
                   ),
@@ -108,22 +111,23 @@ class _ProfileEditingScreenState extends State<_ProfileEditingScreen> {
                   const SizedBox(height: 20),
                   GestureDetector(
                     onTap: () async {
-                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
                       prefs.setString("username", nameController.text);
                       prefs.setString("class", classController.text);
-
-                      final profileProvider = Provider.of<ProfileProvider>(context, listen: false);
-
-                      if (profileProvider.newImage != null) {
-                        prefs.setString("imagePath", profileProvider.newImage!.path);
-                        profileProvider.setProfileImage(profileProvider.newImage!);
-                        profileProvider.clearNewImage();
+                      if (_newImage != null) {
+                        prefs.setString("imagePath", _newImage!.path);
+                        setState(() {
+                          _img = _newImage;
+                          _newImage = null; 
+                        });
                       }
-
-                      String updatedUsername = prefs.getString("username") ?? '';
+                      String updatedUsername =
+                          prefs.getString("username") ?? '';
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
-                          builder: (context) => BottomBar(username: updatedUsername, imagePaths: ''),
+                          builder: (context) =>
+                              BottomBar(username: updatedUsername,imagePaths:''),
                         ),
                       );
                     },
@@ -152,13 +156,14 @@ class _ProfileEditingScreenState extends State<_ProfileEditingScreen> {
     );
   }
 
-  Future<void> _pickImage(BuildContext context) async {
-    final profileProvider = Provider.of<ProfileProvider>(context, listen: false);
+  Future<void> _pickImage() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
-    if (pickedFile != null) {
-      profileProvider.setNewImage(File(pickedFile.path));
-    }
+    setState(() {
+      if (pickedFile != null) {
+        _newImage = File(pickedFile.path);
+      }
+    });
   }
 }

@@ -7,6 +7,7 @@ class notedbprovider extends ChangeNotifier {
   List<NotesData>filteredNote=[];
   List<NotesData> noteList = [];
   NoteServices noteservices = NoteServices();
+
   Future<void> getAllNoteData() async {
     noteList = await noteservices.getAllNoteData();
     notifyListeners();
@@ -14,12 +15,15 @@ class notedbprovider extends ChangeNotifier {
 
   Future<void> addnote(NotesData value) async {
     await noteservices.addnote(value);
+    notifyListeners();
     await getAllNoteData();
   }
 
   Future<void> deleteNote(int index) async {
     await noteservices.deleteNote(index);
+    notifyListeners();
     await getAllNoteData();
+    
   }
 
   Future<void> editnote(index, NotesData value) async {

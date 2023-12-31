@@ -87,8 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   radius: 60,
                   backgroundImage: widget.imagePaths.isNotEmpty
                       ? FileImage(File(widget.imagePaths))
-                      : null, // Set to null to remove the default image
-                  // Set to null to remove the default icon
+                      : null, 
                 ),
               ),
             )
@@ -133,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               filled: true,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(20),
-                              ),
+                              ), 
                               prefixIcon: const Icon(
                                 Icons.search,
                                 color: Colors.black54,
@@ -231,13 +230,5 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // void filterSubjects(String query) {
-  //   setState(() {
-  //     filteredsubject = subject
-  //         .where(
-  //           (subject) => subject.toLowerCase().contains(query.toLowerCase()),
-  //         )
-  //         .toList();
-  //   });
-  // }
+
 }

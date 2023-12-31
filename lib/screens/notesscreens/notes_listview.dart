@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studentnot/contoller/notedb_provider.dart';
-import 'package:studentnot/functions/note_function.dart';
 import 'package:studentnot/model/note_model.dart';
 import 'package:studentnot/screens/notesscreens/note_editing.dart';
 import 'package:studentnot/screens/notesscreens/note_screen.dart';
@@ -141,7 +140,8 @@ void showDeleteConfirmationDialog(BuildContext context, int index) {
           ),
           TextButton(
             onPressed: () async {
-              await deleteNote(index);
+              var notdbprovider=Provider.of<notedbprovider>(context,listen: false);
+              await notdbprovider.deleteNote(index);
               Navigator.of(context).pop();
             },
             child: const Text("Delete"),

@@ -1,11 +1,9 @@
-
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'package:studentnot/contoller/add_note_controller.dart';
 import 'package:studentnot/contoller/add_todo.dart';
 import 'package:studentnot/contoller/bottombar_provider.dart';
-import 'package:studentnot/contoller/home.dart';
 import 'package:studentnot/contoller/home_screen.dart';
 import 'package:studentnot/contoller/note_editing_controller.dart';
 import 'package:studentnot/contoller/notedb_provider.dart';
