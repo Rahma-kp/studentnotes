@@ -25,19 +25,21 @@ class NotEditingScreen extends StatefulWidget {
 }
 
 class _NotEditingScreenState extends State<NotEditingScreen> {
-  late NotEditingProvider provider;
+  // late NotEditingProvider provider;
   @override
   void initState() {
-    provider = NotEditingProvider(
-        notetitle: widget.notetitle,
-        note: widget.note,
-        category: widget.catogery,
-        imagelists: List.from(widget.imagelists));
+   
+    final pro=Provider.of<NotEditingProvider>(context,listen: false);
+    pro.categoryController.text=widget.catogery;
+    pro.chaptercontroller.text=widget.note;
+    pro.notetitilecontroller.text=widget.notetitle;
+    pro.imagelist=List.from(widget.imagelists);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final provider=Provider.of<NotEditingProvider>(context,listen: false);
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 158, 156, 156),
@@ -49,9 +51,11 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
           actions: [
             Consumer<notedbprovider>(
               builder: (context, value, child) => TextButton(
-                  onPressed: () {
-                    value.editnote(widget.index,
-                        NotesData(notetitle: '', note: '', category: ''));
+                  onPressed: () async {
+                    // value.editnote(widget.index,
+                    //     NotesData(notetitle: '', note: '', category: ''));
+
+                    await onclick();
                   },
                   child: const Text(
                     "𝐒𝐚𝐯𝐞",
@@ -257,6 +261,7 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
 
 //----------------------image picking--------------------------------------------------
   Future<void> pickImages() async {
+    final provider=Provider.of<NotEditingProvider>(context,listen: false);
     final picker = ImagePicker();
     final pickedImages = await picker.pickImage(source: ImageSource.gallery);
     if (pickedImages != null) {
@@ -266,33 +271,50 @@ class _NotEditingScreenState extends State<NotEditingScreen> {
     }
   }
 
-  Future<void> editsaveonclick() async {
-    final edit = Provider.of<NotEditingProvider>(context, listen: false);
-    final db = Provider.of<notedbprovider>(context, listen: false);
-    final editedTitile = edit.notetitilecontroller.text.trim();
-    final editedNote = edit.chaptercontroller.text.trim();
-    final editedCategoery = edit.categoryController.text.trim();
-    if (editedTitile.isEmpty || editedNote.isEmpty || editedCategoery.isEmpty) {
-      return;
-    }
+  // Future<void> editsaveonclick() async {
+  //   final editprovder = Provider.of<NotEditingProvider>(context, listen: false);
+  //   final dbprovider = Provider.of<notedbprovider>(context, listen: false);
+  //   final editedTitile = editprovder.notetitilecontroller.text.trim();
+  //   final editedNote = editprovder.chaptercontroller.text.trim();
+  //   final editedCategoery = editprovder.categoryController.text.trim();
+  //   // if (editedTitile.isEmpty || editedNote.isEmpty || editedCategoery.isEmpty) {
+  //   //   return;
+  //   // }
 
+  //   final combinedImageList =
+  //       [...widget.imagelists, ...provider.imagelist].toSet().toList();
+
+  //   final updatedNote = NotesData(
+  //     notetitle: editedTitile,
+  //     note: editedNote,
+  //     category: editedCategoery,
+  //     imagelists: combinedImageList,
+  //   );
+
+  
+  //   await dbprovider.editnote(widget.index, updatedNote);
+  //   Navigator.of(context).pop();
+  // }
+
+  Future<void> onclick() async {
+    final provd = Provider.of<NotEditingProvider>(context, listen: false);
     final combinedImageList =
-        [...widget.imagelists, ...provider.imagelist].toSet().toList();
-
-    final updatedNote = NotesData(
-      notetitle: editedTitile,
-      note: editedNote,
-      category: editedCategoery,
+        [...widget.imagelists, ...provd.imagelist].toSet().toList();
+    final update = NotesData(
+      notetitle: provd.notetitilecontroller.text,
+      note: provd.chaptercontroller.text,
+      category: provd.categoryController.text,
       imagelists: combinedImageList,
     );
-
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+    await Provider.of<notedbprovider>(context, listen: false)
+        .editnote(widget.index, update);
+    Navigator.of(context).pop();
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       margin: EdgeInsets.all(10),
       backgroundColor: Color.fromARGB(255, 199, 89, 89),
       behavior: SnackBarBehavior.floating,
       content: Text("Updated successfully"),
     ));
-    db.editnote(widget.index, updatedNote);
-    Navigator.of(context).pop();
   }
+  
 }

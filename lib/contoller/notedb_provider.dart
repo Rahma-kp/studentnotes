@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studentnot/model/note_model.dart';
-import 'package:studentnot/widget/note_services.dart';
+import 'package:studentnot/services/note_services.dart';
 
 class notedbprovider extends ChangeNotifier {
   List<String> filteredsubject = [];
@@ -19,7 +19,6 @@ class notedbprovider extends ChangeNotifier {
     await getAllNoteData();
   }
   Future<void> deleteNote(int index) async {
-  print('Deleting note at index: $index');
   await noteservices.deleteNote(index);
   notifyListeners();
   await getAllNoteData();

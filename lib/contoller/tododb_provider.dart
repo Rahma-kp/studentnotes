@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:studentnot/model/todo_model.dart';
-import 'package:studentnot/widget/todo_screvice.dart';
+import 'package:studentnot/services/todo_screvice.dart';
 
 class TodoProvider extends ChangeNotifier {
   final subcontroller = TextEditingController();
   final aboutcontroller = TextEditingController();
   TodoService todoServices = TodoService();
-  List<SubData> TodoList = [];
+  List<SubData> todoList = [];
 
   Future<void> addSub(SubData value) async {
-    await todoServices.AddTodo(value);
+    await todoServices.addTodo(value);
     notifyListeners();
     await getAllData();
   }
 
   Future<void> getAllData() async {
-    TodoList = await todoServices.getAllData();
+    todoList = await todoServices.getAllData();
     notifyListeners();
   }
 

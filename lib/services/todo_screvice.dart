@@ -6,7 +6,7 @@ class TodoService {
      final sudb = await Hive.openBox<SubData>('subdata_db');
      return sudb.values.toList();
    }
-   Future<void> AddTodo(SubData value)async{
+   Future<void> addTodo(SubData value)async{
    final subdb = await Hive.openBox<SubData>('subdata_db');
    await subdb.add( value);
    }

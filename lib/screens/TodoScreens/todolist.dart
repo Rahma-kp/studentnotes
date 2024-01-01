@@ -56,9 +56,9 @@ class _TodoListState extends State<TodoList> {
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
                       ),
-                      itemCount: value.TodoList.length,
+                      itemCount: value.todoList.length,
                       itemBuilder: (context, index) {
-                        final data = value.TodoList[index];
+                        final data = value.todoList[index];
                         final backgroundColor = gridcolor[index % gridcolor.length];
                         return Padding(
                           padding: const EdgeInsets.all(10),

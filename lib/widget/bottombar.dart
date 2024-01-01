@@ -12,7 +12,7 @@ class BottomBar extends StatelessWidget {
   final String username;
   final String imagePaths;
 
-  const BottomBar({Key? key, required this.username, required this.imagePaths}) : super(key: key);
+  const BottomBar({super.key, required this.username, required this.imagePaths});
 
   @override
   Widget build(BuildContext context) {
