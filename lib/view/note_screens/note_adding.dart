@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -5,16 +6,12 @@ import 'package:provider/provider.dart';
 import 'package:studentnot/contoller/add_note_controller.dart';
 import 'package:studentnot/view/NoteScreens/add_functions.dart';
 
-class NoteAdding extends StatefulWidget {
+class NoteAdding extends StatelessWidget {
   const NoteAdding({super.key});
 
   @override
-  State<NoteAdding> createState() => _NoteAddingState();
-}
-
-class _NoteAddingState extends State<NoteAdding> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
+    log("build calling");
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(automaticallyImplyLeading: false,
@@ -40,7 +37,7 @@ class _NoteAddingState extends State<NoteAdding> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
           onPressed: () {
-            pickImages();
+            pickImages(context);
           },
           child: const Icon(Icons.add_a_photo, color: Colors.white),
         ),
@@ -220,8 +217,9 @@ class _NoteAddingState extends State<NoteAdding> {
       ),
     );
   }
+
   // ----------------------image picking function--------------------------------------------------
-  Future<void> pickImages() async {
+  Future<void> pickImages(BuildContext context) async {
     final imagesss = Provider.of<AddNoteProvider>(context, listen: false);
     final picker = ImagePicker();
     final pickedImages = await picker.pickImage(source: ImageSource.gallery);
