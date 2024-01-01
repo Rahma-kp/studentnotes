@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studentnot/contoller/tododb_provider.dart';
-import 'package:studentnot/screens/TodoScreens/add_screen.dart';
-import 'package:studentnot/screens/TodoScreens/todoviewpage.dart';
+import 'package:studentnot/view/TodoScreens/add_screen.dart';
+import 'package:studentnot/view/TodoScreens/todoviewpage.dart';
 
 class TodoList extends StatefulWidget {
    const TodoList({super.key});

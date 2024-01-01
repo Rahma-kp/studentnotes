@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studentnot/widget/bottombar.dart';
-import 'package:studentnot/screens/login_screen.dart';
+import 'package:studentnot/view/login_screen.dart';
 const String save_Key_Name = 'user_logged_in';
 
 

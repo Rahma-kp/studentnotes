@@ -2,11 +2,11 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studentnot/contoller/bottombar_provider.dart';
-import 'package:studentnot/screens/chartscreens/chart_screen.dart';
-import 'package:studentnot/screens/home_screen.dart';
-import 'package:studentnot/screens/NoteScreens/note_adding.dart';
-import 'package:studentnot/screens/SettingScreens/setting_screen.dart';
-import 'package:studentnot/screens/TodoScreens/todolist.dart';
+import 'package:studentnot/view/chartscreens/chart_screen.dart';
+import 'package:studentnot/view/home_screen.dart';
+import 'package:studentnot/view/NoteScreens/note_adding.dart';
+import 'package:studentnot/view/SettingScreens/setting_screen.dart';
+import 'package:studentnot/view/TodoScreens/todolist.dart';
 
 class BottomBar extends StatelessWidget {
   final String username;

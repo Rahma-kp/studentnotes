@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studentnot/contoller/tododb_provider.dart';
-import 'package:studentnot/screens/TodoScreens/todo_add_function.dart';
+import 'package:studentnot/view/TodoScreens/todo_add_function.dart';
 
 class AddSubject extends StatelessWidget {
   const AddSubject({super.key});

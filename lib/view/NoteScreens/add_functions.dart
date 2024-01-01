@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:studentnot/contoller/add_note_controller.dart';
 import 'package:studentnot/functions/note_function.dart';
 import 'package:studentnot/model/note_model.dart';
-import 'package:studentnot/screens/NoteScreens/notes_listview.dart';
+import 'package:studentnot/view/NoteScreens/notes_listview.dart';
 
 Future<dynamic> onAddNoteOnClick(BuildContext context) async {
     final notesAdding = Provider.of<AddNoteProvider>(context, listen: false);

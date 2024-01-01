@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studentnot/contoller/home_screen.dart';
-import 'package:studentnot/screens/NoteScreens/notes_listview.dart';
-import 'package:studentnot/screens/profile_editing_screen.dart';
+import 'package:studentnot/view/NoteScreens/notes_listview.dart';
+import 'package:studentnot/view/profile_editing_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final String username;

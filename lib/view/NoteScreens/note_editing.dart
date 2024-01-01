@@ -2,61 +2,96 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:studentnot/contoller/add_note_controller.dart';
-import 'package:studentnot/screens/NoteScreens/add_functions.dart';
+import 'package:studentnot/contoller/note_editing_controller.dart';
+import 'package:studentnot/contoller/notedb_provider.dart';
+import 'package:studentnot/model/note_model.dart';
 
-class NoteAdding extends StatefulWidget {
-  const NoteAdding({super.key});
+class NotEditingScreen extends StatefulWidget {
+  final String notetitle;
+  final String note;
+  final String catogery;
+  final List imagelists;
+  final int index;
+  const NotEditingScreen(
+      {super.key,
+      required this.notetitle,
+      required this.note,
+      required this.catogery,
+      required this.imagelists,
+      required this.index});
 
   @override
-  State<NoteAdding> createState() => _NoteAddingState();
+  State<NotEditingScreen> createState() => _NotEditingScreenState();
 }
 
-class _NoteAddingState extends State<NoteAdding> {
+class _NotEditingScreenState extends State<NotEditingScreen> {
+  // late NotEditingProvider provider;
+  @override
+  void initState() {
+   
+    final pro=Provider.of<NotEditingProvider>(context,listen: false);
+    pro.categoryController.text=widget.catogery;
+    pro.chaptercontroller.text=widget.note;
+    pro.notetitilecontroller.text=widget.notetitle;
+    pro.imagelist=List.from(widget.imagelists);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final provider=Provider.of<NotEditingProvider>(context,listen: false);
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(automaticallyImplyLeading: false,
+        backgroundColor: const Color.fromARGB(255, 158, 156, 156),
+        appBar: AppBar(
+          actionsIconTheme: const IconThemeData(color: Colors.white),
+          elevation: 0,
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
-          title: const Text(
-            "𝐀𝐝𝐝 𝐂𝐡𝐚𝐩𝐭𝐞𝐫",
-            style: TextStyle(color: Colors.white),
-          ),
+          title: const Text("Edit", style: TextStyle(color: Colors.white)),
           actions: [
-            TextButton(
-              onPressed: () {
-                onAddNoteOnClick(context);
-              },
-              child: const Text(
-                "𝐒𝐚𝐯𝐞",
-                style: TextStyle(color: Colors.white, fontSize: 19),
-              ),
+            Consumer<notedbprovider>(
+              builder: (context, value, child) => TextButton(
+                  onPressed: () async {
+                    // value.editnote(widget.index,
+                    //     NotesData(notetitle: '', note: '', category: ''));
+
+                    await onclick();
+                  },
+                  child: const Text(
+                    "𝐒𝐚𝐯𝐞",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  )),
             )
           ],
           iconTheme: const IconThemeData(color: Colors.white),
         ),
-// ---------------------------floating button---------------------------------------------------
         floatingActionButton: FloatingActionButton(
           backgroundColor: const Color.fromARGB(207, 13, 20, 78),
           onPressed: () {
             pickImages();
           },
-          child: const Icon(Icons.add_a_photo, color: Colors.white),
+          child: const Icon(
+            Icons.add_a_photo,
+            color: Colors.white,
+          ),
         ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(15),
-            child: Consumer<AddNoteProvider>(
-              builder: (context, values, child) => Column(
+            child: ChangeNotifierProvider(
+              create: (context) => provider,
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextFormField(
-                    controller: values.notetitilecontroller,
                     style: const TextStyle(
-                        fontSize: 35, fontWeight: FontWeight.bold),
+                      fontSize: 35,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    controller: provider.notetitilecontroller,
                     decoration: const InputDecoration(
-                      hintText: "𝐓𝐢𝐭𝐥𝐞",
+                      hintText: "Titile",
                       border: UnderlineInputBorder(
                         borderSide: BorderSide.none,
                       ),
@@ -66,7 +101,7 @@ class _NoteAddingState extends State<NoteAdding> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        '𝐒𝐞𝐥𝐞𝐜𝐭 𝐒𝐮𝐛𝐣𝐞𝐜𝐭',
+                        'Select the subject',
                         style: TextStyle(
                           fontSize: 18,
                           color: Colors.red,
@@ -78,7 +113,7 @@ class _NoteAddingState extends State<NoteAdding> {
                         children: [
                           Expanded(
                             child: TextFormField(
-                              controller: values.categoryController,
+                              controller: provider.categoryController,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
@@ -89,8 +124,8 @@ class _NoteAddingState extends State<NoteAdding> {
                           ),
                           const SizedBox(width: 10),
                           DropdownButton<String>(
-                            value: values.selectedsub,
-                            items: values.sujectList.map((e) {
+                            value: provider.selectedsub,
+                            items: provider.sujectList.map((e) {
                               return DropdownMenuItem<String>(
                                 value: e,
                                 child: Row(
@@ -103,7 +138,7 @@ class _NoteAddingState extends State<NoteAdding> {
                               );
                             }).toList(),
                             selectedItemBuilder: (BuildContext context) {
-                              return values.sujectList.map((e) {
+                              return provider.sujectList.map((e) {
                                 return Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
@@ -125,8 +160,8 @@ class _NoteAddingState extends State<NoteAdding> {
                             borderRadius: BorderRadius.circular(30),
                             underline: Container(),
                             onChanged: (value) {
-                              values.selectedsub = value!;
-                              values.categoryController.text = value;
+                              provider.selectedsub = value!;
+                              provider.categoryController.text = value;
                             },
                           ),
                         ],
@@ -137,24 +172,25 @@ class _NoteAddingState extends State<NoteAdding> {
                     height: 30,
                   ),
                   const Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        "𝐍𝐎𝐓𝐄𝐒",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )),
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "𝐍𝐎𝐓𝐄𝐒",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                   Container(
                     decoration: BoxDecoration(
                         border: Border.all(style: BorderStyle.solid),
                         borderRadius: BorderRadius.circular(10)),
-                    height: 600,
+                    height: 700,
                     width: 700,
                     child: Padding(
                       padding: const EdgeInsets.all(10),
                       child: TextFormField(
-                        controller: values.chaptercontroller,
+                        controller: provider.chaptercontroller,
                         keyboardType: TextInputType.multiline,
                         maxLines: 20,
                         style: const TextStyle(
@@ -169,7 +205,6 @@ class _NoteAddingState extends State<NoteAdding> {
                       ),
                     ),
                   ),
- // ---------------------------------------------imagelist------------------------------------
                   const SizedBox(
                     height: 40,
                   ),
@@ -183,33 +218,37 @@ class _NoteAddingState extends State<NoteAdding> {
                         ),
                       )),
                   Container(
-                    height: 600,
-                    width: 900,
                     decoration: BoxDecoration(
                         border: Border.all(style: BorderStyle.solid),
                         borderRadius: BorderRadius.circular(10)),
-                    child: ListView.builder(
-                      itemCount: values.imagelist.length,
-                      itemBuilder: (context, index) {
-                        final img = values.imagelist[index];
-                        return Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: GestureDetector(
-                            onLongPress: () {
-                              values.removeimage(index);
-                            },
-                            child: Container(
-                              height: 300,
-                              width: 200,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  image: DecorationImage(
-                                      image: FileImage(File(img)),
-                                      fit: BoxFit.fill)),
-                            ),
-                          ),
-                        );
-                      },
+                    height: 700,
+                    width: 700,
+                    child: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: SizedBox(
+                        height: 200,
+                        width: 200,
+                        child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: provider.imagelist.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onLongPress: () {
+                                provider.removeImage(index);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image.file(
+                                  File(provider.imagelist[index]),
+                                  width: 200,
+                                  height: 200,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -220,15 +259,38 @@ class _NoteAddingState extends State<NoteAdding> {
       ),
     );
   }
-  // ----------------------image picking function--------------------------------------------------
+
+//----------------------image picking--------------------------------------------------
   Future<void> pickImages() async {
-    final imagesss = Provider.of<AddNoteProvider>(context, listen: false);
+    final provider=Provider.of<NotEditingProvider>(context,listen: false);
     final picker = ImagePicker();
     final pickedImages = await picker.pickImage(source: ImageSource.gallery);
     if (pickedImages != null) {
       final imageFile = File(pickedImages.path);
       final imagePath = imageFile.path;
-      imagesss.addimage(imagePath);
+      provider.pickImage(imagePath);
     }
   }
+
+  Future<void> onclick() async {
+    final provd = Provider.of<NotEditingProvider>(context, listen: false);
+    final combinedImageList =
+        [...widget.imagelists, ...provd.imagelist].toSet().toList();
+    final update = NotesData(
+      notetitle: provd.notetitilecontroller.text,
+      note: provd.chaptercontroller.text,
+      category: provd.categoryController.text,
+      imagelists: combinedImageList,
+    );
+    await Provider.of<notedbprovider>(context, listen: false)
+        .editnote(widget.index, update);
+    Navigator.of(context).pop();
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      margin: EdgeInsets.all(10),
+      backgroundColor: Color.fromARGB(255, 199, 89, 89),
+      behavior: SnackBarBehavior.floating,
+      content: Text("Updated successfully"),
+    ));
+  }
+  
 }

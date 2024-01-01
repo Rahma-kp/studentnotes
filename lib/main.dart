@@ -13,7 +13,7 @@ import 'package:studentnot/functions/note_function.dart';
 import 'package:studentnot/functions/todo_function.dart';
 import 'package:studentnot/model/note_model.dart';
 import 'package:studentnot/model/todo_model.dart';
-import 'package:studentnot/screens/splsh_screen.dart';
+import 'package:studentnot/view/splsh_screen.dart';
 
 const String save_Key_Name = 'user_logged_in';
 

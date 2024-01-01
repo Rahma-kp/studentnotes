@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studentnot/contoller/notedb_provider.dart';
 import 'package:studentnot/model/note_model.dart';
-import 'package:studentnot/screens/NoteScreens/delet_alert.dart';
-import 'package:studentnot/screens/NoteScreens/note_editing.dart';
-import 'package:studentnot/screens/NoteScreens/note_screen.dart';
-import 'package:studentnot/screens/NoteScreens/note_screen.dart';
+import 'package:studentnot/view/NoteScreens/delet_alert.dart';
+import 'package:studentnot/view/NoteScreens/note_editing.dart';
+import 'package:studentnot/view/NoteScreens/note_screen.dart';
+import 'package:studentnot/view/NoteScreens/note_screen.dart';
 import 'package:studentnot/widget/bottombar.dart';
 
 class NotelistViewScreen extends StatefulWidget {
